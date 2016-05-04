@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div {
+			width: 300px;
+			margin: 100px auto;
+			border: 1px dashed skyblue;
+		}
+	</style>
+</head>
+<body>
+<div>
+	<canvas id="cvs" width="300" height="300"></canvas>
+</div>
+	<script>
+
+	// 整体思路：
+		// keys 保存着方向信息 1 代表正方向  -1 代表负方向  0 不变
+		// 整个画布分成 30 * 30 的点   每个点是 10 * 10 像素
+		// 创建一个蛇对象
+		// keyCode保存了按下的键号  用于匹配 keys 中的数据
+		// body 中存放着组成蛇身体的坐标信息
+		// forward 前进的方向  用于存放当前按键对应的移动方向
+		// food存放着食物的坐标信息
+		// > go函数 先判断是按键对应的方向和当前移动的方向是否一致
+		// 然后遍历蛇身体的每个坐标信息 将前一个赋值给后一个  最后在头部加一个点
+		// > draw函数 通过调用 drawDot 方法来绘制蛇身体
+		// > createFood函数 创建食物  通过随机数生成食物的坐标
+		// > eatFood函数 当蛇头的坐标和食物的坐标一致时
+		// 将食物的坐标信息push到蛇身体数组中  并创建新的食物坐标
+		// > gameOver函数 用于判断游戏是否结束
+		// 当蛇头坐标超出画布结束游戏
+		// 当蛇头坐标和身体组成点的某个坐标重合结束游戏
+		
+		var cvs = document.getElementById('cvs');
+		var ctx = cvs.getContext("2d");
+		ctx.strokeStyle = 'red';
+
+		// 用于控制方向
+		var keys = {
+			37: [-1, 0],
+			38: [0, -1],
+			39: [1, 0],
+			40: [0, 1]
+		};
+		// 创建一个蛇对象
+		var snake = {
+			options: {
+				// 画布大小
+				canvasSize: 300,
+				// 方格大小
+				size: 10,
+				// 速度 1 - 10
+				speed: 3,
+				body: [[4, 0], [3, 0], [2, 0], [1, 0], [0, 0]],
+				keyCode: 39,
+				// 存储当前移动的方向
+				forward: [],
+				food: [],
+				gameOver: false
+			},
+			go: function(){
+				var l = this.options.body.length;
+				var keyCode = this.options.keyCode;
+				// 是否存在
+				if(keys[keyCode] && 
+				   this.options.forward[0] != keys[keyCode][0] &&
+				   this.options.forward[1] != keys[keyCode][1]){
+				   	// 如果移动的方向和按键的不一致则改变移动的方向
+					this.options.forward = keys[keyCode];
+				}
+				// 让蛇动起来  将前一个坐标赋值给后一个坐标
+				for(var i = l - 1; i > 0; i--){
+					this.options.body[i][0] = this.options.body[i - 1][0];
+					this.options.body[i][1] = this.options.body[i - 1][1];
+				}
+				// 移动蛇的位置坐标
+				this.options.body[0][0] += this.options.forward[0];
+				this.options.body[0][1] += this.options.forward[1];
+				this.eatFood();
+				this.gameOver();
+			},
+			draw: function(){
+				ctx.clearRect(0, 0, this.options.canvasSize, this.options.canvasSize);
+				var l = this.options.body.length;
+				for(var i = l - 1; i >= 0; i--){
+					// 将蛇身体的每个点绘制出来
+					ctx.fillStyle = 'skyblue';
+					this.drawDot(this.options.body[i]);
+				}
+				// 绘制food
+				ctx.fillStyle = 'red';
+				this.drawDot(this.options.food);
+			},
+			// 绘制每个方格
+			drawDot: function(pos){
+				ctx.fillRect(pos[0] * this.options.size, 
+							 pos[1] * this.options.size, 
+							 this.options.size, 
+							 this.options.size);
+				ctx.strokeRect(pos[0] * this.options.size, 
+							   pos[1] * this.options.size, 
+							   this.options.size, 
+							   this.options.size);
+			},
+			createFood: function(){
+				// var max = (this.options.canvasSize - this.options.size) / 10;
+				var max = this.options.canvasSize / this.options.size;
+				var x = Math.floor(Math.random() * max);
+				var y = Math.floor(Math.random() * max);
+				var l = this.options.body.length;
+				for(var i = 0; i < l; i++){
+					// 如果创建的这个food在蛇的身上则重新生成坐标
+					if(this.options.body[i][0] == x && this.options.body[i][1] == y){
+						// alert(x +' ,'+  y);
+						x = Math.floor(Math.random() * max);
+						y = Math.floor(Math.random() * max);
+					}
+				}
+				// 生成food的坐标
+				this.options.food = [x, y];
+			},
+			eatFood: function(){
+				var l = this.options.body.length;
+				// 获取到最后一个方格位置的坐标
+				var last = [this.options.body[l - 1][0], this.options.body[l - 1][1]];
+				// 如果food的坐标和蛇的头坐标位置一样
+				// 则将食物push到蛇的身体上
+				// 并创建新的food
+				if(this.options.food[0] == this.options.body[0][0] &&
+				   this.options.food[1] == this.options.body[0][1]){
+				   	// 添加到最后
+					this.options.body.push(last);
+
+					// 创建一个新的食物
+					this.createFood();
+				}
+			},
+			gameOver: function(){
+				var l = this.options.body.length;
+				// 碰撞墙壁判断
+				if(this.options.body[0][0] < 0 ||
+				   this.options.body[0][1] < 0 ||
+				   this.options.body[0][0] >= this.options.canvasSize / this.options.size ||
+				   this.options.body[0][1] >= this.options.canvasSize / this.options.size ){
+					this.options.gameOver = true;
+				alert('游戏结束');
+				}
+				// 碰撞自身判断
+				for(var i = 1; i < l; i++){
+					if(this.options.body[0][0] == this.options.body[i][0] &&
+					   this.options.body[0][1] == this.options.body[i][1]){
+						this.options.gameOver = true;
+					alert('游戏结束');
+					}
+				}
+			}
+		};
+
+		// 一开始创建一个food
+		snake.createFood();
+
+		(function loop(){
+
+			document.addEventListener('keydown', function(e){
+				e = e || window.event;
+				snake.options.keyCode = e.keyCode;
+			});
+
+			// 前进
+			snake.go();
+			// 绘画
+			snake.draw();
+			if(!snake.options.gameOver){
+				// 递归
+				setTimeout(loop, 1 / snake.options.speed * 1000);
+			}
+		})();
+	</script>
+</body>
+</html>

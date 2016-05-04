@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>02基于状态机制实现拖拽方块</title>
+    <style>
+        html, body {
+            margin: 5px;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style='border:1px solid silver'>
+    浏览器不支持Canvas……
+</canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    var selector = {
+        x: 0,
+        y: 0,
+        l: 0, // 因为是正方形，所以没有长宽，只有边长
+        dragX: 0,
+        dragY: 0,
+        draw: function () {
+            ctx.save();
+            ctx.fillStyle = 'rgba(0,0,0,0.5)'; // 半透明的黑色
+            ctx.clearRect(0, 0, 500, 500);
+            ctx.fillRect(0, 0, 500, 500);
+            ctx.clearRect(this.x, this.y, this.l, this.l);
+            ctx.restore();
+        }
+    };
+
+    var state = '闲置';
+
+    cvs.addEventListener('mousedown', function (evt) {
+        var x = evt.offsetX;
+        var y = evt.offsetY;
+        if (state == '闲置') {
+            selector.x = x;
+            selector.y = y;
+            state = '选择中'
+        } else if (state == '选择结束') {
+            // 判断鼠标是不是点在选择器里面
+            ctx.beginPath();
+            ctx.rect(selector.x, selector.y, selector.l, selector.l);
+            var inPath = ctx.isPointInPath(x, y);
+
+            if (inPath) { // 如果鼠标点在选择器里面,则开始准备拖动
+                selector.dragX = x;
+                selector.dragY = y;
+                state = "拖动中";
+            } else { // 如果鼠标点在选择器外面则清空屏幕，让选择器恢复闲置状态
+                ctx.clearRect(0, 0, 500, 500);
+                state = "闲置";
+            }
+        }
+    });
+    cvs.addEventListener('mousemove', function (evt) {
+        evt.preventDefault();
+        var x = evt.offsetX;
+        var y = evt.offsetY;
+        if (state == '选择中') {
+            var w = x - selector.x;
+            var h = y - selector.y;
+            selector.l = w > h ? w : h;
+            selector.draw();
+        } else if (state == '拖动中') {
+            // 得到拖动过程中，“两帧之间”鼠标移动的距离
+            var moveX = x - selector.dragX;
+            var moveY = y - selector.dragY;
+            // 根据移动的距离改变选择器的位置
+            selector.x = selector.x + moveX;
+            selector.y = selector.y + moveY;
+
+            selector.draw();
+            // 记录这一帧时鼠标的位置
+            selector.dragX = x;
+            selector.dragY = y;
+        }
+
+    });
+    cvs.addEventListener('mouseup', function (evt) {
+        var x = evt.offsetX;
+        var y = evt.offsetY;
+        if (state == '选择中') {
+            var w = x - selector.x;
+            var h = y - selector.y;
+            selector.l = w > h ? w : h;
+            selector.draw();
+            state = '选择结束'
+        } else if (state == '拖动中') {
+            // 拖动结束之后，重置状态到选择结束
+            state = '选择结束'
+        }
+    });
+
+    setInterval(function(){console.log(state)},100)
+
+</script>
+</body>
+</html>

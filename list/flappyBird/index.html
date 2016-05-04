@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>愤怒的小鸟</title>
+	<style>
+		div {
+			width: 800px;
+			margin: 0 auto;
+			border: 1px dashed skyblue;
+		}
+	</style>
+</head>
+<body>
+<div>
+	<canvas id="cvs" width="800" height="600"></canvas>
+</div>
+
+<script src="js/imgsLoad.js"></script>
+<script src="js/bird.js"></script>
+<script src="js/sky.js"></script>
+<script src="js/land.js"></script>
+<script src="js/pipe.js"></script>
+<script src="js/score.js"></script>
+	<script>
+		var cvs = document.getElementById('cvs'),
+			ctx = cvs.getContext("2d");
+
+		var gameOver = false;
+
+
+		// 主函数
+		function main(){
+
+			var bird = new Bird();
+
+			var sky1 = new Sky(imgsO[4], 0);
+			var sky2 = new Sky(imgsO[4], 800);
+
+			var land1 = new Land(imgsO[1], 0);
+			var land2 = new Land(imgsO[1], 336);
+			var land3 = new Land(imgsO[1], 336 * 2);
+			var land4 = new Land(imgsO[1], 336 * 3);
+
+			var pipe1 = new Pipe(imgsO[3], imgsO[2], 800);
+			var pipe2 = new Pipe(imgsO[3], imgsO[2], 1000);
+			var pipe3 = new Pipe(imgsO[3], imgsO[2], 1200);
+			var pipe4 = new Pipe(imgsO[3], imgsO[2], 1400);
+			var pipe5 = new Pipe(imgsO[3], imgsO[2], 1600);
+
+			var score = new Score();
+
+			var lastTime = Date.now();
+
+			cvs.addEventListener('click', function(){
+				bird.fly();
+			});
+
+			// 循环函数
+			function loop(){
+				ctx.clearRect(0, 0, 800, 600);
+				var dv = Date.now() - lastTime;
+
+
+				
+				// 游戏结束判断
+				if(bird.y < 22.5 || bird.y > 600 - 112 - 22.5){
+					gameOver = true;
+				}
+				if(ctx.isPointInPath(bird.x, bird.y)){
+					gameOver = true;
+				}
+				ctx.beginPath();
+
+				sky1.updata(dv);
+				sky2.updata(dv);
+				land1.updata(dv);
+				land2.updata(dv);
+				land3.updata(dv);
+				land4.updata(dv);
+				pipe1.updata(dv);
+				pipe2.updata(dv);
+				pipe3.updata(dv);
+				pipe4.updata(dv);
+				pipe5.updata(dv);
+				bird.updata(dv);
+				score.updata(dv);
+
+				sky1.draw();
+				sky2.draw();
+				pipe1.draw();
+				pipe2.draw();
+				pipe3.draw();
+				pipe4.draw();
+				pipe5.draw();
+				land1.draw();
+				land2.draw();
+				land3.draw();
+				land4.draw();
+				bird.draw();
+				score.draw();
+
+
+				lastTime = Date.now();
+				
+				if(!gameOver){
+					// 定时器  类似于setTimeout
+					requestAnimationFrame(loop);
+				}
+			}
+			loop();
+		}
+
+	</script>
+</body>
+</html>

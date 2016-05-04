@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>PaddyWang</title>
+
+	<style>
+		.box {
+			width: 1200px;
+			margin: 0 auto;
+			min-height: 500px;
+		}
+		.box > div {
+			width: 500px;
+			/*margin: 30px auto;*/
+			margin: 30px 49px;
+			border: 1px dashed skyblue;
+			float: left;
+		}
+		canvas {
+			border-top: 1px dashed skyblue;
+			border-bottom: 1px dashed skyblue;
+		}
+		input {
+			width: 500px;
+			background-color: #ddd;
+		}
+		h3 {
+			padding-left: 30px;
+		}
+	</style>
+</head>
+<body>
+<div class="box">
+	<div>
+		<h3>灰白化</h3>
+		<canvas id="cvs1" width="500" height="500">
+		    浏览器不支持Canvas……
+		</canvas>
+		<input type="file" id="file1">
+	</div>
+	<div>
+		<h3>反色</h3>
+		<canvas id="cvs2" width="500" height="500">
+		    浏览器不支持Canvas……
+		</canvas>
+		<input type="file" id="file2">
+	</div>
+	<div>
+		<h3>查找边缘</h3>
+		<canvas id="cvs3" width="500" height="500">
+		    浏览器不支持Canvas……
+		</canvas>
+		<input type="file" id="file3">
+	</div>
+	<div>
+		<h3>颜色矩阵</h3>
+		<canvas id="cvs4" width="500" height="500">
+		    浏览器不支持Canvas……
+		</canvas>
+		<input type="file" id="file4">
+	</div>
+</div>
+
+<!-- 灰白化 -->
+<script src="js/greyToWhite.js"></script>
+<!-- 反色 -->
+<script src="js/inverse.js"></script>
+<!-- 查找边缘 -->
+<script src="js/selectBorder.js"></script>
+<!-- 颜色矩阵 -->
+<script src="js/colorArray.js"></script>
+</body>
+</html>
