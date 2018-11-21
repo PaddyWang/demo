@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>canvas 制作背景图</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <style>
         html, body {
             width: 100%;
@@ -12,12 +13,14 @@
         }
         .action-box {
             width: 500px;
+            max-width: 100%;
             border: 1px solid #eaeaea;
             border-radius: 6px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            box-sizing: border-box;
         }
         .field {
             text-align: center;
@@ -102,13 +105,7 @@
                 canvasBackgroundInstance.reset(config);
             });
 
-            var canvasBackgroundInstance = new CanvasBackground({
-                fontSize: 32,
-                angle: -35,
-                xGap: 200,
-                yGap: 200,
-                text: 'PaddyWang'
-            });
+            var canvasBackgroundInstance = new CanvasBackground(initConfig());
 
             window.onresize = function(){
                 canvasBackgroundInstance.reset();
@@ -124,6 +121,19 @@
                     }
                 });
                 return resStr;
+            }
+
+            function initConfig(){
+                var baseW = 1920;
+                var fontSize = window.innerWidth / baseW * 32;
+                var xGap = window.innerWidth / baseW * 200;
+                var yGap = window.innerWidth / baseW * 200;
+                return {
+                    fontSize: fontSize > 16 ? fontSize : 16,
+                    angle: -35,
+                    xGap: xGap > 80 ? xGap : 80,
+                    yGap: yGap > 80 ? yGap : 80
+                };
             }
         }());
     </script>

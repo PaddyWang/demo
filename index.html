@@ -30,7 +30,6 @@
 	<script src="./js/canvas-background.js"></script>
 	<script>
 		(function(){
-            var baseW = 1920;
             var canvasBackgroundInstance = new CanvasBackground(initConfig());
 
             window.onresize = function(){
@@ -38,6 +37,7 @@
             };
 
             function initConfig(){
+                var baseW = 1920;
                 var fontSize = window.innerWidth / baseW * 32;
                 var xGap = window.innerWidth / baseW * 200;
                 var yGap = window.innerWidth / baseW * 200;
