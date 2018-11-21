@@ -71,12 +71,13 @@ a:hover {
 }
 @media screen and (max-width: 920px) {
     body {
+        background-color: #fff;
     }
     nav {
         width: 100%;
         height: auto;
         position: static;
-        background-color: #03a9f48a;
+        background-color: rgba(3, 169, 244, 0.55);
     }
     nav a:not(.photo) {
         display: block;
@@ -99,6 +100,6 @@ a:hover {
         width: 48px;
         height: 48px;
         box-shadow: 1px 1px 9px #b3b3b3;
-        background-color: #eaeaea8c;
+        background-color: rgba(234, 234, 234, 0.55);
     }
 }
