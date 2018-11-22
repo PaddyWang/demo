@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS 新发现</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            background-color: #fff;
+        }
+        h3 {
+            margin: 12px 0 8px 12px;
+            font-size: 18px;
+        }
+        p {
+            margin: 0;
+            padding-left: 16px;
+            line-height: 24px;
+        }
+        .calc {
+            width: calc(100% - 40px);
+            height: 100%;
+            float: left;
+            background-color: var(--lightBlue);
+        }
+        .right {
+            float: left;
+            width: 40px;
+            height: 100%;
+            background-color: var(--pink);
+        }
+        span:lang(css) {
+            color: var(--blue);
+            padding: 0 8px;
+        }
+        :root {
+            --blue: #1890ff;
+            --lightBlue: #bae7ff;
+            --pink: #ffd6e7;
+            /*font-size: calc(1vw + 1vh + .5vmin);*/
+        }
+        a[href]:empty::before {
+            content: attr(href);
+        }
+
+        .container {
+          height: 0;
+          padding-bottom: 20%;
+          position: relative;
+        }
+        .container div {
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          background-color: var(--pink);
+        }
+    </style>
+</head>
+<body>
+    <h3>CSS 计算</h3>
+    <p>支持 + - * /</p>
+    <div style="height: 50px;">
+        <div class="calc"><span lang="css">width: calc(100% - 40px);</span></div>
+        <div class="right"></div>
+    </div>
+    <h3>CSS 变量</h3>
+    <p>CSS 以 <b>--</b> 作为命名前缀 , 用 <b>var()</b> 去引用</p>
+    <p>一般通过<span lang="css">:root { }</span>伪类 声明变量</p>
+    <p>注意: 声明的变量需要在同一个作用域内才能生效</p>
+    <p>e.g:</p>
+    <p>:root {</p>
+    <div style="padding-left: 24px;">
+        <p>--blue: #1890ff;</p>
+        <p>--lightBlue: #bae7ff;</p>
+        <p>--pink: #ffd6e7;</p>
+    </div>
+    <p>}</p>
+    <p style="color: var(--blue);">color: var(--blue);</p>
+    <p style="color: var(--lightBlue);">color: var(--lightBlue);</p>
+    <p style="color: var(--pink);">color: var(--pink);</p>
+    <h3>attr 属性</h3>
+    <p>a[href]:empty::before {</p>
+    <div style="padding-left: 24px;">
+        <p>content: attr(href);</p>
+    </div>
+    <p>}</p>
+    <p>&lt;a href="https://github.com/PaddyWang"&gt;&lt;/a&gt;</p>
+    <p><a href="https://github.com/PaddyWang"></a></p>
+    <h3>固定宽高比例 通过 <span lang="css">padding-bottom</span></h3>
+    <div class="container">
+        <div></div>
+    </div>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+</body>
+</html>
