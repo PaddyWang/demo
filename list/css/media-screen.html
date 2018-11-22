@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>媒介查询</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <style>
+        :root {
+            --blue1: #bae7ff;
+            --blue2: #1890ff;
+            --red1: #ffccc7;
+            --red2: #f5222d;
+            --gold1: #fff1b8;
+            --gold2: #faad14;
+            --green1: #d9f7be;
+            --green2: #52c41a;
+            --pink1: #ffd6e7;
+            --pink2: #eb2f96;
+        }
+        .box {
+            width: 300px;
+            margin: 10% auto;
+            font-size: 14px;
+        }
+        p {
+            color: #999;
+            margin: 5px 0;
+        }
+        p > label {
+            display: inline-block;
+            width: 100px;
+        }
+        .device-info > p {
+            margin: 0;
+        }
+        @media screen and (max-width: 320px) {
+            body {
+                background-color: var(--blue1);
+            }
+            .box p:nth-child(1) {
+                color: var(--blue2)
+            }
+        }
+        @media screen and (min-width: 320px) and (max-width: 640px) {
+            body {
+                background-color: var(--red1);
+            }
+            .box p:nth-child(2) {
+                color: var(--red2)
+            }
+        }
+        @media screen and (min-width: 640px) and (max-width: 920px) {
+            body {
+                background-color: var(--gold1);
+            }
+            .box p:nth-child(3) {
+                color: var(--gold2)
+            }
+        }
+        @media screen and (min-width: 920px) and (max-width: 1200px) {
+            body {
+                background-color: var(--green1);
+            }
+            .box p:nth-child(4) {
+                color: var(--green2)
+            }
+        }
+        @media screen and (min-width: 1200px) {
+            body {
+                background-color: var(--pink1);
+            }
+            .box p:nth-child(5) {
+                color: var(--pink2)
+            }
+        }
+        @media screen and (orientation: portrait) {
+            .box p:nth-child(7) {
+                color: var(--blue2)
+            }
+        }
+        @media screen and (orientation: landscape) {
+            .box p:nth-child(8) {
+                color: var(--blue2)
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <p>最大宽度为 320px</p>
+        <p>最小宽度为 320px 最大宽度为 640px</p>
+        <p>最小宽度为 640px 最大宽度为 920px</p>
+        <p>最小宽度为 920px 最大宽度为 1200px</p>
+        <p>最小宽度为 1200px</p>
+        <p>手持设备</p>
+        <p>竖屏</p>
+        <p>横屏</p>
+        <p id="device-info">设备信息：</p>
+    </div>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script>
+        ;(function(){
+            var deviceInfoNode = document.getElementById('device-info');
+            var deviceInfo = '设备信息:';
+            console.log(window);
+            deviceInfo += '<br> 内容可视区域: ' + window.innerWidth + ' X ' + window.innerHeight;
+            deviceInfo += '<br> 屏幕尺寸: ' + window.screen.width + ' X ' + window.screen.height;
+            deviceInfo += '<br> 浏览器尺寸: ' + window.outerWidth + ' X ' + window.outerHeight;
+            deviceInfo += '<br> 浏览器可用尺寸: ' + window.screen.availWidth + ' X ' + window.screen.availHeight;
+            deviceInfo += '<br> 浏览器坐标: (' + window.screenX + ', ' + window.screenY + ')';
+            deviceInfo += '<br> 顶部 Bar 的高度: ' + window.screen.availTop;
+            deviceInfo += '<br> 供应商: ' + window.navigator.vendor;
+            deviceInfo += '<br> 设备平台: ' + window.navigator.platform;
+            deviceInfo += '<br> appCodeName: ' + window.navigator.appCodeName;
+            deviceInfo += '<br> appName: ' + window.navigator.appName;
+            deviceInfo += '<br> product: ' + window.navigator.product;
+            deviceInfo += '<br> productSub: ' + window.navigator.productSub;
+            deviceInfo += '<br> userAgent: ' + window.navigator.userAgent;
+            deviceInfoNode.innerHTML = deviceInfo;
+        }());
+    </script>
+</body>
+</html>
