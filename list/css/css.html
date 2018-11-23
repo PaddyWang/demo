@@ -60,9 +60,143 @@
           background-color: var(--pink);
         }
     </style>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+        a[href^="#"] {
+            padding: 12px 20px;
+            position: relative;
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #999;
+            z-index: 9;
+        }
+        a[href^="#"]:hover::before {
+            content: "#";
+            position: absolute;
+            top: 12px;
+            left: 2px;
+        }
+        a:not([href^="#"]) {
+            font-style: italic;
+            color: var(--blue);
+        }
+        a:not([href^="#"]):hover {
+            text-decoration: underline;
+        }
+        :lang(code) {
+            padding: 0 5px;
+            margin: 0 2px;
+            border-radius: 4px;
+            font-style: normal;
+            white-space: nowrap;
+            border: 1px solid #d6d6d6;
+            text-shadow: 0 1px #fff;
+            color: #d14;
+            background: #eee;
+        }
+        body > section:first-child {
+            padding-top: 12px;
+        }
+        section {
+            border-bottom: 12px solid #eaeaea;
+            position: relative;
+        }
+        section > article::after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        section > article::before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+            margin-left: -12px;
+            background-color: rgba(234, 234, 234, 0.54);
+        }
+        section > article {
+            position: relative;
+            border: 1px dashed var(--blue);
+        }
+        section > article > pre {
+            width: 50%;
+            float: left;
+            padding-right: 12px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        section > article > .render {
+            width: 50%;
+            float: left;
+            padding-left: 12px;
+            box-sizing: border-box;
+        }
+    </style>
+    <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/monokai-sublime.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/highlight.js/9.13.1/highlight.min.js"></script>
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script>
+        P(function(){
+            document.querySelectorAll('article').forEach(function(dom){
+                var preDom = dom.querySelector('pre');
+                var cssStr = '';
+                dom.querySelectorAll('.render > style[language=css]').forEach(function(cssDom){
+                    var divDom = document.createElement('div');
+                    divDom.appendChild(cssDom.cloneNode(true));
+                    cssStr += divDom.innerHTML;
+                });
+                cssStr = cssStr.replace(/[<>&"]/g, function(ret){
+                    return {'<': '&lt;', '>':'&gt;', '&': '&amp;', '"': '&quot;'}[ret];
+                });
+                var cssCodeDom = document.createElement('code');
+                cssCodeDom.className = 'css';
+                cssCodeDom.innerHTML = cssStr;
+                preDom.appendChild(cssCodeDom);
+                hljs.highlightBlock(cssCodeDom);
+            });
+        });
+    </script>
 </head>
 <body>
-    <h3>CSS 计算</h3>
+    <section>
+        <a href="#">CSS 计算</a>
+        <a href="http://sdfs">asdfasf</a>
+        <i lang="code">asdf</i>
+        <article>
+            <pre></pre>
+            <div class="render">
+<style language="css">
+    .calc-demo-box {
+        height: 150px;
+        background-color: pink;
+    }
+    .calc-demo {
+        /* calc */
+        width: calc(100% - 40px);
+        height: 100px;
+        background-color: skyblue;
+    }
+</style>
+<div language="html" class="calc-demo-box">
+    <div class="calc-demo"></div>
+</div>
+            </div>
+        </article>
+    </section>
+    <h3></h3>
     <p>支持 + - * /</p>
     <div style="height: 50px;">
         <div class="calc"><span lang="css">width: calc(100% - 40px);</span></div>
@@ -95,7 +229,5 @@
     <div class="container">
         <div></div>
     </div>
-    <script src="../../js/canvas-background.js"></script>
-    <script src="../../js/init-canvas-background.js"></script>
 </body>
 </html>
