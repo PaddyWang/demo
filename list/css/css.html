@@ -4,177 +4,18 @@
     <meta charset="UTF-8">
     <title>CSS 新发现</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-size: 14px;
-            background-color: #fff;
-        }
-        h3 {
-            margin: 12px 0 8px 12px;
-            font-size: 18px;
-        }
-        p {
-            margin: 0;
-            padding-left: 16px;
-            line-height: 24px;
-        }
-        .calc {
-            width: calc(100% - 40px);
-            height: 100%;
-            float: left;
-            background-color: var(--lightBlue);
-        }
-        .right {
-            float: left;
-            width: 40px;
-            height: 100%;
-            background-color: var(--pink);
-        }
-        span:lang(css) {
-            color: var(--blue);
-            padding: 0 8px;
-        }
-        :root {
-            --blue: #1890ff;
-            --lightBlue: #bae7ff;
-            --pink: #ffd6e7;
-            /*font-size: calc(1vw + 1vh + .5vmin);*/
-        }
-        a[href]:empty::before {
-            content: attr(href);
-        }
-
-        .container {
-          height: 0;
-          padding-bottom: 20%;
-          position: relative;
-        }
-        .container div {
-          height: 100%;
-          left: 0;
-          position: absolute;
-          top: 0;
-          width: 100%;
-          background-color: var(--pink);
-        }
-    </style>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-        }
-        a {
-            text-decoration: none;
-        }
-        a[href^="#"] {
-            padding: 12px 20px;
-            position: relative;
-            display: block;
-            font-size: 24px;
-            font-weight: bold;
-            color: #999;
-            z-index: 9;
-        }
-        a[href^="#"]:hover::before {
-            content: "#";
-            position: absolute;
-            top: 12px;
-            left: 2px;
-        }
-        a:not([href^="#"]) {
-            font-style: italic;
-            color: var(--blue);
-        }
-        a:not([href^="#"]):hover {
-            text-decoration: underline;
-        }
-        :lang(code) {
-            padding: 0 5px;
-            margin: 0 2px;
-            border-radius: 4px;
-            font-style: normal;
-            white-space: nowrap;
-            border: 1px solid #d6d6d6;
-            text-shadow: 0 1px #fff;
-            color: #d14;
-            background: #eee;
-        }
-        body > section:first-child {
-            padding-top: 12px;
-        }
-        section {
-            border-bottom: 12px solid #eaeaea;
-            position: relative;
-        }
-        section > article::after {
-            content: ".";
-            display: block;
-            height: 0;
-            clear: both;
-            visibility: hidden;
-        }
-        section > article::before {
-            content: "";
-            position: absolute;
-            width: 24px;
-            height: 100%;
-            top: 0;
-            left: 50%;
-            margin-left: -12px;
-            background-color: rgba(234, 234, 234, 0.54);
-        }
-        section > article {
-            position: relative;
-            border: 1px dashed var(--blue);
-        }
-        section > article > pre {
-            width: 50%;
-            float: left;
-            padding-right: 12px;
-            margin: 0;
-            box-sizing: border-box;
-        }
-        section > article > .render {
-            width: 50%;
-            float: left;
-            padding-left: 12px;
-            box-sizing: border-box;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
     <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/monokai-sublime.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/highlight.js/9.13.1/highlight.min.js"></script>
     <script src="../../js/paddy-03.js"></script>
     <script src="../../js/canvas-background.js"></script>
     <script src="../../js/init-canvas-background.js"></script>
-    <script>
-        P(function(){
-            document.querySelectorAll('article').forEach(function(dom){
-                var preDom = dom.querySelector('pre');
-                var cssStr = '';
-                dom.querySelectorAll('.render > style[language=css]').forEach(function(cssDom){
-                    var divDom = document.createElement('div');
-                    divDom.appendChild(cssDom.cloneNode(true));
-                    cssStr += divDom.innerHTML;
-                });
-                cssStr = cssStr.replace(/[<>&"]/g, function(ret){
-                    return {'<': '&lt;', '>':'&gt;', '&': '&amp;', '"': '&quot;'}[ret];
-                });
-                var cssCodeDom = document.createElement('code');
-                cssCodeDom.className = 'css';
-                cssCodeDom.innerHTML = cssStr;
-                preDom.appendChild(cssCodeDom);
-                hljs.highlightBlock(cssCodeDom);
-            });
-        });
-    </script>
+    <script src="../../js/init-page.js"></script>
 </head>
 <body>
     <section>
-        <a href="#">CSS 计算</a>
-        <a href="http://sdfs">asdfasf</a>
-        <i lang="code">asdf</i>
+        <a href="#" class="h1">CSS 计算</a>
+        <p><i lang="code">calc</i><i>支持 + - * /</i></p>
         <article>
             <pre></pre>
             <div class="render">
@@ -196,38 +37,77 @@
             </div>
         </article>
     </section>
-    <h3></h3>
-    <p>支持 + - * /</p>
-    <div style="height: 50px;">
-        <div class="calc"><span lang="css">width: calc(100% - 40px);</span></div>
-        <div class="right"></div>
+    <section>
+        <a href="#" class="h1">CSS 变量</a>
+        <p>CSS 以 <i lang="code">--</i> 作为命名前缀 , 用 <i lang="code">var()</i> 去引用</p>
+        <p>一般通过<i lang="code">:root { }</i>伪类 声明变量</p>
+        <p>注意: 声明的变量需要在同一个作用域内才能生效</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+<style language="css">
+    :root {
+        --blue: #1890ff;
+        --lightBlue: #bae7ff;
+        --pink: #ffd6e7;
+    }
+    .css-var {
+        --red: #f5222d;
+    }
+</style>
+<div language="html">
+    <div class="css-var">
+        <p style="color: var(--blue);">color: var(--blue);</p>
+        <p style="color: var(--lightBlue);">color: var(--lightBlue);</p>
+        <p style="color: var(--pink);">color: var(--pink);</p>
+        <p style="color: var(--red);">color: var(--red);</p>
     </div>
-    <h3>CSS 变量</h3>
-    <p>CSS 以 <b>--</b> 作为命名前缀 , 用 <b>var()</b> 去引用</p>
-    <p>一般通过<span lang="css">:root { }</span>伪类 声明变量</p>
-    <p>注意: 声明的变量需要在同一个作用域内才能生效</p>
-    <p>e.g:</p>
-    <p>:root {</p>
-    <div style="padding-left: 24px;">
-        <p>--blue: #1890ff;</p>
-        <p>--lightBlue: #bae7ff;</p>
-        <p>--pink: #ffd6e7;</p>
-    </div>
-    <p>}</p>
-    <p style="color: var(--blue);">color: var(--blue);</p>
-    <p style="color: var(--lightBlue);">color: var(--lightBlue);</p>
-    <p style="color: var(--pink);">color: var(--pink);</p>
-    <h3>attr 属性</h3>
-    <p>a[href]:empty::before {</p>
-    <div style="padding-left: 24px;">
-        <p>content: attr(href);</p>
-    </div>
-    <p>}</p>
-    <p>&lt;a href="https://github.com/PaddyWang"&gt;&lt;/a&gt;</p>
-    <p><a href="https://github.com/PaddyWang"></a></p>
-    <h3>固定宽高比例 通过 <span lang="css">padding-bottom</span></h3>
-    <div class="container">
-        <div></div>
-    </div>
+    <p style="color: var(--red);">color: var(--red);</p>
+</div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h1">attr 属性</a>
+        <article>
+            <pre></pre>
+            <div class="render">
+<style language="css">
+    a[href]:empty::before {
+        content: attr(href);
+    }
+</style>
+<div language="html">
+    <a href="https://github.com/PaddyWang"></a>
+</div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h1">固定宽高比例 通过 <i lang="code">padding-bottom</i></a>
+        <article>
+            <pre></pre>
+            <div class="render">
+<style language="css">
+    .container {
+      height: 0;
+      padding-bottom: 20%;
+      position: relative;
+    }
+    .container div {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background-color: var(--pink);
+    }
+</style>
+<div language="html" class="container">
+    <div></div>
+</div>
+            </div>
+        </article>
+    </section>
 </body>
 </html>
