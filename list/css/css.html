@@ -112,5 +112,174 @@
             </div>
         </article>
     </section>
+    <section>
+        <a href="#" class="h1">省略显示文本溢出<i land="code">...</i></a>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .text {
+                        width: 200px;
+                    }
+                    /* 单行 */
+                    .omit {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                    /* 多行 */
+                    .omit-1 {
+                        display: -webkit-box;
+                        font-size: 26px;
+                        -webkit-line-clamp: 3;  /* 控制隐藏的行数 */
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    .omit-2 {
+                        position: relative;
+                        line-height: 20px;
+                        max-height: 40px;
+                        overflow: hidden;
+                    }
+                    .omit-2:after {
+                        content: "\02026";  /* ... */
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        padding-left: 40px;
+                        background: linear-gradient(to right, transparent, #fff 55%);
+                    }
+                </style>
+                <div language>
+                    <div class="text omit">
+                        这里有很多文字这里有很多文字这里有很多文字这里有很多文字
+                    </div>
+                    <div class="text omit-1">
+                        这里有很多文字这里有很多文字这里有很多文字这里有很多文字这里有很多文字这里有很多文字
+                    </div>
+                    <div class="text omit-2">
+                        这里有很多文字这里有很多文字这里有很多文字这里有很多文字这里有很多文字这里有很多文字
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h1">垂直居中</a>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .v-box {
+                        float: left;
+                        width: 200px;
+                        height: 200px;
+                        margin: 4px;
+                        background-color: rgba(0, 0, 0, .2);
+                    }
+                    .v-text {
+                        text-align: center;
+                    }
+                    .v-text:before {
+                        content: '';
+                        display: inline-block;
+                        vertical-align: middle;
+                        height: 100%;
+                    }
+                    .v-text > img {
+                        vertical-align: middle;
+                        background-color: pink;
+                    }
+                    .vertical-1 {
+                        /* 父盒子 为 float 时 w/h: 100%; 不起作用 */
+                        width: 200px;
+                        height: 200px;
+                        /* 设置 float 后此属性不起作用 */
+                        display: table-cell;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                    .vertical-1 > img {
+                        background-color: skyblue;
+                    }
+                </style>
+                <div language="html">
+                    <div class="v-text v-box">
+                        这是垂直居中的文字
+                    </div>
+                    <div class="v-text v-box">
+                        <img width="48" height="48">
+                    </div>
+                    <div class="v-box">
+                        <div class="vertical-1">
+                            <img width="48" height="48">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h1">自定义滚动条</a>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .scroll-box {
+                        width: 100px;
+                        height: 200px;
+                        border: 1px solid #999;
+                        float: left;
+                        margin: 4px;
+                        overflow: auto;
+                    }
+                    /* 隐藏滚动条 */
+                    .scroll-box-none::-webkit-scrollbar {display: none;}
+                    /* 改变滚动条的样式 */
+                    .scroll-box::-webkit-scrollbar {
+                        width: 8px;
+                        height: 10px;
+                    }
+                    .scroll-box::-webkit-scrollbar-button {}
+                    .scroll-box::-webkit-scrollbar-corner {
+                        display: block;
+                    }
+                    .scroll-box::-webkit-scrollbar-thumb {
+                        -webkit-border-radius: 8px;
+                        border-radius: 8px;
+                        background-color: skyblue;
+                    }
+                    .scroll-box::-webkit-scrollbar-track,
+                    .scroll-box::-webkit-scrollbar-thumb {
+                        border-right: 1px solid transparent;
+                        border-left: 1px solid transparent;
+                    }
+                </style>
+                <div language>
+                    <div class="scroll-box">
+                        这这这<br>这这这<br>这这这<br>
+                        里里里<br>里里里<br>里里里<br>
+                        是是是<br>是是是<br>是是是<br>
+                        滚滚滚<br>滚滚滚<br>滚滚滚<br>
+                        动动动<br>动动动<br>动动动<br>
+                        的的的<br>的的的<br>的的的<br>
+                        文文文<br>文文文<br>文文文<br>
+                        字字字<br>字字字<br>字字字<br>
+                    </div>
+                    <div class="scroll-box scroll-box-none">
+                        这这这<br>这这这<br>这这这<br>
+                        里里里<br>里里里<br>里里里<br>
+                        是是是<br>是是是<br>是是是<br>
+                        滚滚滚<br>滚滚滚<br>滚滚滚<br>
+                        动动动<br>动动动<br>动动动<br>
+                        的的的<br>的的的<br>的的的<br>
+                        文文文<br>文文文<br>文文文<br>
+                        字字字<br>字字字<br>字字字<br>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
 </body>
 </html>

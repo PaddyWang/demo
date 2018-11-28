@@ -30,6 +30,16 @@
         </section>
     </section>
 	<script src="./js/canvas-background.js"></script>
-	<script src="./js/init-canvas-background.js"></script>
+    <script src="./js/init-canvas-background.js"></script>
+	<script src="./js/ajax.js"></script>
+    <script>
+        ajax({
+            type: 'get',
+            url: './data.json',
+            callback: function(data){
+                console.log(data);
+            }
+        });
+    </script>
 </body>
 </html>
