@@ -19,21 +19,21 @@
         <article>
             <pre></pre>
             <div class="render">
-<style language="css">
-    .calc-demo-box {
-        height: 150px;
-        background-color: pink;
-    }
-    .calc-demo {
-        /* calc */
-        width: calc(100% - 40px);
-        height: 100px;
-        background-color: skyblue;
-    }
-</style>
-<div language="html" class="calc-demo-box">
-    <div class="calc-demo"></div>
-</div>
+                <style language="css">
+                    .calc-demo-box {
+                        height: 150px;
+                        background-color: pink;
+                    }
+                    .calc-demo {
+                        /* calc */
+                        width: calc(100% - 40px);
+                        height: 100px;
+                        background-color: skyblue;
+                    }
+                </style>
+                <div language="html" class="calc-demo-box">
+                    <div class="calc-demo"></div>
+                </div>
             </div>
         </article>
     </section>
@@ -45,25 +45,25 @@
         <article>
             <pre></pre>
             <div class="render">
-<style language="css">
-    :root {
-        --blue: #1890ff;
-        --lightBlue: #bae7ff;
-        --pink: #ffd6e7;
-    }
-    .css-var {
-        --red: #f5222d;
-    }
-</style>
-<div language="html">
-    <div class="css-var">
-        <p style="color: var(--blue);">color: var(--blue);</p>
-        <p style="color: var(--lightBlue);">color: var(--lightBlue);</p>
-        <p style="color: var(--pink);">color: var(--pink);</p>
-        <p style="color: var(--red);">color: var(--red);</p>
-    </div>
-    <p style="color: var(--red);">color: var(--red);</p>
-</div>
+                <style language="css">
+                    :root {
+                        --blue: #1890ff;
+                        --lightBlue: #bae7ff;
+                        --pink: #ffd6e7;
+                    }
+                    .css-var {
+                        --red: #f5222d;
+                    }
+                </style>
+                <div language="html">
+                    <div class="css-var">
+                        <p style="color: var(--blue);">color: var(--blue);</p>
+                        <p style="color: var(--lightBlue);">color: var(--lightBlue);</p>
+                        <p style="color: var(--pink);">color: var(--pink);</p>
+                        <p style="color: var(--red);">color: var(--red);</p>
+                    </div>
+                    <p style="color: var(--red);">color: var(--red);</p>
+                </div>
             </div>
         </article>
     </section>
@@ -72,40 +72,43 @@
         <article>
             <pre></pre>
             <div class="render">
-<style language="css">
-    a[href]:empty::before {
-        content: attr(href);
-    }
-</style>
-<div language="html">
-    <a href="https://github.com/PaddyWang"></a>
-</div>
+                <style language="css">
+                    a[href]:empty::before {
+                        content: attr(href);
+                    }
+                </style>
+                <div language="html">
+                    <a href="https://github.com/PaddyWang"></a>
+                </div>
             </div>
         </article>
     </section>
     <section>
         <a href="#" class="h1">固定宽高比例 通过 <i lang="code">padding-bottom</i></a>
+        <p>让 <i lang="code">padding-bottom</i>把 container 的盒子撑起来</p>
+        <p><i lang="code">padding-bottom</i>的百分比 即为宽度的百分比</p>
+        <p>再给 container 里面的盒子 宽/高 设置 <i lang="code">100%</i></p>
         <article>
             <pre></pre>
             <div class="render">
-<style language="css">
-    .container {
-      height: 0;
-      padding-bottom: 20%;
-      position: relative;
-    }
-    .container div {
-      height: 100%;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      background-color: var(--pink);
-    }
-</style>
-<div language="html" class="container">
-    <div></div>
-</div>
+                <style language="css">
+                    .container {
+                      height: 0;
+                      padding-bottom: 20%;
+                      position: relative;
+                    }
+                    .container div {
+                      height: 100%;
+                      left: 0;
+                      position: absolute;
+                      top: 0;
+                      width: 100%;
+                      background-color: var(--pink);
+                    }
+                </style>
+                <div language="html" class="container">
+                    <div></div>
+                </div>
             </div>
         </article>
     </section>

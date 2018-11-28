@@ -34,6 +34,19 @@ a[href^="#"]:hover::before {
     left: 0;
     transform: translate(-50%, -50%);
 }
+a[href^="#"]:focus {
+    outline: none;
+    animation: message 2s ease-in-out 0s;
+}
+@keyframes message {
+    from {
+        color: #fff;
+        background-color: rgb(244, 175, 76);
+    } to {
+        color: #999;
+        background-color: transparent;
+    }
+}
 a:not([href^="#"]) {
     font-style: italic;
     color: var(--main);
@@ -80,9 +93,22 @@ i {
 }
 body > section {
     margin-top: 48px;
+    padding-bottom: 24px;
+    max-width: 1420px;
+    margin-left: auto;
+    margin-right: auto;
 }
-body > section:last-of-type {
-    border-bottom: none;
+body > section:last-of-type::before {
+    content: "已到达最底部";
+}
+body > section::before {
+    content: "华丽的分界线";
+    position: absolute;
+    bottom: -12px;
+    color: #999;
+    width: 100%;
+    text-align: center;
+    left: 0;
 }
 section {
     border-bottom: 4px solid #eaeaea;
@@ -91,7 +117,7 @@ section {
 section > article {
     position: relative;
     border: 1px dashed #999;
-    padding: 8px;
+    padding: 4px;
     margin: 8px 0;
     clear: both;
     overflow: hidden;
@@ -111,7 +137,7 @@ section > article::after {
     transform: rotate(-42deg);
 }
 section > article::before {
-    content: "";
+    /*content: "";*/
     position: absolute;
     width: 8px;
     height: 100%;
@@ -121,17 +147,65 @@ section > article::before {
     background-color: rgba(234, 234, 234, 0.54);
 }
 section > article > pre {
-    width: 50%;
+    width: calc(50% - 8px);
     float: left;
-    padding-right: 4px;
-    margin: 0;
+    margin: 4px;
     box-sizing: border-box;
 }
+section > article > pre:only-child {
+    width: calc(100% - 8px);
+}
 section > article > .render {
-    width: 50%;
+    width: calc(50% - 8px);
     float: left;
-    padding-left: 4px;
+    margin: 4px;
     box-sizing: border-box;
+}
+section > article > pre > code::-webkit-scrollbar {
+    display: none;
+}
+body > nav {
+    display: inline-block;
+    position: fixed;
+    top: 98px;
+    right: 32px;
+    padding: 8px;
+    border-radius: 8px;
+    color: #999;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+body > nav a {
+    padding: 0 !important;
+    padding-left: 12px !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+body > nav a:before {
+    left: 4px !important;
+}
+body > nav a:focus {
+    display: none;
+}
+body > nav .title {
+    color: var(--light-main);
+    cursor: pointer;
+}
+body > nav > ul {
+    list-style-type: disc;
+}
+body > nav .title.active + ul {
+    display: none;
+}
+body > nav li.h1 {
+    margin-left: 0px;
+}
+body > nav li.h2 {
+    margin-left: 8px;
+}
+body > nav li.h3 {
+    margin-left: 16px;
 }
 @media screen and (max-width: 920px) {
     body {
@@ -144,11 +218,11 @@ section > article > .render {
         display: none;
     }
     section > article > pre {
-        width: 100%;
+        width: calc(100% - 8px);
         padding-right: 0;
     }
     section > article > .render {
-        width: 100%;
+        width: calc(100% - 8px);
         padding-left: 0;
     }
     a.h1 {
@@ -172,5 +246,9 @@ section > article > .render {
         padding: 2px 16px;
         line-height: 20px;
         color: #666;
+    }
+    body > nav {
+        position: static;
+        display: block;
     }
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>样式DEMO</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/monokai-sublime.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/highlight.js/9.13.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/page.css">
+    <script src="../js/paddy-03.js"></script>
+    <script src="../js/canvas-background.js"></script>
+    <script src="../js/init-canvas-background.js"></script>
+    <script src="../js/init-page.js"></script>
+</head>
+<body>
+    <section>
+        <a href="#" class="h1">标题1</a>
+        <a href="#" class="h2">标题1.1</a>
+        <a href="#" class="h3">标题1.1.1</a>
+        <article>
+            <pre></pre>
+            <div class="render" style="height: 100%; min-height: 200px; background-color: rgba(0, 0, 0, .3)">
+                <style language>
+                    body {
+                        margin: 0;
+                    }
+                    #box {
+                        line-height: 24px;
+                    }
+                </style>
+                <div language>
+                    <div id="box">123</div>
+                </div>
+                <script language>
+                    var boxNode = document.getElementById('box');
+                    function setNodeColor(color){
+                        boxNode.style.color = color;
+                    }
+                    setNodeColor('red');
+                </script>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h1">标题2</a>
+        <p>这里可以写一些文字<i>倾斜的文字</i><b>加粗的文字</b><i lang="code">短代码</i></p>
+        <p><a href="http:">这是一个链接</a></p>
+        <article>
+            <pre>
+                <code>
+                    # 注释
+                    git status  # 查看 git 状态
+                    npm run dev
+                </code>
+                <code>
+                    # 注释111
+                    git status  # 查看 git 状态
+                </code>
+            </pre>
+        </article>
+        <article>
+            <div class="render">
+                <p>这里是解释</p>
+                <p><i>倾斜的文字</i></p>
+            </div>
+            <pre>
+                <code>
+                    # 注释
+                    git status  # 查看 git 状态
+                    npm run dev
+                </code>
+                <code>
+                    # 注释111
+                    git status  # 查看 git 状态
+                </code>
+            </pre>
+        </article>
+    </section>
+</body>
+</html>
