@@ -381,9 +381,9 @@ paddy.fn.extend({
 						callback.call(v1, new paddy.Event(e));
 					});
 				}else{
-					v1.attachEvent('on'+paddy.trim(this), function(e){
+					v1.attachEvent('on' + paddy.trim(this), function(e){
 						callback.call(v1, new paddy.Event(e));
-					})
+					});
 				}
 			});
 		});
@@ -756,8 +756,10 @@ function select(selector){
 		arr = [],
 		doms,
 		dom;
+	if(m === null){
+		arr = document.querySelectorAll(selector);
 	// id选择器
-	if(m[1]){
+	}else if(m[1]){
 		// 当获取不到指定 id 的标签时返回 null
 		dom = document.getElementById(m[1]);
 		// >>> 小技巧

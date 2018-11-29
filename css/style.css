@@ -1,5 +1,12 @@
 * {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
     box-sizing: border-box;
+}
+:root {
+    --font-blue: #03A9F4;
+    --light-blue: #00fdf8;
 }
 html, body {
     width: 100%;
@@ -15,6 +22,7 @@ section.box {
     width: 100%;
     height: 100%;
     position: relative;
+    padding-top: 60px;
     padding-left: 80px;
 }
 nav {
@@ -61,7 +69,7 @@ a:hover {
     float: left;
     padding: 12px 0;
     border-bottom: 1px dashed #999;
-    color: #03A9F4;
+    color: var(--font-blue);
 }
 .content a:hover {
     color: #5f7eff;
@@ -101,4 +109,67 @@ a:hover {
         box-shadow: 1px 1px 9px #b3b3b3;
         background-color: rgba(234, 234, 234, 0.55);
     }
+}
+
+body > header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 80px);
+    padding: 0 24px;
+    line-height: 60px;
+    background-color: rgba(88, 166, 249, 0.52);
+    z-index: 1;
+}
+.search {
+    float: left;
+}
+.search > input {
+    width: 300px;
+    line-height: 32px;
+    outline: none;
+    padding-left: 8px;
+    font-size: 18px;
+    border-radius: 6px;
+    border: 1px solid #eaeaea;
+    background: transparent;
+    color: var(--light-blue);
+}
+.search > input:focus {
+    border-color: var(--light-blue);
+}
+.search > input::-webkit-input-placeholder {
+    color: #eaeaea;
+}
+.search-tags {
+    float: left;
+    list-style: none;
+    overflow: hidden;
+    margin-top: 8px;
+    margin-left: 48px;
+}
+.search-tags > li {
+    float: left;
+    padding: 6px 12px;
+    margin: 8px;
+    line-height: 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(234, 234, 234, 0.62);
+    color: var(--font-blue);
+    background-color: rgba(234, 234, 234, 0.62);
+    cursor: pointer;
+}
+.search-tags > li.active,
+.search-tags > li:hover {
+    border: 1px solid var(--light-blue);
+    color: var(--light-blue);
+    background-color: transparent;
+}
+.content[class*="tag-search"] a {
+    display: none;
+}
+.content.tag-search-js a[js],
+.content.tag-search-css a[css],
+.content.tag-search-html a[html] {
+    display: block;
 }

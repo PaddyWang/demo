@@ -37,7 +37,6 @@
                 var ct = xhr.getResponseHeader('Content-Type');
                 ct = ct.toLowerCase();
                 if(ct.indexOf('json') != -1){
-                    console.log(data);
                     data = JSON.parse(data);
                 }else if(ct.indexOf('xml') != -1){
                     data = xhr.responseXML;

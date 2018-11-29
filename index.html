@@ -8,6 +8,12 @@
 </head>
 <base target="_blank">
 <body>
+    <header>
+        <div class="search">
+            <input type="text" placeholder="搜一搜">
+        </div>
+        <ul class="search-tags"></ul>
+    </header>
     <section class="box">
         <nav>
             <a class="photo" href="https://github.com/PaddyWang">
@@ -16,30 +22,99 @@
             <a href="http://paddywang.github.io/about/">Readme</a>
             <a href="http://paddywang.github.io/">Blog</a>
         </nav>
-        <section class="content">
-            <a href="./list/flappyBird/">疯狂的小鸟</a>
-            <a href="./list/snake.html">贪吃蛇</a>
-            <a href="./list/canvas-image/images-change.html">canvas-好玩的图像处理</a>
-            <a href="./list/canvas-image/01file-image.html">01上传控件获取用户选定的头像</a>
-            <a href="./list/canvas-image/02.html">02基于状态机制实现拖拽方块</a>
-            <a href="./list/canvas-image/03.html">03头像剪切</a>
-            <a href="./list/canvas-image/04.html">04头像剪切补充</a>
-            <a href="./list/canvas/background.html">水印背景</a>
-            <a href="./list/css/media-screen.html">媒体查询</a>
-            <a href="./list/css/css.html">CSS 新发现</a>
-        </section>
+        <section class="content"></section>
     </section>
 	<script src="./js/canvas-background.js"></script>
     <script src="./js/init-canvas-background.js"></script>
-	<script src="./js/ajax.js"></script>
+    <script src="./js/ajax.js"></script>
+	<script src="./js/paddy-03.js"></script>
     <script>
-        ajax({
-            type: 'get',
-            url: './data.json',
-            callback: function(data){
-                console.log(data);
+        ;(function(){
+            var data = {
+                originData: undefined,
+                tag: {
+                    'js': [],
+                    'css': [],
+                    'html': []
+                },
+                search: undefined
+            };
+            var $searchTagsNode = P('.search-tags');
+            var $contentNode = P('.content');
+            var timer = null;
+
+            ajax({
+                type: 'get',
+                url: './data.json',
+                callback: function(rData){
+                    data.originData = rData;
+                    renderNode();
+                    Object.keys(data.tag).forEach(function(key){
+                        var liNode = document.createElement('li');
+                        liNode.setAttribute('type', key);
+                        liNode.innerHTML = key + ' (' + data.tag[key].length + ')';
+                        $searchTagsNode.append(liNode);
+                    });
+                }
+            });
+
+            $searchTagsNode.on('click', function(event){
+                var target = event.e.target;
+                var type = target.getAttribute('type');
+                var $target;
+                if(type){
+                    $target = P(target);
+                    $target.toggleClass('active');
+                    if($target.hasClass('active')){
+                        $contentNode.addClass('tag-search-' + type);
+                    }else {
+                        $contentNode.removeClass('tag-search-' + type);
+                    }
+                }
+            });
+
+            P('.search input').on('input', function(event){
+                var value = event.e.target.value.trim();
+                var search = data.search = [];
+                if(value){
+                    value = value.toLowerCase();
+                    data.originData.articles.forEach(function(item, index){
+                        if(item.key.indexOf(value) >= 0 || item.type.indexOf(value) >= 0){
+                            search.push(item);
+                            handleSearch();
+                        }
+                    });
+                }
+            });
+
+            function handleSearch(){
+                clearTimeout(timer);
+                timer = setTimeout(function(){
+                    renderNode();
+                }, 300);
             }
-        });
+
+            function renderNode(){
+                var listNode = data.search || data.originData.articles;
+                var fragment = document.createDocumentFragment();
+                listNode.forEach(function(itemNode, index){
+                    var aNode = document.createElement('a');
+                    aNode.setAttribute('href', '.' + itemNode.url);
+                    aNode.innerHTML = itemNode.title;
+                    fragment.appendChild(aNode);
+                    itemNode.type && itemNode.type.forEach(function(type){
+                        aNode.setAttribute(type, '');
+                        var typeArr = data.tag[type];
+                        typeArr && typeArr.push(index);
+                    });
+                });
+
+                if(listNode.length){
+                    $contentNode[0].innerHTML = '';
+                    $contentNode.append(fragment);
+                }
+            }
+        }());
     </script>
 </body>
 </html>
