@@ -109,6 +109,9 @@ a:hover {
         box-shadow: 1px 1px 9px #b3b3b3;
         background-color: rgba(234, 234, 234, 0.55);
     }
+    body > header {
+        display: none;
+    }
 }
 
 body > header {

@@ -1,65 +1,173 @@
 {
     "articles": [
         {
-            "url": "/list/flappyBird",
+            "url": "./list/flappyBird",
             "title": "疯狂的小鸟",
             "date": "",
             "type": ["js"],
             "key": ["js", "javascript", "canvas", "疯狂的小鸟", "游戏", "h5小游戏"]
         }, {
-            "url": "/list/snake.html",
+            "url": "./list/snake.html",
             "title": "贪吃蛇",
             "date": "",
             "type": ["js"],
             "key": ["js", "javascript", "canvas", "贪吃蛇", "游戏", "h5小游戏"]
         }, {
-            "url": "/list/canvas-image/images-change.html",
+            "url": "./list/canvas-image/images-change.html",
             "title": "canvas-好玩的图像处理",
             "date": "",
             "type": ["js"],
             "key": ["js", "javascript", "canvas", "图像处理"]
         }, {
-            "url": "/list/canvas-image/01file-image.html",
+            "url": "./list/canvas-image/01file-image.html",
             "title": "01上传控件获取用户选定的头像",
             "date": "",
             "type": ["js"],
             "key": ["js", "javascript", "canvas", "拖拽方块"]
         }, {
-            "url": "/list/canvas-image/02.html",
+            "url": "./list/canvas-image/02.html",
             "title": "02基于状态机制实现拖拽方块",
             "date": "",
             "type": ["js"],
             "key": ["js", "javascript", "canvas", "头像剪切"]
         }, {
-            "url": "/list/canvas-image/03.html",
+            "url": "./list/canvas-image/03.html",
             "title": "03头像剪切",
             "date": "",
             "type": ["js"],
             "key": ["js", "javascript", "canvas", "头像剪切"]
         }, {
-            "url": "/list/canvas-image/04.html",
+            "url": "./list/canvas-image/04.html",
             "title": "04头像剪切补充",
             "date": "",
             "type": ["js"],
             "key": ["js", "javascript", "canvas", "头像剪切"]
         }, {
-            "url": "/list/canvas/background.html",
+            "url": "./list/canvas/background.html",
             "title": "水印背景",
             "date": "",
-            "type": ["js"],
+            "type": ["js", "html"],
             "key": ["js", "javascript", "canvas", "水印背景"]
         }, {
-            "url": "/list/css/media-screen.html",
+            "url": "./list/css/media-screen.html",
             "title": "媒体查询",
             "date": "2018-11",
             "type": ["css"],
             "key": ["css", "媒体查询", "媒介查询", "手机端适配"]
         }, {
-            "url": "/list/css/css.html",
+            "url": "./list/css/css.html",
             "title": "CSS 新发现",
             "date": "2018-11-28",
             "type": ["css"],
             "key": ["css", "css新发现", "css计算", "css变量", "attr属性", "固定宽高比例", "padding-bottom", "省略", "文本溢出", "垂直居中", "滚动条"]
+        }, {
+            "url": "http://paddywang.github.io/2016/02/05/canvas%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/",
+            "title": "canvas基本使用",
+            "date": "2016-02-05",
+            "type": ["js"],
+            "key": ["js", "canvas", "drawImage", "抗锯齿"]
+        }, {
+            "url": "http://paddywang.github.io/2016/02/17/%E5%87%BD%E6%95%B0%E7%9A%84%E5%9B%9B%E7%A7%8D%E8%B0%83%E7%94%A8%E6%A8%A1%E5%BC%8F/",
+            "title": "函数的四种调用模式",
+            "date": "2016-02-17",
+            "type": ["js"],
+            "key": ["js", "函数", "构造器", "上下文", "this", "调用"]
+        }, {
+            "url": "http://paddywang.github.io/2016/03/03/%E5%8E%86%E5%8F%B2%E7%AE%A1%E7%90%86&Web%E5%AD%98%E5%82%A8&%E5%BA%94%E7%94%A8%E7%BC%93%E5%AD%98/",
+            "title": "历史管理&Web存储&应用缓存",
+            "date": "2016-03-03",
+            "type": ["js"],
+            "key": ["js", "历史管理", "history", "存储", "缓存", "离线应用"]
+        }, {
+            "url": "http://paddywang.github.io/2016/03/04/%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87/",
+            "title": "字体图标",
+            "date": "2016-03-04",
+            "type": ["css"],
+            "key": ["css", "字体", "图标"]
+        }, {
+            "url": "http://paddywang.github.io/2016/03/05/CSS%E5%B8%B8%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8/",
+            "title": "CSS常用选择器",
+            "date": "2016-03-05",
+            "type": ["css"],
+            "key": ["css", "选择器", "关系", "后代", "子代", "相邻兄弟", "属性", "伪元素", "伪类", ""]
+        }, {
+            "url": "http://paddywang.github.io/2016/03/06/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/",
+            "title": "git的基本使用",
+            "date": "2016-03-06",
+            "type": ["git"],
+            "key": ["git"]
+        }, {
+            "url": "http://paddywang.github.io/2016/03/11/%E5%80%BC%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/",
+            "title": "值类型与引用类型",
+            "date": "2016-03-11",
+            "type": ["js"],
+            "key": ["js", "类型", "引用"]
+        }, {
+            "url": "http://paddywang.github.io/2016/03/12/%E6%97%A5%E6%9C%9F%E5%AF%B9%E8%B1%A1%EF%BC%88Date%EF%BC%89%E5%92%8C%E5%AE%9A%E6%97%B6%E5%99%A8/",
+            "title": "日期对象（Date）和定时器",
+            "date": "2016-03-12",
+            "type": ["js"],
+            "key": ["js", "日期", "date", "定时", "time", "interval"]
+        }, {
+            "url": "http://paddywang.github.io/2016/03/15/JavaScript%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2/",
+            "title": "JavaScript中的数据转换",
+            "date": "2016-03-15",
+            "type": ["js"],
+            "key": ["js", "数据", "转换", "数字", "字符", "布尔", "number", "string", "boolean"]
+        }, {
+            "url": "http://paddywang.github.io/2016/03/25/DOM%E6%93%8D%E4%BD%9C/",
+            "title": "DOM操作",
+            "date": "2016-03-25",
+            "type": ["js", "html"],
+            "key": ["js", "html", "dom", "节点", "element", "document"]
+        }, {
+            "url": "http://paddywang.github.io/2016/04/02/%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80/",
+            "title": "响应式布局",
+            "date": "2016-04-02",
+            "type": ["css", "html"],
+            "key": ["css", "html", "响应", "布局", "移动", "屏幕", "媒介", "媒体", "媒介查询", "栅栏", "访问"]
+        }, {
+            "url": "http://paddywang.github.io/2016/04/05/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/",
+            "title": "模板引擎",
+            "date": "2016-04-05",
+            "type": ["js", "html"],
+            "key": ["js", "html", "模板", "引擎", "template", "屏幕", "媒介", "媒体", "媒介查询", "栅栏", "访问"]
+        }, {
+            "url": "http://paddywang.github.io/2016/04/06/%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C/",
+            "title": "数组的操作",
+            "date": "2016-04-06",
+            "type": ["js"],
+            "key": ["js", "array", "数组", "push", "shift", "pop", "concat", "join", "split", "length", "reverse", "sort", "增", "删", "连", "换", "查", "改"]
+        }, {
+            "url": "http://paddywang.github.io/2016/04/15/JavaScript%E4%B8%AD%E7%9A%84%E9%80%92%E5%BD%92/",
+            "title": "JavaScript中的递归",
+            "date": "2016-04-15",
+            "type": ["js"],
+            "key": ["js", "递归"]
+        }, {
+            "url": "http://paddywang.github.io/2016/04/20/JavaScript%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/",
+            "title": "JavaScript中的闭包",
+            "date": "2016-04-20",
+            "type": ["js"],
+            "key": ["js", "闭包"]
+        }, {
+            "url": "http://paddywang.github.io/2016/04/23/JavaScript%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/",
+            "title": "JavaScript中的作用域与作用域链",
+            "date": "2016-04-23",
+            "type": ["js"],
+            "key": ["js", "作用域", "作用域链", "块级", "词法", "变量提升"]
+        }, {
+            "url": "http://paddywang.github.io/2016/05/01/JavaScript%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%9E%8B/",
+            "title": "JavaScript中的原型",
+            "date": "2016-05-01",
+            "type": ["js"],
+            "key": ["js", "原型", "prototype", "__proto__", "constructor", "对象", "继承", "构造函数", "构造", "valueOf", "instanceof", "函数", "function", "fn"]
+        }, {
+            "url": "http://paddywang.github.io/2016/05/03/JavaScript%E4%B8%ADString%E7%9A%84%E9%AB%98%E7%BA%A7API/",
+            "title": "JavaScript中String的高级API",
+            "date": "2016-05-03",
+            "type": ["js"],
+            "key": ["js", "api", "string", "char", "index", "concat", "slice", "substr", "substring", "编码", "解码", "转换", "case", "toUpperCase", "toLowerCase"]
         }
     ]
 }

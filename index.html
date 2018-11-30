@@ -81,10 +81,12 @@
                     data.originData.articles.forEach(function(item, index){
                         if(item.key.indexOf(value) >= 0 || item.type.indexOf(value) >= 0){
                             search.push(item);
-                            handleSearch();
                         }
                     });
+                }else {
+                    data.search = undefined;
                 }
+                handleSearch();
             });
 
             function handleSearch(){
@@ -99,7 +101,7 @@
                 var fragment = document.createDocumentFragment();
                 listNode.forEach(function(itemNode, index){
                     var aNode = document.createElement('a');
-                    aNode.setAttribute('href', '.' + itemNode.url);
+                    aNode.setAttribute('href', itemNode.url);
                     aNode.innerHTML = itemNode.title;
                     fragment.appendChild(aNode);
                     itemNode.type && itemNode.type.forEach(function(type){
@@ -112,6 +114,8 @@
                 if(listNode.length){
                     $contentNode[0].innerHTML = '';
                     $contentNode.append(fragment);
+                }else {
+                    $contentNode.html('<p style="font-size: 24px; color: #999;">暂无搜索结果</p>');
                 }
             }
         }());
