@@ -99,6 +99,7 @@
             function renderNode(){
                 var listNode = data.search || data.originData.articles;
                 var fragment = document.createDocumentFragment();
+                console.log(listNode);
                 listNode.forEach(function(itemNode, index){
                     var aNode = document.createElement('a');
                     aNode.setAttribute('href', itemNode.url);
