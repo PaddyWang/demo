@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>走进浮动</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link href="https://cdn.bootcss.com/highlight.js/9.13.1/styles/monokai-sublime.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/highlight.js/9.13.1/highlight.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script src="../../js/init-page.js"></script>
+    <style>
+        .box {
+            max-width: 500px;
+            border: 2px solid;
+        }
+        .left {
+            float: left;
+        }
+        .right {
+            float: right;
+        }
+        .w-03 {
+            width: 30%;
+        }
+        .h-78 {
+            height: 78px;
+        }
+        .border {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <p><i>html 文档个元素存在的两种表现形式</i></p>
+        <p><i>常规流(文档流/标准流/流内)</i></p>
+        <p><i>脱离常规流(流外)</i></p>
+        <p><i>包含块： 离当前元素最近的块级祖先元素，为该浮动元素的包含块。</i></p>
+        <br>
+
+        <a href="#" class="h1">浮动的影响</a>
+        <p>浮动的元素自身会生成一个块框</p>
+        <p>浮动的元素会脱离常规流</p>
+        <p>浮动会改变文档流</p>
+        <p>浮动会使盒子塌陷</p>
+        <p>浮动影响行内元素的展示</p>
+        <p>浮动会吸附其它浮动的元素</p>
+        <br>
+        <br>
+
+        <a href="#" class="h1">浮动的表现形式</a>
+        <article>
+            <pre>
+                <code>
+                    /* 下面会用的公共样式 */
+                    .box {
+                        max-width: 500px;
+                        border: 2px solid;
+                    }
+                    .left {
+                        float: left;
+                    }
+                    .right {
+                        float: right;
+                    }
+                    .w-03 {
+                        width: 30%;
+                    }
+                    .h-78 {
+                        height: 78px;
+                    }
+                    .border {
+                        border: 1px solid red;
+                    }
+                </code>
+            </pre>
+        </article>
+        <br>
+        <a href="#" class="h2">浮动的元素会生成一个块级框</a>
+        <p>对于一个浮动的元素会自动生成一个块级框，并且具备块级元素的部分特性</p>
+        <p><i>例如:</i></p>
+        <p><i>可以设置宽和高，但不会独占一行</i></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box h-78">
+                    <span class="left border" style="width: 50%; height: 24px;">1 </span>
+                    2 这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">浮动元素间接影响块级元素布局</a>
+        <p>块级元素会当浮动不存在</p>
+        <p>浮动影响行内元素的布局</p>
+        <p>但是行内元素又影响块级元素的布局</p>
+        <p>即，浮动间接影响块级元素</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language>
+                    <div class="box">
+                        <div class="left border">1 left</div>
+                    </div>
+                    <div class="box" style="margin-top: 32px;">
+                        <span>这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字
+                              这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字</span>
+                    </div>
+                    <div class="box" style="margin-top: 12px;">
+                        <div class="left border" style="width: 50%;">2 left</div>
+                        <span>这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字
+                              这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字</span>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">浮动元素尽可能靠近包含块的内边界</a>
+        <p>即：左浮动的元素尽可能往左排列，并且尽可能的靠近包含块的左内边界</p>
+        <p>浮动的盒子只会在包含块的内容区域游走</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html">
+                    <div class="box h-78">
+                        <div class="left border">1 left </div>
+                        <div class="right border">2 right</div>
+                        3 这里有很多文字这里有很多文字这里有很多文字这里有很多文字这里有很多文字
+                        这里有很多文字这里有很多文字这里有很多文字这里有很多文字这里有很多文字
+                        <div class="right border" style="width: 80px;">4 right</div>
+                    </div>
+                    <div class="box h-78" style="margin-top: 12px; padding: 8px;">
+                        <div class="left border">1 left </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">浮动元素不能超出包含块的内边界</a>
+        <p>即：左浮动元素的左外边界最远只能到达包含块的左内边界，右外边界最远只能到达包含块的右内边界</p>
+        <br>
+        <p><i>特例：</i></p>
+        <p><i>宽度设置的太宽(e.g: 5号元素)</i></p>
+        <p><i>负边界(e.g: 6号元素)</i></p>
+        <p><i>相对定位(e.g: 8号元素)</i></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box" style="height: 120px;">
+                    <div class="left border w-03">1 left</div>
+                    <div class="left border w-03">2 left</div>
+                    <div class="left border w-03">3 left</div>
+                    <div class="left border w-03">4 left</div>
+                    <div class="left border" style="width: 110%;">5 left</div>
+                    <div class="left border" style="margin-left: -8px;">6 left</div>
+                    <div class="left border">7 left</div>
+                    <div class="left border" style="width: 100%; position: relative; left: -12px;">8 left</div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">浮动元素堆叠但不重叠</a>
+        <p>所有的浮动元素会挤在一块，但是不会出现重叠的现象</p>
+        <p>浮动找浮动，不浮动找不浮动</p>
+        <p>5号元素是另一个包含块的元素，同样受到了前面浮动元素的影响</p>
+        <br>
+        <p><i>特例：</i></p>
+        <p><i>负边界(e.g: 7号元素)</i></p>
+        <p><i>相对定位(e.g: 8号元素)</i></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language>
+                    <div class="box">
+                        <div class="left border">1 left</div>
+                        <div class="left border" style="height: 50px;">2 left</div>
+                        <div class="left border" style="width: 50px;">3 left</div>
+                        <div class="left border" style="height: 30px;">4 left</div>
+                    </div>
+                    <div class="box">
+                        <div class="left border">5 left</div>
+                    </div>
+                    <div class="box h-78" style="margin-top: 60px;">
+                        <div class="left border w-03" style="height: 32px;">6 left</div>
+                        <div class="left border w-03" style="margin-left: -4px;">7 left</div>
+                        <div class="left border w-03" style="position: relative; left: -4px;">8 left</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">浮动元素不能超过前一个浮动元素的最高点</a>
+        <p>即： 只要前方有浮动元素，该浮动元素就不能超过前方浮动元素的最高点(即外边界)</p>
+        <p>浮动的元素会按照顺序依次排列</p>
+        <p>即使1号元素后面可以放的下3号元素，但是3号元素在 DOM 结构上处于2号元素之后，所以3号元素不能超过2号元素的最高点</p>
+        <br>
+        <p><i>特例：负边界/相对定位</i></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box h-78">
+                    <div class="left border" style="width: 50%; height: 24px;">1 left</div>
+                    <div class="left border" style="width: 60%; margin-top: 6px;">2 left</div>
+                    <div class="left border">3 left</div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">左浮动的元素不能出现在前一个浮动元素左边线左侧</a>
+        <p>即： 一个左浮动的元素不能出现在前一个浮动元素的左边线的左侧区域，即使有足够的空间也是不允许的</p>
+        <p>4号元素在3号元素之后，即使1号元素下面有足够的空间，但是4号元素依然不可以往上跑，换行之后只能在3号元素边界以下</p>
+        <br>
+        <p><i>特例：负边界/相对定位</i></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box" style="height: 110px;">
+                    <div class="left border w-03">1 left</div>
+                    <div class="left border w-03" style="height: 60px;">2 left</div>
+                    <div class="left border w-03" style="height: 70px;">3 left</div>
+                    <div class="left border" style="width: 12%;">4 left</div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <br>
+
+        <a href="#" class="h2">浮动和文字</a>
+        <a href="#" class="h3">文字会出现在左浮动元素的右侧</a>
+        <p>即： 在文字中出现浮动的元素，左浮动的元素会向左移，直到所在行的所有文字出现在浮动元素的右侧</p>
+        <br>
+        <p><i>特例：负边界/相对定位</i></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box h-78">
+                    这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字
+                    <div class="left border">1 left</div>
+                    <div class="right border">1 right</div>
+                    这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字
+                </div>
+            </div>
+        </article>
+        <a href="#" class="h3">浮动的元素不能超过所在文本行框的最高点</a>
+        <p>浮动出现在文本内时不会跨行显示，并且不会超过所在文本行框的最高点</p>
+        <br>
+        <p><i>特例：负边界/相对定位</i></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box h-78">
+                    这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字
+                    这里是文字这里是文字这里是文字这里是文字这里是文字这里是文字
+                    <i style="line-height: 32px;">浮</i>
+                    <div class="right border">1 right</div>
+                    <i style="line-height: 32px;">动</i>
+                    这里是文字这里是文字这里是文字这里是文字这里是文字这里是文
+                    <i>浮</i>
+                    <div class="left border">2 left</div>
+                    <i>动</i>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">浮动和块</a>
+        <p>块级元素会把后面出现的浮动元素拒之门外，2号浮动元素，不会和1号块级元素重叠</p>
+        <p>但是2和3号元素会出现重叠，即：浮动元素后面的块级元素会忽略前面的浮动元素</p>
+        <p>同样4号元素不会和3号元素重叠</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box h-78">
+                    <div class="w-03" style="background: skyblue;">1 </div>
+                    <div class="left border" style="height: 24px;">2 left</div>
+                    <div class="w-03" style="background: pink;">3 </div>
+                    <div class="left border">4 left</div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">浮动元素和块级元素以及行内元素重叠时的表现形式</a>
+        <p>行内元素与一个浮动元素重叠时，其边框、背景和内容都在浮动元素“上方”显示</p>
+        <p>块级元素与一个浮动元素重叠时，其边框、背景子啊浮动元素的“下方”显示，而内容在浮动元素的“上方”显示</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div class="box h-78" language>
+                    <div style="height: 30px; border: 1px solid; background-color: pink; color: #fff;">block</div>
+                    <div class="left" style="height: 60px; margin: -28px -10px 0 0; background-color: red;">float<br>float</div>
+                    <span style="border: 1px solid; background-color: skyblue;">inline-block</span>
+                </div>
+            </div>
+        </article>
+
+        <br>
+        <br>
+        <a href="#" class="h1">清除浮动</a>
+        <p>浮动的元素，会创建一个叫BFC的东西</p>
+        <p>BFC（Block formatting contexts）即：块级格式化上下文，有点类似于JS中的作用域，它是一个独立的渲染区域（BFC框里面的内容不受外界影响）</p>
+        <p><i>W3C 官方给出的BFC解释 <a href="https://www.w3.org/TR/CSS2/visuren.html#block-formatting">block-formatting</a></i></p>
+        <br>
+        <p>清除浮动所带来的什么影响？</p>
+        <p>怎么清除浮动带来的影响？</p>
+        <p><i>清除浮动造成盒子塌陷的影响</i></p>
+        <p><i>利用clear属性或者BFC的一些渲染规则来清除浮动的影响</i></p>
+        <br>
+        <a href="#" class="h2">clear 属性</a>
+        <p><i lang="code">clear: left | right | both | none;</i></p>
+        <p>clear 属性使当前元素的 左/右/左和右不能有浮动的元素</p>
+        <p>clear 属性只对<b>块级元素</b>起作用</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language>
+                    <div class="box h-78">
+                        <div class="left border" style="height: 24px;">1 left</div>
+                        <div class="w-03" style="background: pink;">2 </div>
+                        <div class="left border">3 left</div>
+                    </div>
+                    <div class="box h-78" style="margin-top: 12px;">
+                        <div class="left border">4 left</div>
+                        <div class="w-03" style="background: pink; clear: left;">5 </div>
+                        <div class="left border">6 left</div>
+                    </div>
+                    <div class="box h-78" style="margin-top: 12px;">
+                        <div class="left border">7 left</div>
+                        <span class="w-03" style="background: pink; clear: left;">8 </span>
+                        <div class="left border">9 left</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <br>
+        <a href="#" class="h2">添加空的clear元素</a>
+        <p>利用<i lang="code">clear</i>属性，在受浮动元素影响的塌陷盒子的最底部添加一个空的元素，并设置<i lang="code">clear: both;</i></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box border">
+                    <div class="left h-78 border">float</div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">伪元素</a>
+        <p>同样利用clear属性，减少空元素</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language>
+                    <style>
+                        .clearfix::after {
+                            content: "";
+                            display: block;
+                            clear: both;
+                        }
+                    </style>
+                    <div class="box clearfix border">
+                        <div class="left border h-78">float</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">overflow: hidden</a>
+        <p>通过给父盒子设置<i lang="code">overflow: hidden;</i>属性，来创建一个BFC渲染隔离区，从而消除对外界元素的影响</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box border" style="overflow: hidden;">
+                    <div class="left border h-78">float</div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">display: table/table-cell</a>
+        <p>通过给父盒子设置<i lang="code">display: table/table-cell;</i>，原理同上</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language>
+                    <div class="box border" style="display: table;">
+                        <div class="left border h-78">float1</div>
+                        display: table;
+                    </div>
+                    <div style="margin-top: 20px;"></div>
+                    <div class="box border" style="display: table-cell;">
+                        <div class="left border h-78">float2</div>
+                        display: table-cell;
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">display: flow-root</a>
+         <p>通过给父盒子设置<i lang="code">display: flow-root;</i>，原理同上</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language>
+                    <div class="box border" style="display: flow-root;">
+                        <div class="left border h-78">float</div>
+                        display: flow-root;
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br>
+        <a href="#" class="h2">父元素设置浮动</a>
+        <p>通过给父盒子设置浮动开启BFC来进行隔离</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box border left">
+                    <div class="left border h-78">float1</div>
+                    float2
+                </div>
+            </div>
+        </article>
+    </section>
+</body>
+</html>
