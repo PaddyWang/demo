@@ -1,6 +1,12 @@
 {
     "articles": [
         {
+            "url": "./list/canvas/canvas-digital-rain.html",
+            "title": "黑客帝国-数字雨",
+            "date": "2019-01-07",
+            "type": ["js"],
+            "key": ["canvas", "数字雨", "黑客帝国"]
+        }, {
             "url": "./list/css/float.html",
             "title": "走进浮动",
             "date": "2019-01-07",

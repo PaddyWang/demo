@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>黑客帝国-数字雨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvasNode = document.getElementById('canvas');
+        var ctx = canvasNode.getContext('2d');
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        var row = Math.ceil(h / 24);
+        var low = Math.ceil(w / 26);
+        canvasNode.width = w;
+        canvasNode.height = h;
+        ctx.textBaseline = 'top';
+
+        window.onload = function(){
+            initData();
+            window.requestAnimationFrame(loopHandle);
+        };
+
+        var data = [];
+        var time = 10;
+
+        function initData(){
+            for(var i = 0; i < low; i++){
+                data[i] = [];
+                for(var j = 0; j < row; j++){
+                    data[i][j] = Math.random().toFixed();
+                }
+            }
+        }
+
+        function loopHandle(){
+            time++;
+            if(time > 5){
+                paintHandle();
+                time = 0;
+            }
+            window.requestAnimationFrame(loopHandle);
+        }
+
+        function paintHandle(){
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, w, h);
+            ctx.font = '100px Arial';
+            ctx.fillStyle = '#222';
+            ctx.textAlign = 'center';
+            ctx.fillText('黑客帝国', w / 2, h / 3);
+            ctx.font = '42px Arial';
+            ctx.fillText('PaddyWang', w / 2, h / 3 + 120)
+            var text;
+            for(var i = 0; i < row; i++){
+                text = '';
+                for(var j = 0; j < low; j++){
+                    text += data[j][i] + '    ';
+                }
+                draw(text, i);
+            }
+            buildText();
+        }
+
+        function draw(text, i){
+            ctx.fillStyle = 'green';
+            ctx.font = '16px Arial';
+            ctx.textAlign = 'start';
+            ctx.fillText(text, 0, i * 24);
+        }
+
+
+        function buildText(){
+            data.forEach(function(item, index){
+                var spaceStr = '';
+                if(Math.random() > 0.98){
+                    for(var i = 0; i < Math.random() * 5 + 3; i++){
+                        item.unshift('  ');
+                        item.pop();
+                    }
+                }else {
+                    item.unshift(Math.random().toFixed());
+                    item.pop();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
