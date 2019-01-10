@@ -20,3 +20,9 @@
         }
     };
 }());
+(function(){
+    var iconLink = document.createElement('link');
+    iconLink.rel = 'icon';
+    iconLink.href = 'https://github.githubassets.com/favicon.ico';
+    document.head.appendChild(iconLink);
+}());
