@@ -1,3 +1,12 @@
+var highlightJS = document.createElement('script');
+var highlightCSS = document.createElement('link');
+highlightJS.src = 'https://cdn.bootcss.com/highlight.js/9.13.1/highlight.min.js';
+highlightCSS.href = 'https://cdn.bootcss.com/highlight.js/9.15.6/styles/a11y-light.min.css';
+highlightCSS.rel = 'stylesheet';
+
+document.head.append(highlightJS);
+document.head.append(highlightCSS);
+
 P(function(){
     // 代码高亮
     document.querySelectorAll('article').forEach(function(dom){
@@ -94,4 +103,14 @@ P(function(){
     var titleDom = document.createElement('h1');
     titleDom.innerHTML = document.title;
     P('body').prepend(titleDom);
+
+    // 生成底部
+    var footerNode = document.createElement('footer');
+    footerNode.innerHTML = '<section>'
+                            + '<a class="avatar" href="/demo"><img src="https://avatars3.githubusercontent.com/u/17067189?v=4&amp;s=80" alt="PaddyWang"></a>'
+                            + '<a href="/demo">Home</a>'
+                            + '<a href="https://github.com/PaddyWang">GitHub</a>'
+                            + '<div class="pd">@PaddyWang</div>'
+                        + '</section>';
+    document.body.appendChild(footerNode);
 });
