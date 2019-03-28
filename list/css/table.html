@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script src="../../js/init-page.js"></script>
+</head>
+<body>
+    <section>
+        <a href="#" class="h2">圆角表格</a>
+        <p>以前总以为表格不可以做圆角效果，原因是因为设置<i lang="code">border-collapse: collapse;</i>后不可做圆角，这个属性：合并边框模型</p>
+        <style>
+            .table-1 {
+                border: none;
+                border-collapse: separate;
+                border-spacing: 0;
+                margin: 12px;
+            }
+            .table-1 thead {
+                background-color: #eee;
+            }
+            .table-1 th,
+            .table-1 td {
+                padding: 8px 12px;
+                border-top: 1px solid #999;
+            }
+            .table-1 thead th:first-child {
+                border-radius: 6px 0 0 0;
+            }
+            .table-1 thead th:last-child {
+                border-radius: 0 6px 0 0;
+            }
+            .table-1 th:first-child,
+            .table-1 td:first-child {
+                border-left: 1px solid #999;
+            }
+            .table-1 th:last-child,
+            .table-1 td:last-child {
+                border-right: 1px solid #999;
+            }
+            .table-1 tbody tr:last-child td {
+                border-bottom: 1px solid #999;
+            }
+            .table-1 tbody tr:last-child td:first-child {
+                border-radius: 0 0 0 6px;
+            }
+            .table-1 tbody tr:last-child td:last-child {
+                border-radius: 0 0 6px 0;
+            }
+            .table-1 tbody tr:hover td {
+                border-bottom: 1px solid red;
+                border-color: red;
+            }
+            .table-1 tbody tr:hover + tr td {
+                border-top: none;
+            }
+        </style>
+        <table class="table-1">
+            <thead>
+                <tr>
+                    <th>支付记录</th>
+                    <th></th>
+                    <th></th>
+                    <th>查看更多>></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2019-03-03 14:35:16</td>
+                    <td>充值</td>
+                    <td>充值-续费</td>
+                    <td>0.01元</td>
+                </tr>
+                <tr>
+                    <td width="20%" class>2019-03-03 10:23:00</td>
+                    <td width="20%" class>充值</td>
+                    <td width="40%" class>充值-续费</td>
+                    <td width="20%" class>0.01元</td>
+                </tr>
+                <tr>
+                    <td width="20%" class>2019-03-01 01:23:59</td>
+                    <td width="20%" class>扣款</td>
+                    <td width="40%" class>3月账单结算(包含分校)</td>
+                    <td width="20%" class>0元</td>
+                </tr>
+                <tr>
+                    <td width="20%" class>2019-02-16 11:10:15</td>
+                    <td width="20%" class>充值</td>
+                    <td width="40%" class>2月账单结算(包含分校)</td>
+                    <td width="20%" class>0.01元</td>
+                </tr>
+                <tr>
+                    <td width="20%" class>2019-02-01 01:31:37</td>
+                    <td width="20%" class>充值</td>
+                    <td width="40%" class>2月账单结算(包含分校)</td>
+                    <td width="20%" class>0.1元</td>
+                </tr>
+                <tr>
+                    <td width="20%" class>2019-01-01 01:25:09</td>
+                    <td width="20%" class>充值</td>
+                    <td width="40%" class>1月账单结算(包含分校)</td>
+                    <td width="20%" class>0.85元</td>
+                </tr>
+                <tr>
+                    <td width="20%" class>2018-12-01 01:13:00</td>
+                    <td width="20%" class>充值</td>
+                    <td width="40%" class>12月账单结算(包含分校)</td>
+                    <td width="20%" class>0.17元</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="#" class="h2">表格顶部滚动固定01</a>
+        <p>通过设置<i lang="code">tbody</i>固定高度，和 <i lang="code">overflow</i>来达到表格滚动顶部固定的效果</p>
+        <p>这种方式对于固定宽度的单元格的表格可行，但是对于自适应的就不行了，会出现错位的现象，而且不支持横向滚动</p>
+        <p>于是网上搜寻到了下面的一个方案</p>
+        <style>
+            table.table-2 {
+                /*设置相邻单元格的边框间的距离*/
+                border-spacing: 0;
+                /*表格设置合并边框模型*/
+                border-collapse: collapse;
+                text-align: center;
+            }
+            /*关键设置 tbody出现滚动条*/
+            table.table-2 tbody {
+                display: block;
+                height: 180px;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
+            table.table-2 thead,
+            table.table-2 tbody tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+            /*关键设置：滚动条默认宽度是16px 将thead的宽度减16px*/
+            table.table-2 thead {
+                width: calc( 100% - 1em)
+            }
+            table.table-2 thead th {
+                background: #ccc;
+            }
+        </style>
+        <table class="table-1 table-2">
+            <thead>
+                <tr>
+                    <th>支付记录</th>
+                    <th>12313</th>
+                    <th>wsrsdaf</th>
+                    <th>查看更多>></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2019-03-03 14:35:16</td>
+                    <td>充值</td>
+                    <td>充值-续费</td>
+                    <td>0.01元</td>
+                </tr>
+                <tr>
+                    <td>2019-01-01 01:25:09</td>
+                    <td>充值</td>
+                    <td>1月账单结算(包含分校)</td>
+                    <td>0.85元</td>
+                </tr>
+                <tr>
+                    <td>2018-12-01 01:13:00</td>
+                    <td>充值</td>
+                    <td>12月账单结算(包含分校)</td>
+                    <td>0.17元</td>
+                </tr>
+                <tr>
+                    <td>2019-03-03 10:23:00</td>
+                    <td>充值</td>
+                    <td>充值-续费</td>
+                    <td>0.01元</td>
+                </tr>
+                <tr>
+                    <td>2019-03-01 01:23:59</td>
+                    <td>扣款</td>
+                    <td>3月账单结算(包含分校)</td>
+                    <td>0元</td>
+                </tr>
+                <tr>
+                    <td>2019-02-16 11:10:15</td>
+                    <td>充值</td>
+                    <td>2月账单结算(包含分校)</td>
+                    <td>0.01元</td>
+                </tr>
+                <tr>
+                    <td>2019-02-01 01:31:37</td>
+                    <td>充值</td>
+                    <td>2月账单结算(包含分校)</td>
+                    <td>0.1元</td>
+                </tr>
+                <tr>
+                    <td>2019-01-01 01:25:09</td>
+                    <td>充值</td>
+                    <td>1月账单结算(包含分校)</td>
+                    <td>0.85元</td>
+                </tr>
+                <tr>
+                    <td>2018-12-01 01:13:00</td>
+                    <td>充值</td>
+                    <td>12月账单结算(包含分校)</td>
+                    <td>0.17元</td>
+                </tr>
+                <tr>
+                    <td>2019-03-03 10:23:00</td>
+                    <td>充值</td>
+                    <td>充值-续费</td>
+                    <td>0.01元</td>
+                </tr>
+                <tr>
+                    <td>2019-03-03 10:23:00</td>
+                    <td>充值</td>
+                    <td>充值-续费</td>
+                    <td>0.01元</td>
+                </tr>
+                <tr>
+                    <td>2019-03-01 01:23:59</td>
+                    <td>扣款</td>
+                    <td>3月账单结算(包含分校)</td>
+                    <td>0元</td>
+                </tr>
+                <tr>
+                    <td>2019-02-16 11:10:15</td>
+                    <td>充值</td>
+                    <td>2月账单结算(包含分校)</td>
+                    <td>0.01元</td>
+                </tr>
+                <tr>
+                    <td>2019-02-01 01:31:37</td>
+                    <td>充值</td>
+                    <td>2月账单结算(包含分校)</td>
+                    <td>0.1元</td>
+                </tr>
+                <tr>
+                    <td>2019-01-01 01:25:09</td>
+                    <td>充值</td>
+                    <td>1月账单结算(包含分校)</td>
+                    <td>0.85元</td>
+                </tr>
+                <tr>
+                    <td>2018-12-01 01:13:00</td>
+                    <td>充值</td>
+                    <td>12月账单结算(包含分校)</td>
+                    <td>0.17元</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="#" class="h2">表格顶部滚动固定02</a>
+        <p>这个解决方案是通过<i lang="code">transform</i>来解决的</p>
+        <p>大概思路是这样的：</p>
+        <p>在表格外层嵌套一个盒子，通过监听盒子的滚动，动态设置<i lang="code">thead</i>的<i lang="code">transform: translateY(offsetTop)</i>从而达到头部固定的效果</p>
+        <p>因为没改变表格的任何特性，所以表格头部和内容是自适应的，而且支持横向滚动</p>
+        <p>这个是目前遇到的并且自我感觉对表格滚动头部固定的最完美的解决方案</p>
+        <p>优点：</p>
+        <p>代码轻量，只需要监听滚动，并设置<i lang="code">thead</i>的偏移量即可，不需要知道其高度，也不需要任何的动态计算</p>
+        <p>不需要改变表格的原生特性</p>
+        <p>有很好的回退机制，不设置外层嵌套盒子的高度，则和其它表格一样</p>
+        <p>不过也发现了一个小小的问题：</p>
+        <p>如果设置<i lang="code">border-collapse: collapse;</i>后，则会出现<i lang="code">thead</i>的边框消失(跟随内容上移)了</p>
+        <style>
+            .fb-table-containar {
+                max-height: 500px;
+                overflow: auto;
+                border: 1px solid #999;
+            }
+            .fb-table-containar > table > thead[style*=transform] {
+                box-shadow: rgb(206, 206, 206) 0px 4px 10px;
+            }
+            .fb-table {
+                border-collapse: separate;
+                border-spacing: 0;
+                border: none;
+                font-size: 13px;
+            }
+            .fb-table th,
+            .fb-table td {
+                border-right: 1px solid #999;
+                border-bottom: 1px solid #999;
+            }
+            .fb-table > thead > tr {
+                background: #edf7ff;
+            }
+            .fb-table th,
+            .fb-table td {
+                padding: 4px;
+                line-height: 18px;
+            }
+
+            .fb-table > tbody > tr:nth-child(odd) {
+                 background: #fff;
+             }
+            .fb-table > tbody > tr:nth-child(even) {
+                background: #f7f7f7;
+            }
+            .fb-table > tbody > tr:hover {
+                background: #e3ecfc;
+            }
+            .fb-table {
+                min-width: 1200px;
+            }
+        </style>
+        <div class="fb-table-containar" id="js-table-containar"></div>
+        <script>
+            var htmlStr = '<table class="fb-table">';
+            for(var i = 0; i < 30; i++){
+                if(i === 0){
+                    htmlStr += '<thead>';
+                }else {
+                    htmlStr += '<tr>';
+                }
+
+                for(var j = 0; j < 10; j++){
+                    var randomN = parseInt(Math.random() * 8 + 4);
+                    var randomI = parseInt(Math.random() * 40)
+                    var randomText =  '啊师傅驾驶飞机卡上的福克斯发动机啊收快递放假啊啥的饭卡水淀粉啊大煞风景卡拉斯的发生对方就克里斯朵夫撒';
+                    if(i === 0){
+                        htmlStr += '<th>第' + j + '列</th>';
+                    }else {
+                        htmlStr += '<td>' + randomText.substr(randomI, randomN) +'</td>';
+                    }
+                }
+
+                if(i === 0){
+                    htmlStr += '</thead><tbody>';
+                }else {
+                    htmlStr += '</tr>';
+                }
+            }
+            htmlStr += '</tbody></table>';
+            document.getElementById('js-table-containar').innerHTML = htmlStr;
+            document.getElementById('js-table-containar').addEventListener('scroll', function(event){
+                var transformAttributeValue = 'none';
+                if(this.scrollTop){
+                    transformAttributeValue = 'translateY(' + this.scrollTop + 'px)';
+                }
+                this.querySelector('thead').style.transform = transformAttributeValue;
+            });
+        </script>
+    </section>
+</body>
+</html>
