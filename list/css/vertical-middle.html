@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS 垂直居中</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script src="../../js/init-page.js"></script>
+</head>
+<body>
+    <section>
+        <a href="#" class="h1">1、line-height</a>
+        <p>通过<i lang="code">line-height</i>属性设置文字居中</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .v-text {
+                        height: 64px;
+                        line-height: 64px;
+                        background-color: pink;
+                    }
+                    .v-text span {
+                        background-color: rgba(0, 0, 0, 0.3);
+                    }
+                </style>
+                <div language>
+                    <div class="v-text">
+                        <span>垂直的文字</span>
+                    </div>
+                    <div class="v-text" style="margin-top: 12px;">
+                        <span>垂直的文字</span>
+                        <img width="32" height="32">
+                    </div>
+                    <div class="v-text" style="margin-top: 12px;">
+                        <span style="float: left;">垂直的文字</span>
+                        <img style="float: left;" width="32" height="32">
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h1">2、table-cell</a>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .table-cell {
+                        /* 父盒子 为 float 时 w/h: 100%; 不起作用 */
+                        height: 64px;
+                        /* 设置 float 后此属性不起作用 */
+                        display: table-cell;
+                        text-align: center;
+                        vertical-align: middle;
+                        background-color: pink;
+                    }
+                </style>
+                <div language="html" class="table-cell">
+                    <span>垂直的文字</span>
+                    <img width="32" height="32">
+                </div>
+            </div>
+        </article>
+    </section>
+    <a href="https://www.cnblogs.com/hutuzhu/p/4450850.html">https://www.cnblogs.com/hutuzhu/p/4450850.html</a>
+</body>
+</html>
