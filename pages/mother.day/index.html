@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>妈妈的专属页面——Mother's Day</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/css/swiper.min.css">
+    <link rel="stylesheet" href="./animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/js/swiper.min.js"></script>
+    <script src="./swiper.animate.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: "microsoft yahei";
+        }
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+            background: #ff3d5b;
+        }
+        .swiper-slide {
+            width:100%;
+            height:100%;
+            background: pink;
+        }
+        img {
+            display: block;
+        }
+        .swiper-pagination-bullet {
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            opacity: .4;
+        }
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+        }
+        @-webkit-keyframes start {
+            0%, 30% { opacity: 0; -webkit-transform: translate(0, 10px); }
+            60% { opacity: 1; -webkit-transform: translate(0, 0); }
+            100% { opacity: 0; -webkit-transform: translate(0, -8px); }
+        }
+        @keyframes start {
+            0%, 30% { opacity: 0; transform: translate(0, 10px); }
+            60% { opacity: 1; transform: translate(0, 0); }
+            100% { opacity: 0; transform: translate(0, -8px); }
+        }
+        .ani{
+            position:absolute;
+            }
+        .txt{
+            position:absolute;
+        }
+        #array{
+            position: absolute;
+            z-index: 999;
+            animation: start 1.5s infinite ease-in-out;
+            -webkit-animation: start 1.5s infinite ease-in-out;
+        }
+        span {
+            display: block;
+            color: #ff3d5b;
+            text-align: center;
+        }
+        span[class*=_] {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        ._mom { background-image: url(./imgs/mom.png); }
+        span[class*=_splice] {
+            width: 160px;
+            height: 140px;
+            z-index:-1;
+            overflow: hidden;
+        }
+        span[class*=_splice]::before {
+            content: "";
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-image: url(./imgs/splice.png);
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            top: 0;
+            left: 0;
+        }
+        ._splice-01::before { background-position: 0 0; }
+        ._splice-02::before { background-position: -160px 0; }
+        ._splice-03::before { background-position: 0 -140px; }
+        ._splice-04::before { background-position: -160px -140px; }
+        ._flower { background-image: url(./imgs/flower.png); }
+        ._footer { background-image: url(./imgs/footer.png); }
+    </style>
+</head>
+
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <section class="swiper-slide swiper-slide1">
+            <span class="ani resize _mom" style="width:320px;height:88px;left:0;top:100px;" swiper-animate-effect="rotateInDownLeft" swiper-animate-duration="0.5s" swiper-animate-delay=".5s"></span>
+            <span class="ani resize" style="width:320px;height:88px;left:0;bottom:122px;" swiper-animate-effect="zoomInDown" swiper-animate-duration="0.5s" swiper-animate-delay="1s">妈<br>妈<br>的<br>专<br>属<br>页<br>面</span>
+            <span class="ani resize" style="width:320px;height:16px;left:0;bottom:24px; font-size: 12px; color: #999;" swiper-animate-effect="fadeIn" swiper-animate-duration="0.5s" swiper-animate-delay="1.5s">王沛 Paddy</span>
+        </section>
+        <section class="swiper-slide swiper-slide2">
+            <span class="ani _splice-01" style="right:20px;top:20px;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s"></span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:120px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.3s">昨天晚上10点多给您开视频，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:150px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.6s">您忙到8点多又去跳舞了，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:180px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.9s">我说：明天是母亲节，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:210px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.2s">您说：母亲节又不耽误干活，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:240px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.5s">我知道您闲不下来，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:270px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.8s">这样也挺好的，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:300px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.1s">和邻居们一起，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:330px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.4s">白天干点活，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:360px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.7s">晚上再去跳会舞，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:390px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="3.0s">只要别累着。</span>
+        </section>
+        <section class="swiper-slide swiper-slide3">
+            <span class="ani _splice-02" style="right:20px;top:20px;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s"></span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:100px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.3s">每次回家，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:124px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.6s">您总会提前把我的被子晒好、床整理好，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:148px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.9s">不管到家多晚您总是等着我，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:172px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.2s">离家后您又会把床单被罩洗干净放进柜子，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:196px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.5s">以前每周固定的时间往家里打电话，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:220px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.8s">现在视频方便了，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:244px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.1s">也总喜欢没事的时候开个视频唠家常，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:268px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.4s">最近家里又发生什么事了，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:292px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.7s">最近又有什么有趣的事，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:316px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="3.0s">出去玩我也会给您分享我的行程，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:340px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="3.3s">回家以后也总喜欢和您唠家常，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:364px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="3.6s">以前我爸是怎样去姥姥家提亲的，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:388px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="3.9s">以前和我阿姨、舅舅们的趣事，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:402px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="4.2s">。。。。。。</span>
+        </section>
+        <section class="swiper-slide swiper-slide4">
+            <span class="ani _splice-03" style="right:20px;top:20px;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s"></span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:120px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.3s">从牙牙学语，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:150px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.6s">到步入社会，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:180px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="0.9s">您的教诲一直提醒着我，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:210px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.2s">哪些事可以做，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:240px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.5s">哪些事不可以做，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:270px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="1.8s">我现在越来越理解“教养”两个字，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:300px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.1s">虽然您不是高学历，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:330px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.4s">但是您把这两个字落实的很到位，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:360px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="2.7s">您不光把我们养大成人，</span>
+            <span class="ani resize" style="width:320px;height:24px;left:0px;top:390px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.3s" swiper-animate-delay="3.0s">还教会我们为人处世。</span>
+        </section>
+        <section class="swiper-slide swiper-slide5">
+            <span class="ani _splice-04" style="right:20px;top:20px;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s"></span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:100px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">母爱，让平凡创造奇迹；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:160px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.0s">母爱，让阳光不分昼夜；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:220px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.5s">母爱，让笑容战胜阴霾；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">母爱，让陪伴化为动力；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">母爱，让赞美；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">母爱，让快乐升级为幸福。</span>
+        </section>
+        <section class="swiper-slide swiper-slide6">
+            <span class="ani resize" style="width:320px;height:48px;left:0px;top:80px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s">我用幸福做成花蕊，</span>
+            <span class="ani resize" style="width:320px;height:48px;left:0px;top:120px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">把甜蜜做成花瓣，</span>
+            <span class="ani resize" style="width:320px;height:48px;left:0px;top:160px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.0s">把健康做成花叶，</span>
+            <span class="ani resize" style="width:320px;height:48px;left:0px;top:200px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.5s">把开心做成花茎，</span>
+            <span class="ani resize" style="width:320px;height:48px;left:0px;top:240px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">用页面编织成一朵最漂亮的康乃馨，</span>
+            <span class="ani resize" style="width:320px;height:48px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.5s">只想把的祝福送给您，</span>
+            <span class="ani resize" style="width:320px;height:48px;left:0px;top:320px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="3.0s">母亲节快乐。</span>
+            <span class="ani resize _flower" style="width:320px;height:100px;left:0px;top:360px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="3.5s"></span>
+        </section>
+        <section class="swiper-slide swiper-slide7">
+            <span class="ani _footer" style="width:320px;height:100px;left:0px;bottom:0px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s"></span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:100px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">《游子吟》</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:160px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.0s">慈母手中线，游子身上衣。</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:220px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.5s">临行密密缝，意恐迟迟归。</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">谁言寸草心，报得三春晖！</span>
+        </section>
+    </div>
+    <img src="./imgs/arrow.png" style="width:20px;height:15px; top:460px; left:150px;" id="array" class="resize">
+    <div class="swiper-pagination"></div>
+</div>
+<script>
+    scaleW=window.innerWidth/320;
+    scaleH=window.innerHeight/480;
+    var resizes = document.querySelectorAll('.resize');
+    for (var j=0; j<resizes.length; j++) {
+        resizes[j].style.width=parseInt(resizes[j].style.width)*scaleW+'px';
+        resizes[j].style.height=parseInt(resizes[j].style.height)*scaleH+'px';
+        resizes[j].style.top=parseInt(resizes[j].style.top)*scaleH+'px';
+        resizes[j].style.left=parseInt(resizes[j].style.left)*scaleW+'px';
+    }
+
+    var mySwiper = new Swiper ('.swiper-container', {
+        direction : 'vertical',
+        pagination: '.swiper-pagination',
+        // virtualTranslate : true,
+        mousewheelControl : true,
+        watchSlidesProgress: true,
+        onInit: function(swiper){
+            swiperAnimateCache(swiper);
+            swiperAnimate(swiper);
+        },
+        onSlideChangeEnd: function(swiper){
+            swiperAnimate(swiper);
+        },
+        onTransitionEnd: function(swiper){
+            swiperAnimate(swiper);
+        },
+        onProgress: function(swiper){
+            for (var i = 0; i < swiper.slides.length; i++){
+                var slide = swiper.slides[i];
+                var progress = slide.progress;
+                var translate = progress*swiper.height/4;
+                scale = 1 - Math.min(Math.abs(progress * 0.5), 1);
+                 var opacity = 1 - Math.min(Math.abs(progress/2),0.5);
+                 slide.style.opacity = opacity;
+                 es = slide.style;
+                 es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = 'translate3d(0,'+translate+'px,-'+translate+'px) scaleY(' + scale + ')';
+            }
+        },
+        onSetTransition: function(swiper, speed) {
+            for (var i = 0; i < swiper.slides.length; i++){
+                es = swiper.slides[i].style;
+                es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = speed + 'ms';
+            }
+        }
+    })
+</script>
+</body>
+</html>
