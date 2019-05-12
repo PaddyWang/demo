@@ -295,16 +295,16 @@
         resizes[j].style.top=parseInt(resizes[j].style.top)*scaleH+'px';
         resizes[j].style.left=parseInt(resizes[j].style.left)*scaleW+'px';
     }
-
+    var firstSwiper;
     var mySwiper = new Swiper ('.swiper-container', {
         direction : 'vertical',
         pagination: '.swiper-pagination',
-        // virtualTranslate : true,
         mousewheelControl : true,
         watchSlidesProgress: true,
         onInit: function(swiper){
             swiperAnimateCache(swiper);
-            swiperAnimate(swiper);
+            firstSwiper = swiper;
+            // swiperAnimate(swiper);
         },
         onSlideChangeEnd: function(swiper){
             swiperAnimate(swiper);
@@ -354,6 +354,7 @@
         function handleLoaded(){
             if(isLoaded && isDownTime){
                 document.getElementById('js-loading').style.display = 'none';
+                firstSwiper && swiperAnimate(firstSwiper);
             }
         }
     }());
