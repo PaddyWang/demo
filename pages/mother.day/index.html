@@ -9,6 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/js/swiper.min.js"></script>
     <script src="./swiper.animate.min.js"></script>
     <style>
+        :root {
+            --main: #ff3d5b;
+            --light: pink;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -18,19 +22,18 @@
         }
         body {
             font-family: "microsoft yahei";
+            color: var(--main);
+            text-align: center;
         }
         .swiper-container {
             width: 100%;
             height: 100%;
-            background: #ff3d5b;
+            background: var(--main);
         }
         .swiper-slide {
             width:100%;
             height:100%;
-            background: pink;
-        }
-        img {
-            display: block;
+            background: var(--light);
         }
         .swiper-pagination-bullet {
             width: 6px;
@@ -57,7 +60,7 @@
         .txt{
             position:absolute;
         }
-        #array{
+        #arrow{
             position: absolute;
             z-index: 999;
             animation: start 1.5s infinite ease-in-out;
@@ -65,8 +68,6 @@
         }
         span {
             display: block;
-            color: #ff3d5b;
-            text-align: center;
         }
         span[class*=_] {
             background-size: contain;
@@ -97,9 +98,91 @@
         ._splice-04::before { background-position: -160px -140px; }
         ._flower { background-image: url(./imgs/flower.png); }
         ._footer { background-image: url(./imgs/footer.png); }
+        .loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: var(--light);
+            z-index: 9;
+        }
+        .loading::before,
+        .loading::after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .loading::before {
+            content: "";
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border: 3px solid var(--main);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: loading 1s linear infinite;
+            -webkit-animation: loading 1s linear infinite;
+        }
+        .loading::after {
+            content: "正在初始化页面...";
+            top: calc(50% + 80px);
+        }
+        @keyframes loading {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @-webkit-keyframes loading {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .loading > div > span {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            top: 0;
+        }
+        @keyframes animation-text {
+            0% { transform: rotate(0deg) scale(1) translateY(0); opacity: 1; }
+            50% { transform: rotate(180deg) scale(.5) translateY(10px); opacity: .5; }
+            100% { transform: rotate(360deg) scale(1) translateY(0); opacity: 1; }
+        }
+        @-webkit-keyframes animation-text {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .loading > div > span:nth-child(1) {
+            animation: animation-text 5s linear infinite;
+            left: 0px;
+        }
+        .loading > div > span:nth-child(2) {
+            animation: animation-text 5s linear .8s infinite;
+            left: 30px;
+        }
+        .loading > div > span:nth-child(3) {
+            animation: animation-text 5s linear 1.6s infinite;
+            left: 60px;
+        }
+        .loading > div > span:nth-child(4) {
+            animation: animation-text 5s linear 2.4s infinite;
+            left: 90px;
+        }
+        .loading > div > span:nth-child(5) {
+            animation: animation-text 5s linear 3.2s infinite;
+            left: 120px;
+        }
+        .loading > div {
+            position: absolute;
+            width: 150px;
+            height: 30px;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     </style>
 </head>
-
 <body>
 <div class="swiper-container">
     <div class="swiper-wrapper">
@@ -153,19 +236,20 @@
         </section>
         <section class="swiper-slide swiper-slide5">
             <span class="ani _splice-04" style="right:20px;top:20px;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s"></span>
-            <span class="ani resize" style="width:320px;height:64px;left:0px;top:100px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">母爱，让平凡创造奇迹；</span>
-            <span class="ani resize" style="width:320px;height:64px;left:0px;top:160px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.0s">母爱，让阳光不分昼夜；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:140px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">母爱，让平凡创造奇迹；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:180px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.0s">母爱，让阳光不分昼夜；</span>
             <span class="ani resize" style="width:320px;height:64px;left:0px;top:220px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.5s">母爱，让笑容战胜阴霾；</span>
-            <span class="ani resize" style="width:320px;height:64px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">母爱，让陪伴化为动力；</span>
-            <span class="ani resize" style="width:320px;height:64px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">母爱，让赞美；</span>
-            <span class="ani resize" style="width:320px;height:64px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">母爱，让快乐升级为幸福。</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:260px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">母爱，让陪伴化为动力；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:300px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.5s">母爱，让赞美永驻心间；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:340px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="3.0s">母爱，让快乐洋溢身边；</span>
+            <span class="ani resize" style="width:320px;height:64px;left:0px;top:380px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="3.5s">母爱，让幸福充满生活。</span>
         </section>
         <section class="swiper-slide swiper-slide6">
             <span class="ani resize" style="width:320px;height:48px;left:0px;top:80px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s">我用幸福做成花蕊，</span>
             <span class="ani resize" style="width:320px;height:48px;left:0px;top:120px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">把甜蜜做成花瓣，</span>
             <span class="ani resize" style="width:320px;height:48px;left:0px;top:160px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.0s">把健康做成花叶，</span>
             <span class="ani resize" style="width:320px;height:48px;left:0px;top:200px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1.5s">把开心做成花茎，</span>
-            <span class="ani resize" style="width:320px;height:48px;left:0px;top:240px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">用页面编织成一朵最漂亮的康乃馨，</span>
+            <span class="ani resize" style="width:320px;height:48px;left:0px;top:240px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">用代码编织成一朵最漂亮的康乃馨，</span>
             <span class="ani resize" style="width:320px;height:48px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.5s">只想把的祝福送给您，</span>
             <span class="ani resize" style="width:320px;height:48px;left:0px;top:320px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="3.0s">母亲节快乐。</span>
             <span class="ani resize _flower" style="width:320px;height:100px;left:0px;top:360px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="3.5s"></span>
@@ -178,8 +262,17 @@
             <span class="ani resize" style="width:320px;height:64px;left:0px;top:280px; " swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="2.0s">谁言寸草心，报得三春晖！</span>
         </section>
     </div>
-    <img src="./imgs/arrow.png" style="width:20px;height:15px; top:460px; left:150px;" id="array" class="resize">
+    <img src="./imgs/arrow.png" style="width:20px;height:15px; top:460px; left:150px;" id="arrow" class="resize">
     <div class="swiper-pagination"></div>
+</div>
+<div class="loading" id="js-loading">
+    <div>
+        <span>母</span>
+        <span>亲</span>
+        <span>节</span>
+        <span>快</span>
+        <span>乐</span>
+    </div>
 </div>
 <script>
     scaleW=window.innerWidth/320;
@@ -207,6 +300,11 @@
         },
         onTransitionEnd: function(swiper){
             swiperAnimate(swiper);
+            if(swiper.isEnd){
+                document.getElementById('arrow').style.display = 'none';
+            }else {
+                document.getElementById('arrow').style.display = 'block';
+            }
         },
         onProgress: function(swiper){
             for (var i = 0; i < swiper.slides.length; i++){
@@ -226,7 +324,28 @@
                 es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = speed + 'ms';
             }
         }
-    })
+    });
+
+    (function(){
+        var isDownTime = false;
+        var isLoaded = false;
+        document.onreadystatechange = function(){
+            if(document.readyState == 'complete'){
+                isLoaded = true;
+                handleLoaded();
+            }
+        };
+        setTimeout(function(){
+            isDownTime = true;
+            handleLoaded();
+        }, 5000);
+
+        function handleLoaded(){
+            if(isLoaded && isDownTime){
+                document.getElementById('js-loading').style.display = 'none';
+            }
+        }
+    }());
 </script>
 </body>
 </html>
