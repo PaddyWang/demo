@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>PaddyWang-Blog</title>
+	<title>Paddy的代码片段</title>
 	<link rel="stylesheet" href="css/style.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 </head>
-<base target="_blank">
+<!-- <base target="_blank"> -->
 <body>
     <header>
+        <a class="logo" href="/demo">Paddy的代码片段</a>
         <div class="search">
             <input type="text" placeholder="搜一搜">
         </div>
@@ -19,8 +20,8 @@
             <a class="photo" href="https://github.com/PaddyWang">
                 <img src="https://avatars0.githubusercontent.com/u/17067189?v=3&amp;s=460">
             </a>
-            <a href="http://paddywang.github.io/about/">Readme</a>
-            <a href="http://paddywang.github.io/">Blog</a>
+            <!-- <a href="http://paddywang.github.io/about/">Readme</a> -->
+            <a href="https://paddywang.github.io/">前端随笔</a>
         </nav>
         <section class="content"></section>
     </section>
@@ -103,6 +104,7 @@
                 listNode.forEach(function(itemNode, index){
                     var aNode = document.createElement('a');
                     aNode.setAttribute('href', itemNode.url);
+                    aNode.setAttribute('target', '_blank');
                     aNode.innerHTML = itemNode.title;
                     fragment.appendChild(aNode);
                     itemNode.type && itemNode.type.forEach(function(type){

@@ -26,7 +26,7 @@
         that.angle = config.angle ? parseInt(config.angle) : -35;
         that.xGap = config.xGap ? parseInt(config.xGap) : 200;
         that.yGap = config.yGap ? parseInt(config.yGap) : 200;
-        that.text = config.text || 'PaddyWang';
+        that.text = config.text || 'Paddy';
         that.winW = window.innerWidth;
         that.winH = window.innerHeight;
     }

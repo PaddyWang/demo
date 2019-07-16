@@ -1,11 +1,15 @@
 var highlightJS = document.createElement('script');
 var highlightCSS = document.createElement('link');
+var iconLink = document.createElement('link');
 highlightJS.src = 'https://cdn.bootcss.com/highlight.js/9.13.1/highlight.min.js';
 highlightCSS.href = 'https://cdn.bootcss.com/highlight.js/9.15.6/styles/a11y-light.min.css';
 highlightCSS.rel = 'stylesheet';
+iconLink.rel = 'icon';
+iconLink.href = '/demo/imgs/logo2-50X50-01.png';
 
 document.head.append(highlightJS);
 document.head.append(highlightCSS);
+document.head.appendChild(iconLink);
 
 P(function(){
     // 代码高亮
@@ -101,16 +105,15 @@ P(function(){
     P('body').prepend(navDom);
 
     var titleDom = document.createElement('h1');
-    titleDom.innerHTML = document.title;
+    titleDom.innerHTML = '<a href="/demo/" class="logo">Paddy的代码片段</a>' + document.title;
     P('body').prepend(titleDom);
 
     // 生成底部
     var footerNode = document.createElement('footer');
     footerNode.innerHTML = '<section>'
-                            + '<a class="avatar" href="/demo"><img src="https://avatars3.githubusercontent.com/u/17067189?v=4&amp;s=80" alt="PaddyWang"></a>'
-                            + '<a href="/demo">Home</a>'
+                            + '<a class="avatar" href="https://github.com/PaddyWang"><img src="https://avatars3.githubusercontent.com/u/17067189?v=3&amp;s=120" alt="Paddy"></a>'
                             + '<a href="https://github.com/PaddyWang">GitHub</a>'
-                            + '<div class="pd">@PaddyWang</div>'
+                            + '<a href="https://paddywang.github.io/">Paddy的前端随笔</a>'
                         + '</section>';
     document.body.appendChild(footerNode);
 });
