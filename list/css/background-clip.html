@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>背景裁剪</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script src="../../js/init-page.js"></script>
+    <style>
+        .box {
+            height: 120px;
+            border: 10px dashed #000;
+            padding: 20px;
+            line-height: 120px;
+            font-size: 36px;
+            color: #fff;
+            text-align: center;
+            font-weight: border;
+            background-image: url(../../imgs/demo.png);
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <a href="#" class="h2"><i lang="code">border-box</i></a>
+        <p>为默认值。背景会被沿着边框外沿进行剪切，即会延伸到边框下面</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language="css">
+                    .border-box {
+                        background-clip: border-box;
+                    }
+                </style>
+                <div language>
+                    <div class="box border-box">这里是文本内容</div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h2"><i lang="code">padding-box</i></a>
+        <p>背景会被沿着内边距的外沿进行剪切</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language="css">
+                    .padding-box {
+                        background-clip: padding-box;
+                    }
+                </style>
+                <div language>
+                    <div class="box padding-box">这里是文本内容</div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h2"><i lang="code">content-box</i></a>
+        <p>背景会被沿着内容区域的外沿进行剪切</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language="css">
+                    .content-box {
+                        background-clip: content-box;
+                    }
+                </style>
+                <div language>
+                    <div class="box content-box">这里是文本内容</div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <a href="#" class="h2"><i lang="code">text</i></a>
+        <p>背景会被裁剪成文本的前景色</p>
+        <p>该属性为实验性属性，慎用，目前需要浏览器前缀</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language="css">
+                    .text {
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        color: transparent;
+                        background-color: #fff;
+                    }
+                </style>
+                <div language>
+                    <div class="box text">这里是文本内容</div>
+                </div>
+            </div>
+        </article>
+    </section>
+</body>
+</html>
