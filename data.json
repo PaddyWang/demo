@@ -1,6 +1,12 @@
 {
     "articles": [
         {
+            "url": "./list/css/background-clip.html",
+            "title": "背景裁剪",
+            "date": "2019-11-10",
+            "type": ["css"],
+            "key": ["裁剪", "background", "clip", "背景", "background-clip"]
+        }, {
             "url": "./list/css/vertical-middle.html",
             "title": "垂直居中",
             "date": "2019-04-01",
