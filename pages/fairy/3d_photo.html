@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>小仙女的专属 3D 旋转相册</title>
+    <link rel="shortcut icon" href="./imgs/icon-heart.png" type="image/x-icon">
+    <style>
+        :root {
+            --container: 80vh;
+            --warp: 45vh;
+            --warp-: -45vh;
+            --content-z: 22.5vh;
+            --content-z-: -22.5vh;
+            --small-z: 11.25vh;
+            --small-z-: -11.25vh;
+        }
+        body {
+            height: 100vh;
+            margin: 0;
+            background: #ff748c;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: var(--container);
+            height: var(--container);
+        }
+        .wrap {
+            width: var(--warp);
+            height: var(--warp);
+            position: relative;
+        }
+        .content {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: rotateX(-45deg) rotateY(-45deg);
+            animation: rotate linear 10s infinite;
+        }
+        @-webkit-keyframes rotate {
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+        .content img {
+            width: 100%;
+            height: 100%;
+        }
+        .content > div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.95;
+            transition: transform .4s;
+        }
+        .content .out-left {
+            transform: rotateY(-90deg) translateZ(var(--content-z));
+        }
+        .content .out-right {
+            transform: rotateY(90deg) translateZ(var(--content-z));
+        }
+        .content .out-top {
+            transform: rotateX(90deg) translateZ(var(--content-z));
+        }
+        .content .out-bottom {
+            transform: rotateX(-90deg) translateZ(var(--content-z));
+        }
+        .content .out-front {
+            transform: rotateY(0deg) translateZ(var(--content-z));
+        }
+        .content .out-back {
+            transform: rotateY(0) translateZ(var(--content-z-));
+        }
+        .content > span {
+            display: block;
+            width: var(--content-z);
+            height: var(--content-z);
+            position: absolute;
+            top: var(--small-z);
+            left: var(--small-z);
+            background-color: #ff3d5b;
+            text-align: center;
+            line-height: var(--content-z);
+            font-size: var(--small-z);
+        }
+        .content .in-left {
+            transform: rotateY(-90deg) translateZ(var(--small-z));
+        }
+        .content .in-right {
+            transform: rotateY(90deg) translateZ(var(--small-z));
+        }
+        .content .in-top {
+            transform: rotateX(90deg) translateZ(var(--small-z));
+        }
+        .content .in-bottom {
+            transform: rotateX(-90deg) translateZ(var(--small-z));
+        }
+        .content .in-front {
+            transform: rotateY(0deg) translateZ(var(--small-z));
+        }
+        .content .in-back {
+            transform: translateZ(var(--small-z-)) rotateY(180deg);
+        }
+        .container:hover .out-left {
+            transform: rotateY(90deg) translateZ(var(--warp-));
+        }
+        .container:hover .out-right {
+            transform: rotateY(-90deg) translateZ(var(--warp-));
+        }
+        .container:hover .out-top {
+            transform: rotateX(-90deg) translateZ(var(--warp-));
+        }
+        .container:hover .out-bottom {
+            transform: rotateX(90deg) translateZ(var(--warp-));
+        }
+        .container:hover .out-front {
+            transform: rotateX(180deg) translateZ(var(--warp-));
+        }
+        .container:hover .out-back {
+            transform: rotateX(180deg) translateZ(var(--warp));
+        }
+        /* 竖屏设备 */
+        @media screen and (orientation: portrait) {
+            :root {
+                --container: 80vw;
+                --warp: 45vw;
+                --warp-: -45vw;
+                --content-z: 22.5vw;
+                --content-z-: -22.5vw;
+                --small-z: 11.25vw;
+                --small-z-: -11.25vw;
+            }
+        }
+    </style>
+</head>
+<body class="center">
+    <div class="container center">
+        <div class="wrap">
+            <div class="content">
+                <div class="out-front"><img src="./imgs/fairy-01.png"></div>
+                <div class="out-back"><img src="./imgs/fairy-02.jpeg"></div>
+                <div class="out-top"><img src="./imgs/fairy-03.png"></div>
+                <div class="out-bottom"><img src="./imgs/fairy-04.png"></div>
+                <div class="out-left"><img src="./imgs/fairy-05.png"></div>
+                <div class="out-right"><img src="./imgs/fairy-06.png"></div>
+
+                <span class="in-front">我</span>
+                <span class="in-right">爱</span>
+                <span class="in-top">你</span>
+                <span  class="in-left">小</span>
+                <span class="in-back">仙</span>
+                <span class="in-bottom">女</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
