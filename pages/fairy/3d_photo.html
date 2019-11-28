@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>小仙女的专属 3D 旋转相册</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="./imgs/icon-heart.png" type="image/x-icon">
     <style>
         :root {
@@ -14,11 +15,12 @@
             --content-z-: -22.5vh;
             --small-z: 11.25vh;
             --small-z-: -11.25vh;
+            --bgc: #ff748c;
         }
         body {
             height: 100vh;
             margin: 0;
-            background: #ff748c;
+            background: var(--bgc);
             flex-direction: column;
         }
         .center {
@@ -177,5 +179,84 @@
         <span>鼠标移动到相册魔方上有惊喜哦</span>
         <span>手指戳一下相册魔方有惊喜哦</span>
     </div>
+    <style>
+        .loading-container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bgc);
+            font-size: var(--small-z);
+            color: #fff;
+            flex-direction: column;
+        }
+        .loading-container > div {
+            font-size: 50%;
+            line-height: 2em;
+            transform: translateX(100vw);
+        }
+        .loading-container > .loading-01 {
+            transform: translateX(0);
+        }
+        .loading-container > .loading-02 {
+            transition: all 1s linear 1s;
+        }
+        .loading-container > .loading-03 {
+            transition: all 1s linear 3s;
+        }
+        .loading-container > .loading-04 {
+            transition: all 1s linear 5s;
+        }
+        .loading-container > .loading-05 {
+            transition: all 1s linear 7s;
+        }
+        .loading-container > .loading-06 {
+            transition: all 1s linear 9s;
+        }
+        .loading-container > .loading-07 {
+            transition: all 1s linear 11s;
+        }
+        .loading-container > .loading-08 {
+            transition: all 1s linear 15s;
+        }
+        .loading-container > .loading-09 {
+            transition: all 1s linear 20s;
+        }
+        .loading-container > .loading-10 {
+            transition: all 1s linear 22s;
+        }
+        .loading-container > .loading-11 {
+            transition: all 1s linear 24s;
+        }
+        .loading-container > .loading-12 {
+            transition: all 1s linear 26s;
+        }
+        .loading-container > .active {
+            transform: translateX(0);
+        }
+    </style>
+    <div class="loading-container center">
+        <div loading class="loading-01">页面加载中...</div>
+        <div loading class="loading-02">就先给我家小仙女讲个 IT 界的笑话吧</div>
+        <div loading class="loading-03">客户：“这个图下班之前必须发给我！”</div>
+        <div loading class="loading-04">设计师：“好的！”</div>
+        <div loading class="loading-05">第二天清早。</div>
+        <div loading class="loading-06">客户：“图怎么还没发过来？”</div>
+        <div loading class="loading-07">设计师：“我还没下班呢...”</div>
+        <div loading class="loading-08">呀，页面还没加载好呢</div>
+        <div loading class="loading-09">王沛快给我出来</div>
+        <div loading class="loading-10">3</div>
+        <div loading class="loading-11">2</div>
+        <div loading class="loading-12">1</div>
+    </div>
+    <script>
+        setTimeout(function(){
+            document.querySelectorAll('.loading-container > div').forEach(function(loadingNode){
+                loadingNode.className += ' active';
+            });
+        }, 1000);
+        setTimeout(function(){
+            document.querySelector('.loading-container').style.display = 'none';
+        }, 30000);
+    </script>
 </body>
 </html>
