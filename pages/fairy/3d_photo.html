@@ -16,6 +16,7 @@
             --small-z: 11.25vh;
             --small-z-: -11.25vh;
             --bgc: #ff748c;
+            --bgc-light: #ff3d5b;
         }
         body {
             height: 100vh;
@@ -55,6 +56,7 @@
         .content img {
             width: 100%;
             height: 100%;
+            background-color: var(--bgc-light);
         }
         .content > div {
             position: absolute;
@@ -88,7 +90,7 @@
             position: absolute;
             top: var(--small-z);
             left: var(--small-z);
-            background-color: #ff3d5b;
+            background-color: var(--bgc-light);
             text-align: center;
             line-height: var(--content-z);
             font-size: var(--small-z);
@@ -159,12 +161,12 @@
     <div class="container center">
         <div class="wrap">
             <div class="content">
-                <div class="out-front"><img src="./imgs/fairy-01.jpeg"></div>
-                <div class="out-back"><img src="./imgs/fairy-02.jpeg"></div>
-                <div class="out-top"><img src="./imgs/fairy-03.jpeg"></div>
-                <div class="out-bottom"><img src="./imgs/fairy-04.jpeg"></div>
-                <div class="out-left"><img src="./imgs/fairy-05.jpeg"></div>
-                <div class="out-right"><img src="./imgs/fairy-06.jpeg"></div>
+                <div class="out-front"><img data-url="./imgs/fairy-01.jpeg"></div>
+                <div class="out-back"><img data-url="./imgs/fairy-02.jpeg"></div>
+                <div class="out-top"><img data-url="./imgs/fairy-03.jpeg"></div>
+                <div class="out-bottom"><img data-url="./imgs/fairy-04.jpeg"></div>
+                <div class="out-left"><img data-url="./imgs/fairy-05.jpeg"></div>
+                <div class="out-right"><img data-url="./imgs/fairy-06.jpeg"></div>
 
                 <span class="in-front">我</span>
                 <span class="in-right">爱</span>
@@ -249,6 +251,11 @@
         <div loading class="loading-12">1</div>
     </div>
     <script>
+        setTimeout(function(){
+            document.querySelectorAll('img[data-url]').forEach(function(imgNode){
+                imgNode.src = imgNode.dataset.url;
+            });
+        });
         setTimeout(function(){
             document.querySelectorAll('.loading-container > div').forEach(function(loadingNode){
                 loadingNode.className += ' active';
