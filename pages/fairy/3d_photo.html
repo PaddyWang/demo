@@ -30,6 +30,7 @@
             align-items: center;
         }
         .container {
+            visibility: hidden;
             width: var(--container);
             height: var(--container);
         }
@@ -134,10 +135,16 @@
         .container:hover + .info {
             visibility: hidden;
         }
-        .info {
+        .info,
+        .m-info {
             color: #fff;
         }
         .info > span:last-child { display: none; }
+        .m-info {
+            position: absolute;
+            bottom: 36px;
+            display: none;
+        }
 
         .loading-container {
             position: fixed;
@@ -195,10 +202,12 @@
                 --small-z: 11.25vw;
                 --small-z-: -11.25vw;
             }
-            .info {
+            .info,
+            .m-info {
                 font-size: 4vw;
             }
             .info > span:first-child { display: none; }
+            .container:hover ~ .m-info,
             .info > span:last-child { display: block; }
 
             .loading-container > div {
@@ -232,8 +241,9 @@
         <span>鼠标移动到相册魔方上有惊喜哦</span>
         <span>手指戳一下相册魔方有惊喜哦</span>
     </div>
+    <div class="m-info">手指戳一下空白处 可使魔方还原哦</div>
     <div class="loading-container center">
-        <div loading class="loading-01">页面加载中...</div>
+        <div loading class="loading-01">页面加载有点慢...</div>
         <div loading class="loading-02">就先给我家小仙女讲个 IT 界的笑话吧</div>
         <div loading class="loading-03">客户：“这个图下班之前必须发给我！”</div>
         <div loading class="loading-04">设计师：“好的！”</div>
@@ -258,6 +268,7 @@
         };
         function _complete(){
             document.querySelector('.loading-container').style.display = 'none';
+            document.querySelector('.container').style.visibility = 'visible';
             clearInterval(timer);
         }
         setTimeout(function(){
