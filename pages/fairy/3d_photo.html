@@ -19,6 +19,7 @@
             height: 100vh;
             margin: 0;
             background: #ff748c;
+            flex-direction: column;
         }
         .center {
             display: flex;
@@ -126,6 +127,13 @@
         .container:hover .out-back {
             transform: rotateX(180deg) translateZ(var(--warp));
         }
+        .container:hover + .info {
+            visibility: hidden;
+        }
+        .info {
+            color: #fff;
+        }
+        .info > span:last-child { display: none; }
         /* 竖屏设备 */
         @media screen and (orientation: portrait) {
             :root {
@@ -137,6 +145,11 @@
                 --small-z: 11.25vw;
                 --small-z-: -11.25vw;
             }
+            .info {
+                font-size: 4vw;
+            }
+            .info > span:first-child { display: none; }
+            .info > span:last-child { display: block; }
         }
     </style>
 </head>
@@ -144,12 +157,12 @@
     <div class="container center">
         <div class="wrap">
             <div class="content">
-                <div class="out-front"><img src="./imgs/fairy-01.png"></div>
+                <div class="out-front"><img src="./imgs/fairy-01.jpeg"></div>
                 <div class="out-back"><img src="./imgs/fairy-02.jpeg"></div>
-                <div class="out-top"><img src="./imgs/fairy-03.png"></div>
-                <div class="out-bottom"><img src="./imgs/fairy-04.png"></div>
-                <div class="out-left"><img src="./imgs/fairy-05.png"></div>
-                <div class="out-right"><img src="./imgs/fairy-06.png"></div>
+                <div class="out-top"><img src="./imgs/fairy-03.jpeg"></div>
+                <div class="out-bottom"><img src="./imgs/fairy-04.jpeg"></div>
+                <div class="out-left"><img src="./imgs/fairy-05.jpeg"></div>
+                <div class="out-right"><img src="./imgs/fairy-06.jpeg"></div>
 
                 <span class="in-front">我</span>
                 <span class="in-right">爱</span>
@@ -159,6 +172,10 @@
                 <span class="in-bottom">女</span>
             </div>
         </div>
+    </div>
+    <div class="info">
+        <span>鼠标移动到相册魔方上有惊喜哦</span>
+        <span>手指戳一下相册魔方有惊喜哦</span>
     </div>
 </body>
 </html>
