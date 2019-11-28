@@ -138,50 +138,7 @@
             color: #fff;
         }
         .info > span:last-child { display: none; }
-        /* 竖屏设备 */
-        @media screen and (orientation: portrait) {
-            :root {
-                --container: 80vw;
-                --warp: 45vw;
-                --warp-: -45vw;
-                --content-z: 22.5vw;
-                --content-z-: -22.5vw;
-                --small-z: 11.25vw;
-                --small-z-: -11.25vw;
-            }
-            .info {
-                font-size: 4vw;
-            }
-            .info > span:first-child { display: none; }
-            .info > span:last-child { display: block; }
-        }
-    </style>
-</head>
-<body class="center">
-    <div class="container center">
-        <div class="wrap">
-            <div class="content">
-                <div class="out-front"><img data-url="./imgs/fairy-01.jpeg"></div>
-                <div class="out-back"><img data-url="./imgs/fairy-02.jpeg"></div>
-                <div class="out-top"><img data-url="./imgs/fairy-03.jpeg"></div>
-                <div class="out-bottom"><img data-url="./imgs/fairy-04.jpeg"></div>
-                <div class="out-left"><img data-url="./imgs/fairy-05.jpeg"></div>
-                <div class="out-right"><img data-url="./imgs/fairy-06.jpeg"></div>
 
-                <span class="in-front">我</span>
-                <span class="in-right">爱</span>
-                <span class="in-top">你</span>
-                <span  class="in-left">小</span>
-                <span class="in-back">仙</span>
-                <span class="in-bottom">女</span>
-            </div>
-        </div>
-    </div>
-    <div class="info">
-        <span>鼠标移动到相册魔方上有惊喜哦</span>
-        <span>手指戳一下相册魔方有惊喜哦</span>
-    </div>
-    <style>
         .loading-container {
             position: fixed;
             width: 100vw;
@@ -192,7 +149,7 @@
             flex-direction: column;
         }
         .loading-container > div {
-            font-size: 50%;
+            font-size: 40%;
             line-height: 2em;
             transform: translateX(100vw);
         }
@@ -223,19 +180,58 @@
         .loading-container > .loading-09 {
             transition: all 1s linear 20s;
         }
-        .loading-container > .loading-10 {
-            transition: all 1s linear 22s;
-        }
-        .loading-container > .loading-11 {
-            transition: all 1s linear 24s;
-        }
-        .loading-container > .loading-12 {
-            transition: all 1s linear 26s;
-        }
         .loading-container > .active {
             transform: translateX(0);
         }
+
+        /* 竖屏设备 */
+        @media screen and (orientation: portrait) {
+            :root {
+                --container: 80vw;
+                --warp: 45vw;
+                --warp-: -45vw;
+                --content-z: 22.5vw;
+                --content-z-: -22.5vw;
+                --small-z: 11.25vw;
+                --small-z-: -11.25vw;
+            }
+            .info {
+                font-size: 4vw;
+            }
+            .info > span:first-child { display: none; }
+            .info > span:last-child { display: block; }
+
+            .loading-container > div {
+                font-size: 50%;
+                line-height: 2em;
+            }
+        }
     </style>
+</head>
+<body class="center">
+    <div class="container center">
+        <div class="wrap">
+            <div class="content">
+                <div class="out-front"><img data-url="./imgs/fairy-01.jpeg"></div>
+                <div class="out-back"><img data-url="./imgs/fairy-02.jpeg"></div>
+                <div class="out-top"><img data-url="./imgs/fairy-03.jpeg"></div>
+                <div class="out-bottom"><img data-url="./imgs/fairy-04.jpeg"></div>
+                <div class="out-left"><img data-url="./imgs/fairy-05.jpeg"></div>
+                <div class="out-right"><img data-url="./imgs/fairy-06.jpeg"></div>
+
+                <span class="in-front">我</span>
+                <span class="in-right">爱</span>
+                <span class="in-top">你</span>
+                <span  class="in-left">小</span>
+                <span class="in-back">仙</span>
+                <span class="in-bottom">女</span>
+            </div>
+        </div>
+    </div>
+    <div class="info">
+        <span>鼠标移动到相册魔方上有惊喜哦</span>
+        <span>手指戳一下相册魔方有惊喜哦</span>
+    </div>
     <div class="loading-container center">
         <div loading class="loading-01">页面加载中...</div>
         <div loading class="loading-02">就先给我家小仙女讲个 IT 界的笑话吧</div>
@@ -246,11 +242,13 @@
         <div loading class="loading-07">设计师：“我还没下班呢...”</div>
         <div loading class="loading-08">呀，页面还没加载好呢</div>
         <div loading class="loading-09">王沛快给我出来</div>
-        <div loading class="loading-10">3</div>
-        <div loading class="loading-11">2</div>
-        <div loading class="loading-12">1</div>
     </div>
     <script>
+        document.onreadystatechange = function() {
+            if(document.readyState === 'complete'){
+                // document.querySelector('.loading-container').style.display = 'none';
+            }
+        };
         setTimeout(function(){
             document.querySelectorAll('img[data-url]').forEach(function(imgNode){
                 imgNode.src = imgNode.dataset.url;
@@ -261,9 +259,6 @@
                 loadingNode.className += ' active';
             });
         }, 1000);
-        setTimeout(function(){
-            document.querySelector('.loading-container').style.display = 'none';
-        }, 30000);
     </script>
 </body>
 </html>
