@@ -212,12 +212,12 @@
     <div class="container center">
         <div class="wrap">
             <div class="content">
-                <div class="out-front"><img data-url="./imgs/fairy-01.jpeg"></div>
-                <div class="out-back"><img data-url="./imgs/fairy-02.jpeg"></div>
-                <div class="out-top"><img data-url="./imgs/fairy-03.jpeg"></div>
-                <div class="out-bottom"><img data-url="./imgs/fairy-04.jpeg"></div>
-                <div class="out-left"><img data-url="./imgs/fairy-05.jpeg"></div>
-                <div class="out-right"><img data-url="./imgs/fairy-06.jpeg"></div>
+                <div class="out-front"><img data-url="https://static-global.121learn.com/fairy-01.jpeg"></div>
+                <div class="out-back"><img data-url="https://static-global.121learn.com/fairy-02.jpeg"></div>
+                <div class="out-top"><img data-url="https://static-global.121learn.com/fairy-03.jpeg"></div>
+                <div class="out-bottom"><img data-url="https://static-global.121learn.com/fairy-04.jpeg"></div>
+                <div class="out-left"><img data-url="https://static-global.121learn.com/fairy-05.jpeg"></div>
+                <div class="out-right"><img data-url="https://static-global.121learn.com/fairy-06.jpeg"></div>
 
                 <span class="in-front">我</span>
                 <span class="in-right">爱</span>
@@ -244,11 +244,22 @@
         <div loading class="loading-09">王沛快给我出来</div>
     </div>
     <script>
+        var _time = 0;
+        var timer = setInterval(function(){
+            _time++;
+            if(_time >= 25){
+                _complete();
+            }
+        }, 1000);
         document.onreadystatechange = function() {
-            if(document.readyState === 'complete'){
-                // document.querySelector('.loading-container').style.display = 'none';
+            if(document.readyState === 'complete' && _time >= 25){
+                _complete();
             }
         };
+        function _complete(){
+            document.querySelector('.loading-container').style.display = 'none';
+            clearInterval(timer);
+        }
         setTimeout(function(){
             document.querySelectorAll('img[data-url]').forEach(function(imgNode){
                 imgNode.src = imgNode.dataset.url;
