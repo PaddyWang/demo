@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>有趣的线性渐变</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script src="../../js/init-page.js"></script>
+    <style>
+        #linear-gradient-cvs {
+            margin: 12px 0;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <a href="#" class="h1">线性渐变</a>
+        <p><i lang="code">linear-gradient()</i>为 CSS 函数，用于创建一个表示两种或多种颜色线性渐变的图片；</p>
+        <p>其结果属于 <b>gradient</b> 数据类型，是一种特别的 <b>image</b> 子数据类型；</p>
+        <p>线性渐变由一个轴 (梯度线也叫做渐变线) 定义，且轴上有两个或多个独立的颜色点组成，每两个色点之间会有一个过渡点(自己起的名字，目前还没有找到相关的文档证实)，该点决定了两个色点之间的颜色过渡比例，默认在两个色点中间的位置，该值的设置相对于渐变线而不是色点；</p>
+        <p>在渐变线两端的色点为起始点和终点，并且这两个点是必须的；</p>
+        <p>为了构建出平滑的渐变，<i lang="code">linear-gradient()</i> 函数构建一系列垂直于渐变线的着色线，每一条着色线的颜色则取决于与之垂直相交的渐变线上的色点。</p>
+        <p><b>渐变线：</b>一条有角度(Y轴的负方向为0deg，顺时针旋转，逆时针为负值)的经过容器中心点的有向直线；</p>
+        <p><b>起始点：</b>绘制时颜色的开始位置，即为渐变线坐标0的位置；</p>
+        <p><b>终点：</b>绘制时颜色的结束位置，即为渐变线坐标100%的位置。</p>
+        <canvas id="linear-gradient-cvs" width="375" height="375"></canvas>
+        <script>
+            var cvsNode = document.getElementById('linear-gradient-cvs');
+            var canvasW = cvsNode.offsetWidth;
+            var canvasH = cvsNode.offsetHeight;
+            var ctx = cvsNode.getContext('2d');
+            var r = canvasW / 2 - 2;
+            // 移动坐标轴到中心点
+            ctx.translate(canvasW / 2, canvasW / 2);
+            // 绘制渐变矩形
+            var startPointX = (r - 35) / 2;
+            var startPointY = (r - 35) * Math.sqrt(3) / 2;
+            var gradient = ctx.createLinearGradient(-startPointX, -startPointY, startPointX, startPointY);
+            gradient.addColorStop(0, 'green');
+            gradient.addColorStop(1, 'red');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(-170, -75, 340, 150);
+            // 绘制矩形框
+            ctx.strokeRect(-170, -75, 340, 150);
+            // 绘制辅助线
+            ctx.setLineDash([10, 10]);
+            ctx.strokeStyle = '#999';
+            // 外圆
+            ctx.arc(0, 0, r, 0, Math.PI * 2);
+            // 矩形的对角线
+            ctx.moveTo(-170, -75);
+            ctx.lineTo(170, 75);
+            ctx.moveTo(-170, 75);
+            ctx.lineTo(170, -75);
+            // 外圆的十字线
+            ctx.moveTo(0, -r);
+            ctx.lineTo(0, r);
+            ctx.moveTo(-r, 0);
+            ctx.lineTo(r, 0);
+            ctx.stroke();
+
+            // 绘制十字线的箭头 和 文字
+            ctx.beginPath();
+            ctx.setLineDash([]);
+            _createArrow(90);
+            _createArrow(90);
+            _createArrow(90);
+            _createArrow(90);
+            ctx.textAlign = 'center';
+            ctx.strokeText('0deg', 0, -r / 2);
+            ctx.strokeText('90deg', r / 2, 0);
+            ctx.strokeText('180deg', 0, r / 2);
+            ctx.strokeText('270deg', -r / 2, 0);
+
+            // 绘制渐变线的旋转角度
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, 15, -90 * Math.PI / 180, 60 * Math.PI / 180);
+            ctx.stroke();
+            ctx.strokeText('150deg', 20, -20);
+
+            // 通过旋转绘制渐变线
+            ctx.rotate(-30 * Math.PI / 180);
+            ctx.strokeText('start  point', 0, 30 - r);
+            ctx.strokeText('end   point', 0, r - 20);
+            // 绘制矩形到渐变线的垂直线
+            ctx.beginPath();
+            ctx.setLineDash([10, 10]);
+            ctx.moveTo(0, 35 - r);
+            ctx.lineTo(76 - r, 35 - r);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.beginPath();
+            ctx.moveTo(0, r - 35);
+            ctx.lineTo(r - 76, r - 35);
+            ctx.stroke();
+            ctx.closePath();
+            // 绘制渐变线 及 箭头
+            ctx.beginPath();
+            ctx.strokeStyle = '#000';
+            ctx.setLineDash([]);
+            _createArrow(180);
+            ctx.moveTo(0, -r);
+            ctx.lineTo(0, r);
+            ctx.stroke();
+            ctx.closePath();
+            // 绘制渐变线上的起始点和终点
+            ctx.beginPath();
+            ctx.fillStyle = 'red';
+            ctx.moveTo(0, 35 - r);
+            ctx.arc(0, 35 - r, 3, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(0, r - 35);
+            ctx.fillStyle = 'green';
+            ctx.arc(0, r - 35, 3, 0, 2 * Math.PI);
+            ctx.fill();
+
+            function _createArrow(deg){
+                ctx.rotate(deg * Math.PI / 180);
+                ctx.moveTo(-5, 5 - r);
+                ctx.lineTo(0, -r);
+                ctx.lineTo(5, 5 - r);
+                ctx.stroke();
+            }
+        </script>
+    </section>
+    <section>
+        <a href="#" class="h1">语法介绍</a>
+        <p>查了很多资料给出的语法也是有点差异，MDN 上的中英文给出的也是不同，个人感觉英文的还是更加权威，可能是英文新更新了文档，中文还没来得及更新。</p>
+        <p>看一下比较权威的 MDN 上给出的语法规则：</p>
+        <article>
+            <pre>
+                <code>
+                    <i>摘自于: 2019-12-05</i>
+                    # 英文给出的规则
+                    linear-gradient(
+                      [ &lt;angle&gt; | to &lt;side-or-corner&gt; ,]? &lt;color-stop-list&gt; )
+                      \---------------------------------/ \----------------------------/
+                        Definition of the gradient line        List of color stops
+
+                    where &lt;side-or-corner&gt; = [ left | right ] || [ top | bottom ]
+                      and &lt;color-stop-list&gt; = [ &lt;linear-color-stop&gt; [, &lt;color-hint&gt;? ]? ]#, &lt;linear-color-stop&gt;
+                      and &lt;linear-color-stop&gt; = &lt;color&gt; [ &lt;color-stop-length&gt; ]?
+                      and &lt;color-stop-length&gt; = [ &lt;percentage&gt; | &lt;length&gt; ]{1,2}
+                      and &lt;color-hint&gt; = [ &lt;percentage&gt; | &lt;length&gt; ]
+
+                    # 中文给出的规则
+                    linear-gradient(
+                      [ &lt;angle&gt; | to &lt;side-or-corner&gt; ,]? &lt;color-stop&gt; [, &lt;color-stop&gt;]+ )
+                      \---------------------------------/ \----------------------------/
+                        Definition of the gradient line        List of color stops
+
+                    where &lt;side-or-corner&gt; = [left | right] || [top | bottom]
+                    and   &lt;color-stop&gt;     = &lt;color&gt; [ &lt;percentage&gt; | &lt;length&gt; ]?
+                </code>
+            </pre>
+        </article>
+        <a href="#" class="h2">&lt;side-or-corner&gt; (方位值)</a>
+        <p>如果指定，它由单词 <i lang="code">to</i> 和至多两个关键字组成: 一个表示水平方向(<b>left</b>、<b>right</b>)，另一个表示垂直方向(<b>top</b>、<b>bottom</b>)；这个两个关键字没有顺序限制；如果未指定默认为：<i lang="code">to bottom</i>。</p>
+        <p><i lang="code">to top</i> 、 <i lang="code">to bottom</i> 、 <i lang="code">to left</i> 和 <i lang="code">to right</i> 分别对应于：<b>0deg</b> 、 <b>180deg</b> 、 <b>270deg</b> 和 <b>90deg。</b></p>
+        <a href="#" class="h2">&lt;angle&gt;(角度)</a>
+        <p>代表渐变线旋转的方向角，Y 轴的负方向代表 0deg 的方向，等同于 <i lang="code">to top</i>，按照顺时针方向增加，逆时针为负值减小。</p>
+        <a href="#" class="h2">&lt;linear-color-stop&gt;(线性颜色终止)</a>
+        <p>该值由一个颜色值，后面跟随0、1或2个终止位置的值组成(可以是梯度轴的百分比或者是长度值)。</p>
+        <p>已起始点为基准点。</p>
+        <a href="#" class="h2">&lt;color-hint&gt;(渐变点)</a>
+        <p>该值描述了两个相连颜色之间如何进行渐变的，即两个颜色应该在什么位置进行中转，如果忽略该值，则在两个颜色中间的位置。</p>
+
+        <style>
+            .render { height: 100%; }
+            .box {
+                display: flex;
+                justify-content: space-between;
+            }
+            .box > div {
+                height: 124px;
+                flex: 1;
+                text-align: right;
+            }
+            .box > div:not(:last-child) { margin-right: 6px; }
+        </style>
+        <a href="#" class="h1">例子</a>
+        <p><b>01 简单例子</b></p>
+        <p>最简单的例子，只有两个颜色值，见例 01-1；</p>
+        <p>第一个值默认为<i lang="code">to bottom</i>即 <b>180deg</b>；</p>
+        <p>第一个颜色值的终止点默认为 <b>0%</b>即和渐变线的起始点重合；</p>
+        <p>最后一个颜色的终止点默认为 <b>100%</b>即和渐变的终点重合；</p>
+        <p>两个相邻颜色之间的渐变点默认为 <b>50%</b>。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-01-1 { background-image:
+                        linear-gradient(red, blue); }
+                    .linear-01-2 { background-image:
+                        linear-gradient(to bottom, red 0%, 50%, blue 100%); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-01-1">01-1</div>
+                    <div class="linear-01-2">01-2</div>
+                </div>
+            </div>
+        </article>
+        <p><b>02 渐变点</b></p>
+        <p>通过改变渐变点来改变线性渐变的颜色渐变的中转位置，即颜色过渡的比例。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-02-1 { background-image:
+                        linear-gradient(red, blue); }
+                    .linear-02-2 { background-image:
+                        linear-gradient(red 0%, 20%, blue); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-02-1">02-1</div>
+                    <div class="linear-02-2">02-2</div>
+                </div>
+            </div>
+        </article>
+        <p><b>03 任意方向渐变</b></p>
+        <p>to 加关键字，角度和负角度。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-03-1 { background-image:
+                        linear-gradient(to bottom right, red, blue); }
+                    .linear-03-2 { background-image:
+                        linear-gradient(45deg, red 0%, blue); }
+                    .linear-03-3 { background-image:
+                        linear-gradient(-45deg, red 0%, blue); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-03-1">03-1</div>
+                    <div class="linear-03-2">03-2</div>
+                    <div class="linear-03-3">03-3</div>
+                </div>
+            </div>
+        </article>
+        <p><b>04 多个颜色</b></p>
+        <p>如果颜色点后忽略了终止位置，则会平分从起始点到终点的渐变线。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-04-1 { background-image:
+                        linear-gradient(red, blue, yellow, green); }
+                    .linear-04-2 { background-image:
+                        linear-gradient(red 0%, blue 33.33%, yellow 66.66%, green 100%); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-04-1">04-1</div>
+                    <div class="linear-04-2">04-2</div>
+                </div>
+            </div>
+        </article>
+        <p><b>05 超出渐变线的起始点和终点</b></p>
+        <p>之前在一篇博客中看到说到颜色后面跟随的终止位置不可以为负值，或许说的有点错误，见例 05-2；</p>
+        <p>在渐变图像的渲染，均是以渐变线的起始点开始，到渐变线的终点结束；</p>
+        <p>如果超出了渐变线的起始点或终点则会忽略超出部分的渲染。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-05-1 { background-image:
+                        linear-gradient(red, blue); }
+                    .linear-05-2 { background-image:
+                        linear-gradient(red -30%, blue 120%); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-05-1">05-1</div>
+                    <div class="linear-05-2">05-2</div>
+                </div>
+            </div>
+        </article>
+        <p><b>06 颜色点后跟随两个终止位置</b></p>
+        <p>跟随两个终止位置时相当于对两个相邻且相同颜色的合并写法，见例 06-2 和 06-3</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-06-1 { background-image:
+                        linear-gradient(red, blue); }
+                    .linear-06-2 { background-image:
+                        linear-gradient(red 0% 30%, blue); }
+                    .linear-06-3 { background-image:
+                        linear-gradient(red 0%, red 30%, blue); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-06-1">06-1</div>
+                    <div class="linear-06-2">06-2</div>
+                    <div class="linear-06-3">06-3</div>
+                </div>
+            </div>
+        </article>
+        <p><b>07 实现颜色的硬过渡</b></p>
+        <p>不断的拉近两个相邻颜色的终止位置时，渐变效果越生硬；</p>
+        <p>拉到同一个位置时直接就是硬过渡。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-07-1 { background-image:
+                        linear-gradient(red 30%, blue 70%); }
+                    .linear-07-2 { background-image:
+                        linear-gradient(red 40%, blue 60%); }
+                    .linear-07-3 { background-image:
+                        linear-gradient(red 50%, blue 50%); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-07-1">07-1</div>
+                    <div class="linear-07-2">07-2</div>
+                    <div class="linear-07-3">07-3</div>
+                </div>
+            </div>
+        </article>
+        <a href="#" class="h1">有趣的线性渐变例子</a>
+        <p><b>01 单色条纹</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-01 { background-image: linear-gradient(red 25%, blue 25% 50%, yellow 50% 75%, green 75%); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-01">01</div>
+                </div>
+            </div>
+        </article>
+        <p><b>02 隔行变色的条纹</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-02 {
+                        background-image: linear-gradient(to right, red 50%, blue 50%);
+                        background-size: 10% 100%;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-02">02</div>
+                </div>
+            </div>
+        </article>
+        <p><b>03 不同尺寸的隔行变色条纹</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-03 {
+                        background-image: linear-gradient(to right, red 25%, blue 25%);
+                        background-size: 10% 100%;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-03">03</div>
+                </div>
+            </div>
+        </article>
+        <p><b>04 失败的45deg隔行变色条纹</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-04 {
+                        background-image: linear-gradient(45deg, red 50%, blue 50%);
+                        background-size: 20px 20px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-04">04</div>
+                </div>
+            </div>
+        </article>
+        <p><b>05 45deg 隔行变色条纹</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-05 {
+                        background-image: linear-gradient(45deg,
+                            red 25%, blue 25% 50%, red 50% 75%, blue 75%);
+                        background-size: 20px 20px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-05">05</div>
+                </div>
+            </div>
+        </article>
+        <p><b>06 失败的任意角度的隔行变色条纹</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-06 {
+                        background-image: linear-gradient(60deg,
+                            red 25%, blue 25% 50%, red 50% 75%, blue 75%);
+                        background-size: 20px 20px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-06">06</div>
+                </div>
+            </div>
+        </article>
+        <p><b>07 任意角度的隔行变色条纹</b></p>
+        <p>借助一个更加厉害的函数 <i lang="code">repeating-linear-gradient()</i>(循环渐变)，来实现任意角度的隔行变色。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-07 { background-image: repeating-linear-gradient(60deg,
+                        red 25px, blue 25px 50px, red 50px 75px, blue 75px); }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-07">07</div>
+                </div>
+            </div>
+        </article>
+        <p><b>08 同色系条纹</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-08 {
+                        background-color: red;
+                        background-image: repeating-linear-gradient(60deg,
+                            hsla(0, 0%, 100%, .3) 25px, transparent 25px 50px,
+                            hsla(0, 0%, 100%, .3) 50px 75px, transparent 75px);
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-08">08</div>
+                </div>
+            </div>
+        </article>
+        <p><b>09 交叉条纹 第一步</b></p>
+        <p>前面规则的优先级高于后面的，即前面声明的规则会在最顶层，后面的以此往下堆叠，不同于 CSS 的层叠。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-09 {
+                        background-image:
+                            linear-gradient(red 50%, transparent 50%),
+                            linear-gradient(90deg, blue 50%, yellow 50%);
+                        background-size: 20px 20px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-09">09</div>
+                </div>
+            </div>
+        </article>
+        <p><b>10 交叉条纹 第二步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-10 {
+                        background-image:
+                            linear-gradient(red 50%, transparent 50%),
+                            linear-gradient(90deg, red 50%, transparent 50%);
+                        background-size: 20px 20px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-10">10</div>
+                </div>
+            </div>
+        </article>
+        <p><b>11 交叉条纹 第三步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-11 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(rgba(255, 255, 255, .3) 50%, transparent 50%),
+                            linear-gradient(90deg, rgba(255, 255, 255, .3) 50%, transparent 50%);
+                        background-size: 20px 20px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-11">11</div>
+                </div>
+            </div>
+        </article>
+        <p><b>12 格子线 第一步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-12 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(blue 1px, transparent 1px);
+                        background-size: 20px 20px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-12">12</div>
+                </div>
+            </div>
+        </article>
+        <p><b>13 格子线 第二步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-13 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(blue 1px, transparent 1px),
+                            linear-gradient(90deg, blue 1px, transparent 1px);
+                        background-size: 20px 20px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-13">13</div>
+                </div>
+            </div>
+        </article>
+        <p><b>14 粗细格子线 第一步</b></p>
+        <p>此处运用到了多重背景的设置</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-14 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(blue 1px, transparent 0),
+                            linear-gradient(blue 3px, transparent 0);
+                        background-size: 20px 20px, 60px 60px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-14">14</div>
+                </div>
+            </div>
+        </article>
+        <p><b>15 粗细格子线 第二步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-15 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(blue 1px, transparent 1px),
+                            linear-gradient(90deg, blue 1px, transparent 1px),
+                            linear-gradient(blue 3px, transparent 3px),
+                            linear-gradient(90deg, blue 3px, transparent 3px);
+                        background-size: 20px 20px, 20px 20px, 60px 60px, 60px 60px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-15">15</div>
+                </div>
+            </div>
+        </article>
+        <p><b>16 等腰三角的堆叠 第一步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-16 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, .8) 75%),
+                            linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, .8) 75%);
+                        background-size: 15px 30px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-16">16</div>
+                </div>
+            </div>
+        </article>
+        <p><b>17 等腰三角的堆叠 第二步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-17 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, .8) 75%),
+                            linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, .8) 75%),
+                            linear-gradient(115deg, transparent 75%, rgba(255, 255, 255, .8) 75%),
+                            linear-gradient(245deg, transparent 75%, rgba(255, 255, 255, .8) 75%);
+                        background-size: 15px 30px;
+                        background-position: 0 0, 0 0, 7px -15px, 7px -15px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-17">17</div>
+                </div>
+            </div>
+        </article>
+        <p><b>18 黑白方块 第一步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-18 {
+                        background-image:
+                            linear-gradient(135deg, #000 25%, transparent 25% 75%, #000 75%);
+                        background-size: 30px 30px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-18">18</div>
+                </div>
+            </div>
+        </article>
+        <p><b>19 黑白方块 第二步(水平垂直方向)</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-19 {
+                        background-image:
+                            linear-gradient(45deg, #000 25%, transparent 25% 75%, #000 75%),
+                            linear-gradient(45deg, #000 25%, transparent 25% 75%, #000 75%);
+                        background-size: 30px 30px;
+                        background-position: 0 0, 15px 15px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-19">19</div>
+                </div>
+            </div>
+        </article>
+        <p><b>20 黑白方块 第二步(倾斜方向)</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-20 {
+                        background-image:
+                            linear-gradient(45deg, #000 25%, transparent 25% 75%, #000 75%),
+                            linear-gradient(135deg, #000 25%, transparent 25% 75%, #000 75%);
+                        background-size: 30px 30px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-20">20</div>
+                </div>
+            </div>
+        </article>
+        <p><b>21 黑白方块 第一步</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .linear-21 {
+                        background-image:
+                            linear-gradient(45deg, #000 25%, transparent 25% 75%, #000 75%),
+                            linear-gradient(135deg, #000 25%, transparent 25% 75%, #000 75%);
+                        background-size: 30px 30px;
+                    }
+                </style>
+                <div language="html" class="box">
+                    <div class="linear-21">21</div>
+                </div>
+            </div>
+        </article>
+        <p><b>22 进一步探索中</b></p>
+        <p>相同的背景图通过多重背景组成不同的图案</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .box-22 { display: block; }
+                    .box-22 > div {
+                        height: 70px;
+                        margin-bottom: 8px;
+                        background-size: 30px 30px;
+                    }
+                    .linear-22 {
+                        background-image:
+                            linear-gradient(45deg, #000 16.666%, transparent 16.666% 83.333%, #000 83.333%),
+                            linear-gradient(-45deg, #000 16.666%, transparent 16.666% 83.333%, #000 83.333%);
+                    }
+                    .bgp-22-02 { background-position: 0 0, 15px 15px; }
+                    .bgp-22-03 { background-position: 0 0, -10px -10px; }
+                    .bgp-22-04 { background-position: 0 0, -5px -5px; }
+                    .bgp-22-05 { background-position: 0 0, 0 15px; }
+                </style>
+                <div language="html" class="box box-22">
+                    <div class="linear-22" style="background-repeat: no-repeat;">22</div>
+                    <div class="linear-22 repeat">22-01</div>
+                    <div class="linear-22 repeat bgp-22-02">22-02</div>
+                    <div class="linear-22 repeat bgp-22-03">22-03</div>
+                    <div class="linear-22 repeat bgp-22-04">22-04</div>
+                    <div class="linear-22 repeat bgp-22-05">22-05</div>
+                </div>
+            </div>
+        </article>
+        <p><b>23 探索中</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .box-23 { display: block; }
+                    .box-23 > div { height: 118px; }
+                    .linear-23 {
+                        background-image:
+                            linear-gradient(-30deg, transparent 95%, #000 95%),
+                            linear-gradient(30deg, #000 5%, transparent 5%),
+                            linear-gradient(-30deg, transparent 95%, #000 95%),
+                            linear-gradient(30deg, #000 5%, transparent 5%),
+                            linear-gradient(-30deg, transparent 95%, #000 95%),
+                            linear-gradient(30deg, #000 5%, transparent 5%),
+                            linear-gradient(30deg, transparent 95%, #000 95%),
+                            linear-gradient(-30deg, #000 5%, transparent 5%),
+                            linear-gradient(30deg, transparent 95%, #000 95%),
+                            linear-gradient(-30deg, #000 5%, transparent 5%),
+                            linear-gradient(30deg, transparent 95%, #000 95%),
+                            linear-gradient(-30deg, #000 5%, transparent 5%);
+                        background-size: 50px 50px;
+                    }
+                    .bgp-23-02 { background-position: 10px 8px, 10px 8px, -15px 22px, -15px 22px, -15px -5px, -15px -5px, 10px -5px, 10px -5px, -15px 8px, -15px 8px, 10px 22px, 10px 22px; }
+                    .bgp-23-03 { background-position: 5px 4px, 5px 4px, -7.5px 11px, -7.5px 11px, -7.5px -2.5px, -7.5px -2.5px, 5px -2.5px, 5px -2.5px, -7.5px 4px, -7.5px 4px, 5px 11px, 5px 11px; }
+                </style>
+                <div language="html" class="box box-23">
+                    <div class="linear-23" style="background-repeat: no-repeat;">23</div>
+                    <div class="linear-23">23-01</div>
+                    <div class="linear-23 bgp-23-02">23-02</div>
+                    <div class="linear-23 bgp-23-03">23-03</div>
+                </div>
+            </div>
+        </article>
+        <p><b>24 格子墙</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .box-24 { display: block; }
+                    .box-24 > div {
+                        background-size: 30px 30px;
+                    }
+                    .linear-24 {
+                        background-color: blue;
+                        background-image:
+                            linear-gradient(135deg, transparent 75%, rgba(255, 255, 255, .3) 75%),
+                            linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, .6) 75%),
+                            linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, .3) 75%),
+                            linear-gradient(135deg, transparent 75%, rgba(255, 255, 255, .6) 75%);
+                        background-position: 0 0, 0 0, 15px 15px, -15px -15px;
+                    }
+                    .linear-24-01 {
+                        background-color: blue;
+                        background-image:
+                            linear-gradient(135deg, transparent 75%, rgba(255, 255, 255, .3) 75%),
+                            linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, .6) 75%),
+                            linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, .3) 75%),
+                            linear-gradient(135deg, transparent 75%, rgba(255, 255, 255, .6) 75%),
+                            linear-gradient(#fff 2px, transparent 2px 15px, #fff 15px 17px, transparent 17px),
+                            linear-gradient(90deg, #fff 2px, transparent 2px 15px, #fff 15px 17px, transparent 17px);
+                        background-position: 0 0, 0 0, 15px 15px, -15px -15px, 0 0, 0 0;
+                    }
+                </style>
+                <div language="html" class="box box-24">
+                    <div class="linear-24" style="background-repeat: no-repeat;">24</div>
+                    <div class="linear-24">24</div>
+                    <div class="linear-24-01">24-01</div>
+                </div>
+            </div>
+        </article>
+        <p><b>25 交叉的箭头</b></p>
+        <p>运用到了前面提到一个知识点：<b>前面规则的优先级高于后面的，即前面声明的规则会在最顶层，后面的以此往下堆叠</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .box-25 { display: block; }
+                    .box-25 > .linear-25-01,
+                    .box-25 > .linear-25-02 {
+                        width: 50px;
+                        height: 50px;
+                        margin-bottom: 8px;
+                    }
+                    .box-25 .linear-25-01 {
+                        background-image:
+                            linear-gradient(45deg, blue 25% , transparent 25% 50%, red 50% 75%, transparent 75%);
+                    }
+                    .linear-25-02 {
+                        background-image:
+                            linear-gradient(-45deg, blue 12.5%, transparent 12.5% 37.5%, blue 37.5% 62.5%, transparent 52.5% 87.5%, blue 87.5%);
+                    }
+                    .linear-25-03 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(45deg, blue 25% , transparent 25% 50%, red 50% 75%, transparent 75%),
+                            linear-gradient(-45deg, blue 12.5%, transparent 12.5% 37.5%, blue 37.5% 62.5%, transparent 52.5% 87.5%, blue 87.5%);
+                        background-size: 50px 50px;
+                        background-repeat: no-repeat;
+                    }
+                    .linear-25-04 {
+                        height: 300px !important;
+                        background-color: red;
+                        background-image:
+                            linear-gradient(45deg, blue 25%, transparent 25%),
+                            linear-gradient(45deg, blue 25% , transparent 25% 50%, red 50% 75%, transparent 75%),
+                            linear-gradient(-45deg, blue 12.5%, transparent 12.5% 37.5%, blue 37.5% 62.5%, transparent 52.5% 87.5%, blue 87.5%);
+                        background-size: 50px 50px;
+                        background-position: 25px -25px, 0 0, 0 0;
+                    }
+                </style>
+                <div language="html" class="box box-25">
+                    <div class="linear-25-01"></div>
+                    <div class="linear-25-02"></div>
+                    <div class="linear-25-03">25-03</div>
+                    <div class="linear-25-04">25-04</div>
+                </div>
+            </div>
+        </article>
+        <p><b>26 波浪线</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .box-26 { display: block; }
+                    .linear-26-01 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(45deg, transparent 50%, blue 50% 75%, red 75%),
+                            linear-gradient(-45deg, transparent 50%, blue 50% 75%, transparent 75%);
+                        background-size: 30px 30px;
+                        background-repeat: no-repeat;
+                    }
+                    .linear-26-02 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(-45deg, transparent 75%, red 75%),
+                            linear-gradient(45deg, transparent 50%, blue 50% 75%, red 75%),
+                            linear-gradient(-45deg, transparent 50%, blue 50% 75%, transparent 75%);
+                        background-size: 30px 30px;
+                    }
+                </style>
+                <div language="html" class="box box-26">
+                    <div class="linear-26-01">26-01</div>
+                    <div class="linear-26-02">26-02</div>
+                </div>
+            </div>
+        </article>
+        <p><b>27 斜角砖块墙</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .box-27 { display: block; }
+                    .linear-27-01 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(45deg, transparent calc(50% - 1px), blue calc(50% - 1px) calc(50% + 1px), red 50%),
+                            linear-gradient(-45deg, transparent calc(50% - 1px), blue calc(50% - 1px) calc(50% + 1px), transparent 50%);
+                        background-size: 30px 30px;
+                    }
+                </style>
+                <div language="html" class="box box-27">
+                    <div class="linear-27-01" style="background-repeat: no-repeat;">27-01</div>
+                    <div class="linear-27-01">27-02</div>
+                </div>
+            </div>
+        </article>
+        <!-- <p><b>28 楼梯线</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .box-28 { display: block; }
+                    .linear-28-01 {
+                        background-color: red;
+                        background-image:
+                            linear-gradient(transparent 50%, red 50%),
+                            linear-gradient(90deg, transparent 50%, red 50%),
+                            linear-gradient(blue 4px, transparent 4px),
+                            linear-gradient(90deg, blue 4px, transparent 4px),
+                            linear-gradient(transparent 50%, red 50%),
+                            linear-gradient(90deg, transparent 50%, red 50%),
+                            linear-gradient(blue 4px, transparent 4px),
+                            linear-gradient(90deg, blue 4px, transparent 4px);
+                        background-size: 30px 30px;
+                        background-position: 0 0, 0 0, -4px -4px, -4px -4px, 15px 15px, 15px 15px, 11px 11px, 11px 11px;
+                    }
+                </style>
+                <div language="html" class="box box-28">
+                    <div class="linear-28-01" style="background-repeat: no-repeat;">28-01</div>
+                    <div class="linear-28-01">28-02</div>
+                </div>
+            </div>
+        </article> -->
+    </section>
+    <section>
+        <p>参考文档</p>
+        <p><a target="_blank" href="https://developer.mozilla.org/en-US/docs/web/css/linear-gradient">https://developer.mozilla.org/en-US/docs/web/css/linear-gradient</a></p>
+        <p><a target="_blank" href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Using_CSS_gradients">https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Using_CSS_gradients</a></p>
+        <p><a target="_blank" href="https://www.runoob.com/css3/css3-gradients.html">https://www.runoob.com/css3/css3-gradients.html</a></p>
+        <p><a target="_blank" href="http://caibaojian.com/css3/values/image/linear-gradient().htm#dfn-syntax">http://caibaojian.com/css3/values/image/linear-gradient().htm#dfn-syntax</a></p>
+    </section>
+</body>
+</html>

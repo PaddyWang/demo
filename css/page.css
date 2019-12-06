@@ -282,14 +282,14 @@ body > footer > section > a {
     body > section {
         margin: 24px 12px 0;
     }
-    section > article::before {
+    body > section > article::before {
         display: none;
     }
-    section > article > pre {
-        width: calc(100% - 8px) !important;
+    body > section > article > pre {
+        width: calc(100% - 8px);
         padding-right: 0;
     }
-    section > article > .render {
+    body > section > article > .render {
         width: calc(100% - 8px);
         padding-left: 0;
     }
