@@ -1,6 +1,12 @@
 {
     "articles": [
         {
+            "url": "./list/css/linear-gradient.html",
+            "title": "有趣的线性渐变",
+            "date": "2019-12-07",
+            "type": ["css"],
+            "key": ["渐变", "线性渐变", "linear-gradient", "linear", "背景"]
+        }, {
             "url": "./list/css/background-clip.html",
             "title": "背景裁剪",
             "date": "2019-11-10",
