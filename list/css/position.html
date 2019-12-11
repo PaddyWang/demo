@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>深入了解定位</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script src="../../js/init-page.js"></script>
+</head>
+<body>
+    <section>
+        <time>2019-12-10</time>
+        <a href="#" class="h1">定位机制</a>
+        <p>在CSS2 中定义了，一个盒子可以有三种定位方案进行布局：</p>
+        <ul>
+            <li><b>常规流：</b> 包括块级、行内级和相对定位的元素；</li>
+            <li><b>浮动：</b> <a href="https://paddywang.github.io/demo/list/css/float.html">浮动</a>模型；</li>
+            <li><b>绝对定位：</b> 绝对定位的盒子会被完全移除常规流，并相对于其包含块进行定位。</li>
+        </ul>
+        <p><b>属性值：</b> static(默认值)、relative、absolute、fixed、sticky(CSS3新增)。</p>
+        <p><b>偏移属性：</b> top、bottom、left、right。如果值为百分数，top、bottom的值相对于包含块的高度，left、right的值相对于包含块的宽度。</p>
+
+        <a href="#" class="h1">包含块</a>
+        <p>元素的位置和大小有时是相对于某个称为元素的包含块的矩形计算的。</p>
+        <p>包含块在布局中是一个很重要的概念，在CSS2中，这么定义包含块：</p>
+        <ul>
+            <li>“根元素”所在的包含块被称为初始包含块，大多数浏览器的初始包含块为视口大小的矩形框，初始包含块的 direction 属性和根元素的一致；</li>
+            <li>对于非根元素，如果元素的 position 值为 relative 或 static，则包含块由最近的块级框、行内块祖先框的内容边界组成；</li>
+            <li>如果元素的 position 值为 fixed，则由视口建立包含块；</li>
+            <li>如果元素的 position 值为 absolute，包含块则由最近的 以 position 值为 absolute、fixed或relative的祖先盒子建立：
+                <ul>
+                    <li>如果这个祖先元素是行内元素，包含块则为该元素生成的第一个和最后一个行内框组成的包围框（在从左向右读的语言中，包含块的上边界和左边界是该祖先元素的中第一个行内框的上边界和左边界，包含块的下边界和右边界是该祖先元素中最后一个行内框的下边界和右边界）；</li>
+                    <li>如果这个祖先元素是块级元素，包含块则为该该元素的内容边界；</li>
+                    <li>如果没有这样的祖先元素，包含块则会初始包含块。</li>
+                </ul>
+            </li>
+        </ul>
+
+        <a href="#" class="h1">属性值</a>
+
+        <a href="#" class="h2"><b>static</b></a>
+        <p>盒子表现为常规流。块级元素生成一个块框，行内元素生成一个或多个行框。偏移属性不起作用。</p>
+
+        <a href="#" class="h2"><b>relative</b></a>
+        <ul>
+            <li>相对定位：一个常规流或浮动的盒子相对于自己的位置进行移动。</li>
+            <li>相对定位被划分为了常规流布局，元素保持其未定位前的形状和大小，初始位置的空间保留。</li>
+            <li>如果由相对定位的原因导致出现了 <i lang="code">overflow: auto</i> 或者 <i lang="code">overflow: scroll</i> 内容溢出，为了能够正常的访问溢出的内容，则需要创建滚动条，这可能会影响到布局。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .relative-overflow {
+                            height: 200px;
+                            overflow: auto;
+                            border: 1px solid #999;
+                        }
+                        .relative-overflow > div {
+                            height: 100px;
+                            position: relative;
+                            top: 150px;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="relative-overflow">这是前面的文字<div>滚动一下</div>这是后面的文字（出现了滚动条）</div>
+                    </div>
+                </div>
+            </article>
+            <li>在CSS2.1规范中指出了在遇到过度受限的相对定位时，一个值会被重置为另一个值的相反数（即right = -left）。</li>
+            <li>对于水平方向上，如果left 和 right 的值都为 auto (初始值)，其值为 0，即保持在原位置不动；如果其中一个为 auto 则使用另一个值作为计算值；如果这两个值都不为 auto ，则位置被过度受限， 根据 direction 的属性值进行计算(即根据文本的排版方向决定)，如果 <i lang="code">direction: ltr</i> 时，则以 left 值为准，right 变为 -left，如果 <i lang="code">direction: rtl</i> 时，则以 right 值为准，left 变为 -right，垂直方向同理。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .relative-limit {
+                            height: 150px;
+                            border: 1px solid #999;
+                        }
+                        .relative-limit > div {
+                            width: 50%;
+                            height: 100px;
+                            position: relative;
+                            left: 20px;
+                            right: 30px;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="relative-limit">这是前面的文字<div>受限的元素</div>这是后面的文字</div><br>
+                        <div class="relative-limit" style="direction: rtl;">这是前面的文字<div>受限的元素</div>这是后面的文字</div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+
+        <a href="#" class="h2"><b>absolute</b></a>
+        <ul>
+            <li>在绝对定位模型中，绝对定位的盒子会被从常规流中完全移除，并相对于其包含块进行定位，包含块可能是 position 值为 relative、absolute、fixed的祖先元素也可能是初始包含块。</li>
+            <li>元素绝对定位后如果没有设置偏移属性，则会在定位在常规流中原始的位置。</li>
+            <li>元素绝对定位后会生成一个块级框，而不论之前在常规流中是何种类型的框。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .absolute-type {
+                            height: 200px;
+                            position: relative;
+                            border: 1px solid #999;
+                        }
+                        .absolute-type > span {
+                            width: 50%;
+                            height: 100px;
+                            position: absolute;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="absolute-type">这是前面的文字<span></span></div>
+                    </div>
+                </div>
+            </article>
+            <li>定位元素不会流入其他元素的内容，定位元素可能覆盖其他元素或者被其他元素覆盖，这取决于其重叠框的堆栈级别(即 z-index 的值，该值设置为 负数 时则置于包含块底层)。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .absolute-z-index {
+                            height: 150px;
+                            position: relative;
+                            border: 1px solid #999;
+                        }
+                        .absolute-z-index > div {
+                            width: 50%;
+                            height: 100px;
+                            position: absolute;
+                            top: 10px;
+                            left: 20px;
+                            padding: 8px;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="absolute-z-index">这是前面的文字<div></div>这是后面的文字</div><br>
+                        <div class="absolute-z-index">这是前面的文字<div style="z-index: -1;">置于底层</div>这是后面的文字</div>
+                    </div>
+                </div>
+            </article>
+            <li>同样由绝对定位的原因导致出现了 <i lang="code">overflow: auto</i> 或者 <i lang="code">overflow: scroll</i> 内容溢出，为了能够正常的访问溢出的内容，则需要创建滚动条，这可能会影响到布局。</li>
+            <li>在包含块的文本溢出中，绝对定位元素的初始位置基于包含块的框进行定位，包含块的内容滚动时，绝对定位的元素也会跟着一起滚动。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .absolute-overflow {
+                            height: 200px;
+                            position: relative;
+                            overflow: auto;
+                            border: 1px solid #999;
+                        }
+                        .absolute-overflow > div {
+                            width: 50%;
+                            height: 100px;
+                            position: absolute;
+                            top: 150px;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="absolute-overflow">这是前面的文字<div>滚动一下</div>这是后面的文字（出现了滚动条）</div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+
+        <a href="#" class="h2"><b>fixed</b></a>
+        <ul>
+            <li>固定定位是绝对定位的一个子类，不同点在于固定定位元素的包含块是初始包含块，即基于视口进行定位的，不会因为文档的滚动而位置改变。</li>
+            <li>元素固定定位后如果没有设置偏移属性，则会在定位在常规流中原始的位置。</li>
+        </ul>
+
+        <a href="#" class="h2"><b>sticky</b></a>
+        <ul>
+            <li>该属性的支持程度很不错的，除了IE，其他主流的17年之后发版的浏览器都支持，唯一需要注意的是 Safari 需要增加前缀 <i lang="code">-webkit-sticky</i>。</li>
+            <li>这个属性值是CSS3新增的“粘性”定位（不过还没有在w3c上找到正式文档，只找到了工作草案文档和MDN上的文档）。</li>
+            <li>元素的初始位置根据常规流进行布局，然后根据 top、bottom、left、right 相对于其滚动的祖先元素(包含块)进行偏移，并且必须设置偏移属性，偏移不会影响其他元素的位置。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .sticky-demo {
+                            height: 200px;
+                            overflow: auto;
+                            border: 1px solid #999;
+                        }
+                        .sticky-demo > div {
+                            position: -webkit-sticky; /* Safari */
+                            position: sticky;
+                            line-height: 24px;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="sticky-demo">
+                            这是前面的文字<br>这是前面的文字
+                            <div>滚动时固定于盒子顶部</div>
+                            0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>最后一行<br>
+                        </div>
+                        <br>
+                        <div class="sticky-demo">
+                            这是前面的文字<br>这是前面的文字
+                            <div style="top: 6px;">滚动时固定于盒子顶部</div>
+                            0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>最后一行<br>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <p>冻结的表格单元</p>
+        <p>冻结第一行和第一列</p>
+        <article class="code">
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .sticty-table-container {
+                        width: 300px;
+                        height: 200px;
+                        overflow: auto;
+                    }
+                    .sticty-table,
+                    .sticty-table th,
+                    .sticty-table td {
+                        border: 1px solid #999;
+                        padding: 4px;
+                    }
+                    .sticty-table {
+                        width: 500px;
+                        border-collapse: collapse;
+                    }
+                    .sticty-table tr > th:first-child,
+                    .sticty-table tr > td:first-child {
+                        position: -webkit-sticky;
+                        position: sticky;
+                        left: 0;
+                    }
+                    .sticty-table tr > td:first-child {
+                        background-color: pink;
+                    }
+                    .sticty-table tr > th:first-child {
+                        z-index: 1;
+                    }
+                    .sticty-table th {
+                        width: 50px;
+                        position: -webkit-sticky;
+                        position: sticky;
+                        top: 0;
+                        background-color: skyblue;
+                    }
+                </style>
+            </div>
+            <div class="sticty-table-container">
+                <table class="sticty-table">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>班级</th>
+                            <th>科目</th>
+                            <th>成绩</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                        <tr><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+                        <tr><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+                        <tr><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+                        <tr><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                        <tr><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td></tr>
+                        <tr><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr>
+                        <tr><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td></tr>
+                        <tr><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td></tr>
+                        <tr><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+        <p>sticky 遇上 hidden 的一个bug <a href="https://github.com/w3c/csswg-drafts/issues/865">https://github.com/w3c/csswg-drafts/issues/865</a></p>
+        <article class="code">
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .sticky-demo-container {
+                        width: 300px;
+                        height: 200px;
+                        overflow: auto;
+                        border: 1px solid #999;
+                    }
+                    .sticky-demo-container p {
+                        position: -webkit-sticky;
+                        position: sticky;
+                        top: 0;
+                        background-color: pink;
+                    }
+                    .sticky-demo-01 {
+                        overflow: hidden;
+                    }
+                    .sticky-demo-02 {
+                        overflow: visible;
+                    }
+                </style>
+                <div language>
+                    <div class="sticky-demo-container">
+                        <div class="sticky-demo-01">
+                            sticky-demo-01<br>1<br>2<br>3<br>4<br>
+                            <p>滚动一下</p>
+                            这是后面的文字<br>1 <br>2 <br>3 <br>4 <br>5 <br>6 <br>7 <br>8 <br>9 <br>10 <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="sticky-demo-container">
+                        <div class="sticky-demo-02">
+                            sticky-demo-02<br>1<br>2<br>3<br>4<br>
+                            <p>滚动一下</p>
+                            这是后面的文字<br>1 <br>2 <br>3 <br>4 <br>5 <br>6 <br>7 <br>8 <br>9 <br>10 <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section>
+        <p>参考文档：</p>
+        <ul>
+            <li><a href="https://www.w3.org/TR/2011/REC-CSS2-20110607/visuren.html#positioning-scheme"></a></li>
+            <li><a href="https://www.w3.org/TR/2011/REC-CSS2-20110607/visudet.html#containing-block-details"></a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position"></a></li>
+        </ul>
+    </section>
+</body>
+</html>

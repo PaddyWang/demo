@@ -1,6 +1,12 @@
 {
     "articles": [
         {
+            "url": "./list/css/position.html",
+            "title": "深入了解定位",
+            "date": "2019-12-10",
+            "type": ["css"],
+            "key": ["定位", "position", "sticky", "fixed", "absolute", "relative", "static"]
+        }, {
             "url": "./list/css/linear-gradient.html",
             "title": "有趣的线性渐变",
             "date": "2019-12-07",

@@ -65,6 +65,9 @@ a:not([href^="#"]):hover {
     text-decoration: underline;
     color: var(--light-main);
 }
+a[href]:empty::before {
+    content: attr(href);
+}
 a.h1 {
     font-size: 24px;
     line-height: 24px;
@@ -101,6 +104,14 @@ i {
     color: var(--code);
     background: #eee;
 }
+time {
+    font-style: italic;
+    font-size: 12px;
+    color: #999;
+}
+time::before {
+    content: "Date: ";
+}
 .container,
 body > section,
 body > footer > section {
@@ -130,6 +141,7 @@ body > section {
     border-bottom: 2px solid #eaeaea;
     position: relative;
 }
+article.code,
 body > section > article {
     position: relative;
     border: 1px dashed #999;
@@ -138,6 +150,7 @@ body > section > article {
     clear: both;
     overflow: hidden;
 }
+article.code::after,
 body > section > article::after {
     content: "code";
     position: absolute;
@@ -152,6 +165,7 @@ body > section > article::after {
     background-color: var(--code);
     transform: rotate(-42deg);
 }
+article.code::before,
 body > section > article::before {
     /*content: "";*/
     position: absolute;
@@ -162,21 +176,25 @@ body > section > article::before {
     margin-left: -4px;
     background-color: rgba(234, 234, 234, 0.54);
 }
+article.code > pre,
 body > section > article > pre {
     width: calc(50% - 8px);
     float: left;
     margin: 4px;
     box-sizing: border-box;
 }
+article.code > pre:only-child,
 body > section > article > pre:only-child {
     width: calc(100% - 8px);
 }
+article.code > .render,
 body > section > article > .render {
     width: calc(50% - 8px);
     float: left;
     margin: 4px;
     box-sizing: border-box;
 }
+article.code > pre > code::-webkit-scrollbar,
 body > section > article > pre > code::-webkit-scrollbar {
     display: none;
 }
@@ -282,13 +300,16 @@ body > footer > section > a {
     body > section {
         margin: 24px 12px 0;
     }
+    article.code::before,
     body > section > article::before {
         display: none;
     }
+    article.code > pre,
     body > section > article > pre {
         width: calc(100% - 8px);
         padding-right: 0;
     }
+    article.code > .render,
     body > section > article > .render {
         width: calc(100% - 8px);
         padding-left: 0;
