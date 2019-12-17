@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>盒模型</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script src="../../js/init-page.js"></script>
+</head>
+<body>
+    <section>
+        <time>2019-12-16</time>
+        <p>在CSS规范中这样描述盒模型：CSS盒模型描述为文档树中的元素生成的矩形框，并根据视觉格式化模型进行布局。</p>
+        <a href="#" class="h1">包含块</a>
+        <p>包含块贯穿于整个布局模型，包括：常规流、浮动和绝对定位。</p>
+        <p>所有的布局、尺寸计算都是基于包含块的，即包含块就是元素的“布局上下文”。</p>
+        <p>在格式化文档中，内容都是由一个个长方形的块组成，块是抽象的概念，块是由元素生成，元素是具体存在的。</p>
+        <p>包含块就是这些块中的一部分，包含块也是相对的，是相对于孩子元素来说的。</p>
+
+        <a href="#" class="h1">盒模型</a>
+        <p>一个完整的盒模型指的是块级盒子。</p>
+        <p>盒子也分为宿主盒子、具名盒子和匿名盒子(继承包含块的部分属性，无法被选择器选中)。</p>
+        <p>盒子由：内容区域、内边距、边框和外边距四部分组成。</p>
+
+        <a href="#" class="h1">视觉格式化模型</a>
+        <p>CSS 的视觉格式化模型用来描述用户代理(通常指浏览器)，如何获取文档树，以及如果处理和显示文档树，是一系列的计算规则。</p>
+        <p>视觉格式化模型根据盒模型，将文档树中的元素根据元素的显示属性(display)转换成一个个对应类型的盒子，最终这些盒子参与到块级格式化的创建。</p>
+        <p>以块级元素为例：元素的 display 属性决定了该元素为块级元素，然后生成块级盒子，块级盒子参与到块级格式化的创建，最终渲染出来。</p>
+        <p>盒子的布局受一下因素影响：</p>
+        <ul>
+            <li>盒子的尺寸和类型；</li>
+            <li>定位方案(包括常规流、浮动和绝对定位)；</li>
+            <li>文档树中元素之间的关系；</li>
+            <li>其他外部因素(如：视口的大小、图像大小等)。</li>
+        </ul>
+        <a href="#" class="h2">水平格式化</a>
+        <ul>
+            <li>水平格式化的一个简单而且重要的规则：<b>常规流中的块级元素框的水平部分的总和等于其包含块的宽度(一般为父盒子)</b>。</li>
+            <li>水平格式化中有七个属性：width、padding-left、padding-right、border-left、border-right、margin-left、margin-right。</li>
+            <li>其中 width、margin-left、margin-right 三个属性可以设置 auto 值。</li>
+            <li>在计算中，通过这三个属性的 auto 值可以弥补实际值与所需总和的差距。</li>
+            <li>在从左向右(<i lang="code">direction: ltr</i>)阅读的语言中优先 计算 width -> margin-left -> margin-right。</li>
+        </ul>
+        <p>如下例01中：当 width 和 margin-right 固定，margin-left 无值时，margin-left 被默认为 0，margin-right 被重置为 auto(即 200px)。</p>
+        <p>如下例02中：当 width 为 auto 或者无值，margin-rigth 固定，margin-left 无值时，width 我被当做 auto 计算剩余的空间 即 250px。</p>
+        <p>如下例03中：包含块的 width 为 300px，子元素的 width 为 100px， 左外边距为 auto，右外边距为 50px，其余的都是 0，用户代理将左外边距的 auto 计算为 150px = 300px - 100px - 50px。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .horizontal-box-01 {
+                        width: 300px;
+                        background-color: skyblue;
+                    }
+                    .horizontal-box-01 > div {
+                        width: 100px;
+                        margin-right: 50px;
+                        margin-top: 4px;
+                        background-color: pink;
+                    }
+                </style>
+                <div language>
+                    <div class="horizontal-box-01">
+                        <div>内部盒子01</div>
+                        <div style="width: auto;">内部盒子02</div>
+                        <div style="margin-left: auto;">内部盒子03</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <p><b>过渡受限</b></p>
+        <p>当这三个属性都设置为 非 auto 的固定值时，并且水平总和不等于包含块的宽度时，就是属性过渡受限。</p>
+        <ul>
+            <li><b>当属性过渡受限时，在从左向右阅读的语言中，会把 margin-right 强制重置为 auto。</b></li>
+            <p>如下例中：子元素的 width 为 100px，margin-left 和 margin-right 均为 50px，最终在水平格式化中用户代理会把 margin-right 强制重置为 auto(即 150px)，以满足水平部分的总和等于包含块的宽度。</p>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .horizontal-box-02 {
+                            width: 300px;
+                            padding: 20px 0;
+                            background-color: skyblue;
+                        }
+                        .horizontal-box-02 > div {
+                            width: 100px;
+                            margin-left: 50px;
+                            margin-right: 50px;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="horizontal-box-02">
+                            <div>内部盒子</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <ul>
+            <li>替换元素的 width 为 auto 或无值时 会使用替换元素的原始值作为 width 的计算值。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .horizontal-box-03 {
+                            width: 300px;
+                            padding: 20px 0;
+                            background-color: skyblue;
+                        }
+                        .horizontal-box-03 > img {
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="horizontal-box-03">
+                            <img src="../../imgs/logo2-r-200X200-01.png">
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <ul>
+            <li>水平格式化中外边距永远不会合并。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .horizontal-box-04 {
+                            width: 300px;
+                            padding: 20px 0;
+                            margin-left: 20px;
+                            background-color: skyblue;
+                        }
+                        .horizontal-box-04 > div {
+                            margin-left: 10px;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="horizontal-box-04">
+                            <div>不会塌陷的内部的盒子</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <p><b>百分数</b></p>
+        <ul>
+            <li>如果给水平属性设置百分数，则都是基于其包含块的宽度值计算的。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .horizontal-box-05 {
+                            width: 300px;
+                            padding: 20px 0;
+                            margin-left: 20px;
+                            background-color: skyblue;
+                        }
+                        .horizontal-box-05 > div {
+                            width: 50%;
+                            padding-left: 1%;
+                            margin-left: 10%;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="horizontal-box-05">
+                            <div>不会塌陷的内部的盒子</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <p><b>负外边距</b></p>
+        <p>当外边距为负值时依然适用：<b>水平部分的总和等于包含块的宽度</b>。</p>
+        <p>如下例中：包含块的宽度为 300px，右外边距为 -20px，此时 width 和 margin-left 均未知，根据计算优先原则 先计算 width 的值，margin-left 被默认为 0；</p>
+        <p>最后等式为：300px = width - 20px；即 width = 320px。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .horizontal-box-06 {
+                        width: 300px;
+                        padding: 20px 0;
+                        background-color: skyblue;
+                    }
+                    .horizontal-box-06 > div {
+                        margin-right: -20px;
+                        background-color: pink;
+                    }
+                </style>
+                <div language>
+                    <div class="horizontal-box-06">
+                        <div>内部超出包含块的盒子</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <p><b>为什么 <i lang="code">margin: 0 auto</i> 可以使盒子居中？</b></p>
+        <p><i lang="code">margin: 0 auto</i> 将其属性分解：</p>
+        <p>0 其实在居中中没起作用，主要是后面的 auto 即 <i lang="code">margin-left: auto; margin-right: auto;</i></p>
+        <p>还有一个重要的前提：width 的值为一个固定值；</p>
+        <p>在水平部分的总和等于包含块的宽度的规则下，width 的值为固定值，margin-left 和 margin-right 为 auto 则会平分剩余的空间，即实现了盒子的居中。</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .horizontal-box-07 {
+                        width: 300px;
+                        padding: 20px 0;
+                        background-color: skyblue;
+                    }
+                    .horizontal-box-07 > div {
+                        width: 100px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        background-color: pink;
+                    }
+                </style>
+                <div language>
+                    <div class="horizontal-box-07">
+                        <div>内部水平居中的盒子</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <p>水平外边距同样适用于行内元素</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .horizontal-box-08 {
+                        width: 300px;
+                        padding: 20px 0;
+                        background-color: skyblue;
+                    }
+                    .horizontal-box-08 > span {
+                        width: 100px;
+                        background-color: pink;
+                    }
+                </style>
+                <div language>
+                    <div class="horizontal-box-08">
+                        <span style="margin-left: 10px;">行内元素</span>
+                    </div>
+                    <div class="horizontal-box-08">
+                        <span style="margin-left: -10px;">行内元素</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <a href="#" class="h2">垂直格式化</a>
+        <ul>
+            <li>垂直格式化中的盒子的高度由其内容决定，包含块的高度由其内部元素决定。</li>
+            <li>垂直格式化中有七个属性：height、padding-top、padding-bottom、border-top、border-bottom、margin-top、margin-bottom。</li>
+            <li>其中 height、margin-top、margin-bottom 三个属性可以设置 auto 值。</li>
+            <li>在计算中，通过这三个属性的 auto 值可以弥补实际值与所需总和的差距。</li>
+            <li>计算优先级 height -> margin-top -> margin-bottom。</li>
+            <li>块元素的 margin-top 和 margin-bottom 设置为 auto 时，用户代理会自动将其计算为 0。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .vertical-box-01 {
+                            width: 300px;
+                            background-color: skyblue;
+                        }
+                        .vertical-box-01 > div {
+                            width: 100px;
+                            margin-top: auto;
+                            margin-bottom: auto;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="vertical-box-01">
+                            <div>内部的盒子</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <p><b>百分数高度</b></p>
+        <ul>
+            <li>给高度设置百分数是基于包含块的高度计算的，如果没有给包含块显式的声明高度则百分数的高度会被强制重置为 auto。</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .vertical-box-02 {
+                            width: 300px;
+                            margin-top: 6px;
+                            background-color: skyblue;
+                        }
+                        .vertical-box-02 > div {
+                            width: 100px;
+                            height: 90%;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="vertical-box-02">
+                            <div>内部的盒子</div>
+                        </div>
+                        <div class="vertical-box-02" style="height: 200px;">
+                            <div>内部的盒子</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <p><b>合并垂直外边距</b></p>
+        <p><i>目前还没找到一篇关于W3C工作组为什么会定义这个规则？？？</i></p>
+        <ul>
+            <li>垂直格式化另一个比较重要的一点：<b>垂直相邻外边距的合并</b></li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .vertical-box-03 {
+                            width: 300px;
+                            margin-top: 20px;
+                            margin-bottom: 30px;
+                            background-color: skyblue;
+                        }
+                        .vertical-box-03 > div {
+                            width: 100px;
+                            margin-top: 30px;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="vertical-box-03">
+                            <div>父子盒子外边距合并</div>
+                        </div>
+                        <div class="vertical-box-03">
+                            相邻兄弟盒子外边距合并
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <p><b>负外边距</b></p>
+        <p>盒子上移</p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .vertical-box-04 {
+                        width: 300px;
+                        background-color: skyblue;
+                    }
+                    .vertical-box-04 > div {
+                        width: 200px;
+                        margin-top: -10px;
+                        background-color: pink;
+                    }
+                    .vertical-box-05 {
+                        width: 300px;
+                        height: 50px;
+                        margin-bottom: -30px;
+                        background-color: skyblue;
+                    }
+                    .vertical-box-05 + div {
+                        width: 200px;
+                        height: 50px;
+                        background-color: pink;
+                    }
+                </style>
+                <div language>
+                    <div class="vertical-box-04">
+                        <div>负外边距父子盒子都上移</div>
+                    </div>
+                    <br><br>
+                    <div class="vertical-box-04" style="padding: 8px;">
+                        <div>负外边距子盒子上移 父盒子不动</div>
+                    </div>
+                    <br><br>
+                    <div class="vertical-box-05">负下外边距</div>
+                    <div>受兄弟元素上移的盒子</div>
+                </div>
+            </div>
+        </article>
+        <p>影响垂直外边距的合并</p>
+        <p><b>同号取最大，异号取和</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .vertical-container {
+                        width: 300px;
+                        height: 30px;
+                        position: relative;
+                        margin-top: 50px;
+                        border: 1px dashed #999;
+                    }
+                    .vertical-container > div {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                    }
+                    .vertical-box-06 {
+                        height: 100%;
+                        margin-top: 20px;
+                        background-color: skyblue;
+                    }
+                    .vertical-box-06 > div {
+                        width: 90%;
+                        height: 100%;
+                        background-color: pink;
+                    }
+                </style>
+                <div language>
+                    <div class="vertical-container">
+                        <div>
+                            <div class="vertical-box-06"><div style="margin-top: 25px;">两正</div></div>
+                        </div>
+                    </div>
+                    <div class="vertical-container">
+                        <div>
+                            <div class="vertical-box-06"><div style="margin-top: -5px;">一正一负 正大负小</div></div>
+                        </div>
+                    </div>
+                    <div class="vertical-container">
+                        <div>
+                            <div class="vertical-box-06"><div style="margin-top: -25px;">一正一负 正小负大</div></div>
+                        </div>
+                    </div>
+                    <div class="vertical-container">
+                        <div>
+                            <div class="vertical-box-06" style="margin-top: -20px;">
+                                <div style="margin-top: -25px;">两负</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <ul>
+            <li>垂直格式化中的内边距、外边距的百分数基于包含块的宽度计算</li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <style language>
+                        .vertical-box-07 {
+                            width: 300px;
+                            height: 100px;
+                            background-color: skyblue;
+                        }
+                        .vertical-box-07 > div {
+                            width: 100px;
+                            margin-top: 10%;
+                            padding-top: 20%;
+                            background-color: pink;
+                        }
+                    </style>
+                    <div language>
+                        <div class="vertical-box-07">
+                            <div>百分数 内边距和外边距</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </ul>
+        <p><b>基于宽度的等比缩放盒子</b></p>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .vertical-box-08 {
+                        position: relative;
+                        padding-top: 30%;
+                    }
+                    .vertical-box-08 > div {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background-color: pink;
+                    }
+                </style>
+                <div language>
+                    <div class="vertical-box-08">
+                        <div>基于宽度的等比缩放的盒子</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <p>垂直格式化中的内边距、外边距的百分数为什么是基于包含块的宽度而不是高度计算？？？</p>
+        <p><i>下面的解释摘自《CSS 权威指南 第三版》221页</i></p>
+        <p>
+            正常流中的大多数元素都会足够高以包含其后代元素(包括其外边距)。
+            如果一个元素的上下外边距是父元素 height 的一个百分数，就可能导致一个无限循环，
+            父元素的 height 会增加，以适应后代元素上下外边距的增加，而相应的，上下外边距又必须增加，以适应新的父元素 height，如此继续。
+        </p>
+        <a href="#" class="h2">行内格式化</a>
+    </section>
+    <section>
+        <p>参考文档：</p>
+        <ul>
+            <li><a href="https://www.w3.org/TR/2011/REC-CSS2-20110607/box.html#img-boxdim"></a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Visual_formatting_model"></a></li>
+            <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Visual_formatting_model"></a></li>
+            <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model"></a></li>
+            <li><a href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/The_box_model"></a></li>
+        </ul>
+    </section>
+</body>
+</html>

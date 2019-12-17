@@ -112,6 +112,9 @@ time {
 time::before {
     content: "Date: ";
 }
+ul {
+    margin-top: 0;
+}
 .container,
 body > section,
 body > footer > section {
