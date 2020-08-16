@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自适应的输入框</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <script src="../../js/paddy-03.js"></script>
+    <script src="../../js/canvas-background.js"></script>
+    <script src="../../js/init-canvas-background.js"></script>
+    <script src="../../js/init-page.js"></script>
+</head>
+<body>
+    <section>
+        <time>2020-08-16</time>
+        <p>通过CSS来实现输入框的自适应</p>
+        <p>大致思路：</p>
+        <ul>
+            <li>给输入框一个绝对定位，让其宽度继承父盒子的宽度，父盒子的宽度由占位子盒子的宽度撑起</li>
+            <li>占位子盒子和输入框的文本格式和盒模型保持一致</li>
+            <li>输入框的文本同步到占位子盒子内</li>
+        </ul>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .auto-input {
+                        height: 20px;
+                        min-width: 50px;
+                        position: relative;
+                        display: inline-block;
+                    }
+                    .auto-input > * {
+                        font-size: 14px;
+                    }
+                    .auto-input > .placeholder {
+                        visibility: hidden;
+                        padding: 3px;
+                        font-family: system-ui;
+                        white-space: break-spaces;
+                    }
+                    .auto-input > input {
+                        width: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        outline: none;
+                    }
+                </style>
+                <div language>
+                    <div class="auto-input">
+                        <div class="placeholder"></div>
+                        <input type="text" placeholder="输入" oninput="document.querySelector('.auto-input .placeholder').innerText = event.target.value" />
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .auto-textarea {
+                        max-width: 50%;
+                        min-width: 200px;
+                        position: relative;
+                        display: inline-block;
+                    }
+                    .auto-textarea > * {
+                        font-size: 14px;
+                    }
+                    .auto-textarea > .placeholder {
+                        visibility: hidden;
+                        padding: 3px;
+                        font-family: system-ui;
+                        white-space: break-spaces;
+                    }
+                    .auto-textarea > textarea {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        outline: none;
+                    }
+                </style>
+                <div language>
+                    <div class="auto-textarea">
+                        <div class="placeholder"></div>
+                        <textarea oninput="document.querySelector('.auto-textarea .placeholder').innerText = event.target.value; console.log('>>>')" placeholder="输入"></textarea>
+                    </div>
+                </div>
+            </div>
+        </article> -->
+    </section>
+</body>
+</html>

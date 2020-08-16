@@ -387,7 +387,7 @@
             </div>
         </article>
         <p>影响垂直外边距的合并</p>
-        <p><b>同号取最大，异号取和</b></p>
+        <p><b>同号取大(最大)，异号求和</b></p>
         <article>
             <pre></pre>
             <div class="render">
@@ -500,6 +500,74 @@
             父元素的 height 会增加，以适应后代元素上下外边距的增加，而相应的，上下外边距又必须增加，以适应新的父元素 height，如此继续。
         </p>
         <a href="#" class="h2">行内格式化</a>
+        <p>在行内格式化中，要比块级格式化复杂的多，其中《CSS 权威指南 第三版》186页讲的也比较详细</p>
+        <a href="#" class="h3">行内水平格式化</a>
+        <p>见上面 <b>水平外边距同样适用于行内元素</b></p>
+        <a href="#" class="h3">行内垂直格式化</a>
+        <ul>
+            <li>第1个为对照，所以的字体大小继承了body的初始化大小 14px </li>
+            <li>第2个说明 margin-top、,margin-bottom 会被忽略</li>
+            <li>第3个说明 padding 会增加行框的高度，但不会影响包含块的高度</li>
+            <li>第4个说明 line-height 会影响包含块的高度，line-height 决定了行内框的高度，但不影响行框的高度</li>
+            <li>5、6、7 对照 包含块的高度受本身字体大小的影响</li>
+            <li>7、8 基线对齐 导致行内元素在包含块中上下产生了空隙</li>
+        </ul>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <style language>
+                    .line-box-01 {
+                        margin: 20px auto;
+                        background-color: pink;
+                    }
+                    .line-box-01 > span {
+                        border: 1px dashed #000;
+                        background-color: rgba(0, 0, 0, .2)
+                    }
+                </style>
+                <div language>
+                    <ul style="list-style: decimal;">
+                        <li class="line-box-01">
+                            <span>This is text, Good moring</span>
+                        </li>
+                        <li class="line-box-01">
+                            <span style="margin-top: 20px;">This is text, Good moring</span>
+                        </li>
+                        <li class="line-box-01">
+                            <span style="padding-top: 10px;">This is text, Good moring</span>
+                        </li>
+                        <li class="line-box-01">
+                            <span style="line-height: 32px;">This is text, Good moring</span>
+                        </li>
+                        <li class="line-box-01" style="font-size: 12px;">
+                            <span>This is text, Good moring</span>
+                        </li>
+                        <li class="line-box-01">
+                            <span style="font-size: 12px;">This is text, Good moring</span>
+                        </li>
+                        <li class="line-box-01" style="font-size: 20px;">
+                            <span style="font-size: 12px;">This is text, Good moring</span>
+                        </li>
+                        <li class="line-box-01" style="font-size: 20px;">
+                            <span style="font-size: 12px;">This is text, Good moring</span>
+                            21 sdfd 哈哈哈
+                        </li>
+                        <li class="line-box-01">
+                            <span>This is text, Good moring, fdf dsf sad f sdf sd fs dfs df sdf ds f sd fsdfsdfs dfsd fs adfasd ds sfs sdf dsfas df asdf sad fas df sad f asdf sadf asdf asd f asdfas df sdf sd fasdfasdf sdf sad fs adf asdfasdfasd fasd f</span>
+                        </li>
+                        <li class="line-box-01" style="text-align: center;">
+                            <span>This is text, Good moring, fdf dsf sad f sdf sd fs dfs df sdf ds f sd fsdfsdfs dfsd fs adfasd ds sfs sdf dsfas df asdf sad fas df sad f asdf sadf asdf asd f asdfas df sdf sd fasdfasdf sdf sad fs adf asdfasdfasd fasd f</span>
+                        </li>
+                        <li class="line-box-01" style="text-align: right;">
+                            <span>This is text, Good moring, fdf dsf sad f sdf sd fs dfs df sdf ds f sd fsdfsdfs dfsd fs adfasd ds sfs sdf dsfas df asdf sad fas df sad f asdf sadf asdf asd f asdfas df sdf sd fasdfasdf sdf sad fs adf asdfasdfasd fasd f</span>
+                        </li>
+                        <li class="line-box-01" style="text-align: justify;">
+                            <span>This is text, Good moring, fdf dsf sad f sdf sd fs dfs df sdf ds f sd fsdfsdfs dfsd fs adfasd ds sfs sdf dsfas df asdf sad fas df sad f asdf sadf asdf asd f asdfas df sdf sd fasdfasdf sdf sad fs adf asdfasdfasd fasd f</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
     </section>
     <section>
         <p>参考文档：</p>

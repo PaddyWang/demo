@@ -1,6 +1,18 @@
 {
     "articles": [
         {
+            "url": "./list/css/auto-input.html",
+            "title": "自适应的输入框",
+            "date": "2020-08-16",
+            "type": ["css"],
+            "key": ["input", "auto input", "输入框自适应"]
+        }, {
+            "url": "./list/css/box-model.html",
+            "title": "盒模型",
+            "date": "2019-12-16",
+            "type": ["css"],
+            "key": ["box model", "盒模型", "margin", "border", "padding"]
+        }, {
             "url": "./list/css/position.html",
             "title": "深入了解定位",
             "date": "2019-12-10",
