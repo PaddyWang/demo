@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>揭开 baseline & line-height 的面纱</title>
+    <title>揭开 baseline & line-height & vertical-align 的面纱</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../css/page.css">
     <script src="../../js/paddy-03.js"></script>
@@ -273,8 +273,133 @@
 
         <br>
 
+        <a href="#" class="h2">line-height中 1em 、100% 和 1 的不同</a>
+        <article>
+            <pre></pre>
+            <div class="render" shadow-dom>
+                <div language="html" style="font-size: 10px;">
+                    <div class="content" style="line-height: 1em;">
+                        <span style="font-size: 20px">This is text, Good moring, fdf dsf sad f sdf sd fs dfs df sdf ds f sd fsdfsdfs dfsd fs adfasd ds sfs sdf dsfas df asdf sad fas df sad f asdf sadf asdf asd f asdfas df sdf sd fasdfasdf sdf sad fs adf asdfasdfasd fasd f</span>
+                    </div>
+                </div>
+                <br>
+                <p><b>当line-height的值有单位时，继承的是父元素计算之后的值，即在父元素上计算</b></p>
+            </div>
+        </article>
+        <article>
+            <pre></pre>
+            <div class="render" shadow-dom>
+                <div language="html" style="font-size: 10px;">
+                    <div class="content" style="line-height: 100%;">
+                        <span style="font-size: 20px">This is text, Good moring, fdf dsf sad f sdf sd fs dfs df sdf ds f sd fsdfsdfs dfsd fs adfasd ds sfs sdf dsfas df asdf sad fas df sad f asdf sadf asdf asd f asdfas df sdf sd fasdfasdf sdf sad fs adf asdfasdfasd fasd f</span>
+                    </div>
+                </div>
+                <br>
+                <p><b>同上面的1em，继承的是父元素计算之后的值，即在父元素上计算</b></p>
+            </div>
+        </article>
+        <article>
+            <pre></pre>
+            <div class="render" shadow-dom>
+                <div language="html" style="font-size: 10px;">
+                    <div class="content" style="line-height: 1;">
+                        <span style="font-size: 20px">This is text, Good moring, fdf dsf sad f sdf sd fs dfs df sdf ds f sd fsdfsdfs dfsd fs adfasd ds sfs sdf dsfas df asdf sad fas df sad f asdf sadf asdf asd f asdfas df sdf sd fasdfasdf sdf sad fs adf asdfasdfasd fasd f</span>
+                    </div>
+                </div>
+                <br>
+                <p><b>当line-height的值无单位时，是继承值(缩放因子)而不是计算值，即在当前子元素上计算</b></p>
+            </div>
+        </article>
+
+        <br>
+
         <a href="#" class="h1"><i lang="code">vertical-align</i></a>
-        <p>TODO...</p>
+        <p><b>vertical-align 不影响块级元素中内容的对齐，可以影响表格单元的垂直对齐方式</b></p>
+        <a href="#" class="h2">baseline</a>
+        <p>当前元素的基线与父元素的基线对齐</p>
+        <p>如果该元素没有基线(例如img、input)，则以该元素的底端与父元素的基线对齐</p>
+        <article>
+            <pre></pre>
+            <div class="render" shadow-dom>
+                <div class="baseline-container" language="html" style="font-size: 60px; line-height: 1em;">
+                    <span>Sphinx</span>
+                    <span class="line baseline" style="top: 50px"></span>
+                    <span class="text horizon baseline" style="top: 50px; left: 400px">baseline</span>
+                    <span style="font-size: 20px">font-size: 20px</span>
+                    <img style="background: #eee" width="30" src="../../imgs/logo2-r-200X200-01.png" alt="">
+                </div>
+            </div>
+        </article>
+        <p>上面这个示例中： <i lang="code">font-size: 60px; line-height: 1em;</i> 两条虚线代表了行框，行框的高度大于了60px?</p>
+        <p>原因在于“font-size: 20px”的行内框元素也继承了line-height的值，行框包含了最高元素和最低元素</p>
+
+        <br>
+
+        <a href="#" class="h2">top/bottom</a>
+        <p>将元素行内框的顶端/底端和包含该元素的行框的顶端/底端对齐</p>
+        <article>
+            <pre></pre>
+            <div class="render" shadow-dom>
+                <div class="baseline-container" language="html" style="font-size: 60px; line-height: 1em;">
+                    <span>Sphinx</span>
+                    <span style="font-size: 20px; vertical-align: top; line-height: 1;">line-height: 1 <span style="font-size: 12px">xxx</span></span>
+                    <img style="background: #eee; vertical-align: top;" width="30" src="../../imgs/logo2-r-200X200-01.png" alt="">
+                </div>
+            </div>
+        </article>
+
+        <br>
+
+        <a href="#" class="h2">text-top/text-bottom</a>
+        <p>将元素行内框的顶端/底端和父元素内容区的顶端/底端对齐</p>
+        <article>
+            <pre></pre>
+            <div class="render" shadow-dom>
+                <div class="baseline-container" language="html" style="font-size: 60px; line-height: 1em;">
+                    <span>Sphinx</span>
+                    <span style="font-size: 20px; line-height: 1; border-top: 1px solid;">
+                        line-height: 1
+                        <span style="font-size: 12px; vertical-align: top;">top</span>
+                        <span style="font-size: 12px; vertical-align: text-top;">text-top</span>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <br>
+
+        <a href="#" class="h2">middle</a>
+        <p>将元素行内框的<b>垂直中点</b>与父元素基线上方0.5ex处对齐</p>
+        <p>这也解释了为什么middle之后的元素并不位于行框的中间</p>
+        <article>
+            <pre></pre>
+            <div class="render" shadow-dom>
+                <div class="baseline-container" language="html" style="font-size: 60px; line-height: 1em;">
+                    <span>Sphinx</span>
+                    <span class="line middle" style="top: 35px"></span>
+                    <span class="text horizon middle" style="top: 35px; left: 350px">middle</span>
+                    <span style="font-size: 20px; line-height: 1; vertical-align: middle;">xxx</span>
+                    <img style="background: #eee; vertical-align: middle;" width="30" src="../../imgs/logo2-r-200X200-01.png" alt="">
+                </div>
+            </div>
+        </article>
+
+        <br>
+
+        <a href="#" class="h2">&lt;percentage&gt;</a>
+        <p>将元素上/下移一定的距离，这个距离由相对于元素的 <i lang="code">line-height</i> 值计算的</p>
+        <article>
+            <pre></pre>
+            <div class="render" shadow-dom>
+                <div class="baseline-container" language="html" style="font-size: 60px; line-height: 1em;">
+                    <span>Sphinx</span>
+                    <span style="font-size: 20px; vertical-align: 50%">xxx</span>
+                    <span class="line baseline" style="top: 37px"></span>
+                    <span class="line baseline" style="top: 67px"></span>
+                    <span class="text vertical line-horizon top" text="60px * 50% = 30px" style="top: 37px; left: 250px; width: 30px;"></span>
+                </div>
+            </div>
+        </article>
 
         <br>
 
