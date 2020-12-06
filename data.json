@@ -1,6 +1,12 @@
 {
     "articles": [
         {
+            "url": "./list/css/a_complete_guide_to_flexbox.html",
+            "title": "[译]A Complete Guide to Flexbox",
+            "date": "2020-12-06",
+            "type": ["css"],
+            "key": ["flex", "flexbox", "flex-direction", "flex-wrap", "flex-flow", "justify-content", "align-items", "align-content", "order", "flex-grow", "flex-shrink", "flex-basis", "align-self"]
+        }, {
             "url": "./list/css/baseline_line-height.html",
             "title": "揭开 baseline & line-height 的面纱",
             "date": "2020-12-03",
