@@ -18,7 +18,7 @@
         <p>包含块贯穿于整个布局模型，包括：常规流、浮动和绝对定位。</p>
         <p>所有的布局、尺寸计算都是基于包含块的，即包含块就是元素的“布局上下文”。</p>
         <p>在格式化文档中，内容都是由一个个长方形的块组成，块是抽象的概念，块是由元素生成，元素是具体存在的。</p>
-        <p>包含块就是这些块中的一部分，包含块也是相对的，是相对于孩子元素来说的。</p>
+        <p>包含块就是这些块中的一部分，包含块也是相对的，是相对于子元素来说的。</p>
 
         <a href="#" class="h1">盒模型</a>
         <p>一个完整的盒模型指的是块级盒子。</p>
@@ -26,10 +26,10 @@
         <p>盒子由：内容区域、内边距、边框和外边距四部分组成。</p>
 
         <a href="#" class="h1">视觉格式化模型</a>
-        <p>CSS 的视觉格式化模型用来描述用户代理(通常指浏览器)，如何获取文档树，以及如果处理和显示文档树，是一系列的计算规则。</p>
-        <p>视觉格式化模型根据盒模型，将文档树中的元素根据元素的显示属性(display)转换成一个个对应类型的盒子，最终这些盒子参与到块级格式化的创建。</p>
+        <p>CSS 的视觉格式化模型用来描述用户代理(通常指浏览器)，如何获取文档树，以及如何处理和显示文档树，是一系列的计算规则。</p>
+        <p>视觉格式化模型根据盒模型，将文档树中的元素根据其显示属性(display)转换成一个个对应类型的盒子，最终这些盒子参与到块级格式化的创建。</p>
         <p>以块级元素为例：元素的 display 属性决定了该元素为块级元素，然后生成块级盒子，块级盒子参与到块级格式化的创建，最终渲染出来。</p>
-        <p>盒子的布局受一下因素影响：</p>
+        <p>盒子的布局受以下因素影响：</p>
         <ul>
             <li>盒子的尺寸和类型；</li>
             <li>定位方案(包括常规流、浮动和绝对定位)；</li>
@@ -42,10 +42,10 @@
             <li>水平格式化中有七个属性：width、padding-left、padding-right、border-left、border-right、margin-left、margin-right。</li>
             <li>其中 width、margin-left、margin-right 三个属性可以设置 auto 值。</li>
             <li>在计算中，通过这三个属性的 auto 值可以弥补实际值与所需总和的差距。</li>
-            <li>在从左向右(<i lang="code">direction: ltr</i>)阅读的语言中优先 计算 width -> margin-left -> margin-right。</li>
+            <li>在从左向右(<i lang="code">direction: ltr</i>)阅读的语言中优先 计算 width > margin-left > margin-right。</li>
         </ul>
         <p>如下例01中：当 width 和 margin-right 固定，margin-left 无值时，margin-left 被默认为 0，margin-right 被重置为 auto(即 200px)。</p>
-        <p>如下例02中：当 width 为 auto 或者无值，margin-rigth 固定，margin-left 无值时，width 我被当做 auto 计算剩余的空间 即 250px。</p>
+        <p>如下例02中：当 width 为 auto 或者无值，margin-rigth 固定，margin-left 无值时，width 设置为 auto 计算剩余的空间 即 250px。</p>
         <p>如下例03中：包含块的 width 为 300px，子元素的 width 为 100px， 左外边距为 auto，右外边距为 50px，其余的都是 0，用户代理将左外边距的 auto 计算为 150px = 300px - 100px - 50px。</p>
         <article>
             <pre></pre>
@@ -163,6 +163,7 @@
                         }
                         .horizontal-box-05 > div {
                             width: 50%;
+                            height: 32px;
                             padding-left: 1%;
                             margin-left: 10%;
                             background-color: pink;
@@ -170,7 +171,7 @@
                     </style>
                     <div language>
                         <div class="horizontal-box-05">
-                            <div>不会塌陷的内部的盒子</div>
+                            <div></div>
                         </div>
                     </div>
                 </div>
@@ -178,7 +179,7 @@
         </ul>
         <p><b>负外边距</b></p>
         <p>当外边距为负值时依然适用：<b>水平部分的总和等于包含块的宽度</b>。</p>
-        <p>如下例中：包含块的宽度为 300px，右外边距为 -20px，此时 width 和 margin-left 均未知，根据计算优先原则 先计算 width 的值，margin-left 被默认为 0；</p>
+        <p>如下例中：包含块的宽度为 300px，mergin-right = -20px，此时 width 和 margin-left 均未知，根据计算优先原则 先计算 width 的值，margin-left 被默认为 0；</p>
         <p>最后等式为：300px = width - 20px；即 width = 320px。</p>
         <article>
             <pre></pre>
@@ -260,7 +261,7 @@
             <li>垂直格式化中有七个属性：height、padding-top、padding-bottom、border-top、border-bottom、margin-top、margin-bottom。</li>
             <li>其中 height、margin-top、margin-bottom 三个属性可以设置 auto 值。</li>
             <li>在计算中，通过这三个属性的 auto 值可以弥补实际值与所需总和的差距。</li>
-            <li>计算优先级 height -> margin-top -> margin-bottom。</li>
+            <li>计算优先级 height > margin-top > margin-bottom。</li>
             <li>块元素的 margin-top 和 margin-bottom 设置为 auto 时，用户代理会自动将其计算为 0。</li>
             <article class="code">
                 <pre></pre>
@@ -344,6 +345,23 @@
                     </div>
                 </div>
             </article>
+            <li><b>边框和内边距会阻止垂直外边距合并</b></li>
+            <article class="code">
+                <pre></pre>
+                <div class="render">
+                    <div language>
+                        <div style="margin-top: 20px; background-color: pink;">
+                            <div style="margin-top: 15px; background-color: skyblue;">合并垂直外边距</div>
+                        </div>
+                        <div style="margin-top: 20px; background-color: pink; padding: 1px;">
+                            <div style="margin-top: 15px; background-color: skyblue;">内边距会阻止垂直外边距合并</div>
+                        </div>
+                        <div style="margin-top: 20px; background-color: pink; border: 1px solid">
+                            <div style="margin-top: 15px; background-color: skyblue;">边框会阻止垂直外边距合并</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
         </ul>
         <p><b>负外边距</b></p>
         <p>盒子上移</p>
@@ -387,7 +405,7 @@
             </div>
         </article>
         <p>影响垂直外边距的合并</p>
-        <p><b>同号取大(最大)，异号求和</b></p>
+        <p><b>同号取大(绝对值最大)，异号求和</b></p>
         <article>
             <pre></pre>
             <div class="render">
@@ -506,11 +524,12 @@
         <a href="#" class="h3">行内垂直格式化</a>
         <ul>
             <li>第1个为对照，所以的字体大小继承了body的初始化大小 14px </li>
-            <li>第2个说明 margin-top、,margin-bottom 会被忽略</li>
-            <li>第3个说明 padding 会增加行框的高度，但不会影响包含块的高度</li>
-            <li>第4个说明 line-height 会影响包含块的高度，line-height 决定了行内框的高度，但不影响行框的高度</li>
-            <li>5、6、7 对照 包含块的高度受本身字体大小的影响</li>
-            <li>7、8 基线对齐 导致行内元素在包含块中上下产生了空隙</li>
+            <li>第2个说明 margin-top、margin-bottom 会被忽略</li>
+            <li>第3个说明 padding 同样不会影响包含块的高度，即不影响行框的高度</li>
+            <li>第3、4：非替换元素的内边距、边框和外边距对行内元素或其生成的框没有垂直效果，即不会影响行内框的高度，同样也不会影响行框的高度</li>
+            <li>第4个说明 line-height 会影响包含块的高度，line-height 决定了行内框的高度，进而影响行框的高度</li>
+            <li>5、6、7 对照 <s><i>包含块的高度受本身字体大小的影响</i></s>原因是：字体决定了em框，进而影响了行内框和行框</li>
+            <li>7、8 基线对齐 <s><i>导致行内元素在包含块中上下产生了空隙</i></s>原因是：line-height决定了行内框的高度，影响了行框的高度（行框包含了该行中出现的最高点和最低点），基线对齐只是影响元素的对齐方式，进而使行内框的垂直位置发生改变</li>
         </ul>
         <article>
             <pre></pre>
