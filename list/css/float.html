@@ -207,6 +207,16 @@
                 </div>
             </div>
         </article>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box h-78">
+                    <div class="left border" style="width: 50%; height: 24px; margin-bottom: 6px;">1 left</div>
+                    <div class="left border" style="width: 60%;">2 left</div>
+                    <div class="left border">3 left</div>
+                </div>
+            </div>
+        </article>
         <br>
         <a href="#" class="h2">左浮动的元素不能出现在前一个浮动元素左边线左侧</a>
         <p>即： 一个左浮动的元素不能出现在前一个浮动元素的左边线的左侧区域，即使有足够的空间也是不允许的</p>
@@ -219,6 +229,17 @@
                 <div language="html" class="box" style="height: 110px;">
                     <div class="left border w-03">1 left</div>
                     <div class="left border w-03" style="height: 60px;">2 left</div>
+                    <div class="left border w-03" style="height: 70px;">3 left</div>
+                    <div class="left border" style="width: 12%;">4 left</div>
+                </div>
+            </div>
+        </article>
+        <article>
+            <pre></pre>
+            <div class="render">
+                <div language="html" class="box" style="height: 130px;">
+                    <div class="left border w-03">1 left</div>
+                    <div class="left border w-03" style="height: 80px;">2 left</div>
                     <div class="left border w-03" style="height: 70px;">3 left</div>
                     <div class="left border" style="width: 12%;">4 left</div>
                 </div>
@@ -282,7 +303,7 @@
         <br>
         <a href="#" class="h2">浮动元素和块级元素以及行内元素重叠时的表现形式</a>
         <p>行内元素与一个浮动元素重叠时，其边框、背景和内容都在浮动元素“上方”显示</p>
-        <p>块级元素与一个浮动元素重叠时，其边框、背景子啊浮动元素的“下方”显示，而内容在浮动元素的“上方”显示</p>
+        <p>块级元素与一个浮动元素重叠时，其边框、背景在浮动元素的“下方”显示，而内容在浮动元素的“上方”显示</p>
         <article>
             <pre></pre>
             <div class="render">
@@ -293,6 +314,15 @@
                 </div>
             </div>
         </article>
+
+        <br>
+        <a href="#" class="h2">总结</a>
+        <p>会创建一个BFC</p>
+        <p>自身元素会生成一个块框</p>
+        <p>浮动元素(以左浮动为例)基于包含块或者前一个浮动元素进行布局</p>
+        <p>浮动元素始终出现在包含块的上内边距或左内边界的边缘或前一个浮动元素的底边界的水平线上或右边界的垂直线线上</p>
+        <p>块级元素会把后面出现的浮动元素拒之门外，而浮动元素后面的块级元素会忽略前面的浮动元素</p>
+        <p>浮动元素不会超过行框</p>
 
         <br>
         <br>

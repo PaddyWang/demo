@@ -1,6 +1,12 @@
 {
     "articles": [
         {
+            "url": "./list/css/transition_animation.html",
+            "title": "强大的CSS动画",
+            "date": "2020-12-19",
+            "type": ["css"],
+            "key": ["transition", "animation", "动画", "timing-function"]
+        }, {
             "url": "./list/css/a_complete_guide_to_flexbox.html",
             "title": "[译]A Complete Guide to Flexbox",
             "date": "2020-12-06",
